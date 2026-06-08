@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const authRoutes = require('./auth');
+const plataformasRoutes = require('./plataformas');
 
 // Ruta de prueba
 router.get('/health', (req, res) => {
@@ -26,5 +27,8 @@ router.get('/test', (req, res) => {
     }
   });
 });
+
+// Rutas de plataformas
+router.use('/plataformas', plataformasRoutes);
 
 module.exports = router;
