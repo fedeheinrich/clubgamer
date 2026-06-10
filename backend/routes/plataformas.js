@@ -5,6 +5,9 @@ const { plataformas } = require('../controllers/plataformasController');
 
 router.get('/', plataformas);
 router.get('/:id', plataformaPorId);
+router.post('/', crearPlataforma);
+router.put('/:id', actualizarPlataforma);
+router.delete('/:id', eliminarPlataforma);
 
 
 
