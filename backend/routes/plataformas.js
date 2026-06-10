@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { plataformas } = require('../controllers/plataformasController');
+const { plataformas, plataformaPorId, crearPlataforma, actualizarPlataforma, eliminarPlataforma } = require('../controllers/plataformasController');
 
 
 router.get('/', plataformas);
