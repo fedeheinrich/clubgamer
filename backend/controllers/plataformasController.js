@@ -1,7 +1,12 @@
-// Comento esta linea temporalmente ya que no tenemos el modelo Plataforma creado, pero una vez que lo tengamos, descomentarla y usarla para obtener las plataformas desde la base de datos
+// ==========================================
+// 1. BASE DE DATOS REAL (Descomentar después)
+// ==========================================
 // const { Plataforma } = require('../models');
 
-// Base de datos falsa para pruebas
+
+// ==========================================
+// 2. MOCK / BD FALSA (Borrar después)
+// ==========================================
 let plataformasMock = [
   { id: 4, nombre: 'PC' },
   { id: 18, nombre: 'PlayStation 4' },
@@ -12,11 +17,18 @@ let plataformasMock = [
 ];
 
 
+// ==========================================
+// 3. CONTROLADORES
+// ==========================================
+
+
 // Obtener todas las plataformas
 const plataformas = async (req, res) => {
     try {
-        // Descomentar esta línea una vez que tengamos el modelo Plataforma creado y la base de datos configurada
+        // BD REAL (Comentado por ahora):
         // const data = await Plataforma.findAll();
+        // return res.status(200).json(data);
+        
         // Por ahora, devuelvo la base de datos falsa (mock) para pruebas
         res.status(200).json(plataformasMock);
     } catch (error) {
@@ -25,5 +37,32 @@ const plataformas = async (req, res) => {
     }
 };
 
-module.exports = {plataformas};
+// Obtener una plataforma por ID
+const plataformaPorId = async (req, res) => {
+    try{
+        const { id } = req.params;
+        // BD REAL (Comentado por ahora):
+        // const plataforma = await Plataforma.findByPk(id);
+        // if (!plataforma) {
+        //   return res.status(404).json({ error: 'Plataforma no encontrada en la BD' });
+        // }
+        // return res.status(200).json(plataforma);
+
+        // Por ahora, busco la plataforma en la base de datos falsa (mock) para pruebas
+        const plataforma = plataformasMock.find(i => i.id === parseInt(id));
+        if (!plataforma) {
+            return res.status(404).json({error: 'Plataforma no encontrada'});
+        }
+        res.status(200).json(plataforma);
+    } catch (error) {
+        console.error('Error al obtener plataforma por ID', error);
+        res.status(500).json({error: 'Error al obtener plataforma por ID'});
+    }
+}
+
+
+// ==========================================
+// 4. EXPORTACIÓN
+// ==========================================
+module.exports = {plataformas, plataformaPorId};
 
