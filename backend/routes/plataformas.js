@@ -4,6 +4,16 @@ const { plataformas } = require('../controllers/plataformasController');
 
 
 router.get('/', plataformas);
+router.get('/:id', plataformaPorId);
+
+
+
+
+
+
+
+
+
 
 
 

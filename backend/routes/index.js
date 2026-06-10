@@ -31,4 +31,5 @@ router.get('/test', (req, res) => {
 // Rutas de plataformas
 router.use('/plataformas', plataformasRoutes);
 
+
 module.exports = router;
