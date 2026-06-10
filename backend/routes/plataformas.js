@@ -9,22 +9,6 @@ router.post('/', crearPlataforma);
 router.put('/:id', actualizarPlataforma);
 router.delete('/:id', eliminarPlataforma);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // router.get('/plataformas', (req, res) => {
 //   res.json({
 //     message: 'Endpoint de prueba',
