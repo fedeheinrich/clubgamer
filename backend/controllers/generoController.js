@@ -18,7 +18,7 @@ let generosMock = [
 // ==========================================
 
 // Obtener todos los géneros
-const obtenerGeneros = async (req, res) => {
+const generos = async (req, res) => {
     try {
         // BD REAL (Comentado por ahora):
         // const data = await Genero.findAll();
@@ -140,4 +140,4 @@ const eliminarGeneroPorId = async (req, res) => {
 };
 
 
-module.exports = { obtenerGeneros, obtenerGeneroPorId, modificarGeneroPorId, crearGenero, eliminarGeneroPorId }
+module.exports = { generos, obtenerGeneroPorId, modificarGeneroPorId, crearGenero, eliminarGeneroPorId }
