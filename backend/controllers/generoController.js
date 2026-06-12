@@ -74,8 +74,8 @@ const modificarGeneroPorId = async (req, res) => {
         // if (!generoBd) {
         //     return res.status(404).json({error: 'Género no encontrado'});
         // }
-        // generoBd.nombre = nombreRecibido ? nombreRecibido : generoBd.nombre;
-        // generoBd.slug = slugRecibido ? slugRecibido : generoBd.slug;
+        // generoBd.nombre = nombreRecibido ? nombreRecibido.trim() : generoBd.nombre;
+        // generoBd.slug = slugRecibido ? slugRecibido.trim() : generoBd.slug;
         // generoBd.id_rawg = id_rawgRecibido !== undefined ? id_rawgRecibido : generoBd.id_rawg;
         // await generoBd.save();
         // return res.status(200).json(generoBd);
@@ -85,8 +85,8 @@ const modificarGeneroPorId = async (req, res) => {
         if (!genero) {
             return res.status(404).json({error: 'Género no encontrado'});
         }
-        genero.nombre = nombreRecibido ? nombreRecibido : genero.nombre;
-        genero.slug = slugRecibido ? slugRecibido : genero.slug;
+        genero.nombre = nombreRecibido ? nombreRecibido.trim() : genero.nombre;
+        genero.slug = slugRecibido ? slugRecibido.trim() : genero.slug;
         genero.id_rawg = id_rawgRecibido !== undefined ? id_rawgRecibido : genero.id_rawg;
         return res.status(200).json(genero);
     } catch (error) {
