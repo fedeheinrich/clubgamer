@@ -8,12 +8,12 @@
 // 2. MOCK / BD FALSA (Borrar después)
 // ==========================================
 let plataformasMock = [
-  { id: 1, id_rawg: 4, nombre: 'PC' },
-  { id: 2, id_rawg: 18, nombre: 'PlayStation 4' },
-  { id: 3, id_rawg: 187, nombre: 'PlayStation 5' },
-  { id: 4, id_rawg: 1, nombre: 'Xbox One' },
-  { id: 5, id_rawg: 186, nombre: 'Xbox Series S/X' },
-  { id: 6, id_rawg: 7, nombre: 'Nintendo Switch' }
+  { id: 1, id_rawg: 4, nombre: 'PC', slug: 'pc' },
+  { id: 2, id_rawg: 18, nombre: 'PlayStation 4', slug: 'playstation4' },
+  { id: 3, id_rawg: 187, nombre: 'PlayStation 5', slug: 'playstation5' },
+  { id: 4, id_rawg: 1, nombre: 'Xbox One', slug: 'xbox-one' },
+  { id: 5, id_rawg: 186, nombre: 'Xbox Series S/X', slug: 'xbox-series-s-x' },
+  { id: 6, id_rawg: 7, nombre: 'Nintendo Switch', slug: 'nintendo-switch' }
 ];
 
 
@@ -63,19 +63,26 @@ const plataformaPorId = async (req, res) => {
 // Crear una plataforma
 const crearPlataforma = async (req, res) => {
     try {
-        const { nombre } = req.body;
+        const { id_rawg, nombre, slug } = req.body;
         // Validacion: no permite texto vacio
         if (!nombre || nombre.trim() === '') {
             return res.status(400).json({error: 'El nombre de la plataforma es requerido'});
         }
         // BD REAL (Comentado por ahora):
         // En la BD real, Sequelize se encarga de crear el ID solo.
-        // const nuevaPlataforma = await Plataforma.create({ nombre: nombre.trim() });
+        // const nuevaPlataforma = await Plataforma.create({ 
+        // nombre: nombre.trim(), 
+        // slug: slug? slug.trim() : null, 
+        // id_rawg: id_rawg ? parseInt(id_rawg) : null });
         // return res.status(201).json(nuevaPlataforma);
 
         // Mock: al no haber BD, creo un id de mentira sumando 1 al id mas alto del mock
         const nuevoId = Math.max(...plataformasMock.map(i => i.id)) +1;
-        const nuevaPlataforma = { id: nuevoId, nombre: nombre.trim() };
+        const nuevaPlataforma = { 
+            id: nuevoId, 
+            nombre: nombre.trim(), 
+            slug: slug ? slug.trim() : null, 
+            id_rawg: id_rawg ? parseInt(id_rawg) : null };
         plataformasMock.push(nuevaPlataforma);
         return res.status(201).json(nuevaPlataforma);
 
@@ -89,7 +96,7 @@ const crearPlataforma = async (req, res) => {
 const actualizarPlataforma = async (req, res) => {
     try{
         const { id } = req.params;
-        const { nombre } = req.body; // Obtengo el nombre nuevo desde el cuerpo de la solicitud (req.body)
+        const { nombre, slug, id_rawg } = req.body; // Obtengo el nombre nuevo desde el cuerpo de la solicitud (req.body)
         // Validacion: no permite texto vacio
         if (!nombre || nombre.trim() === '') {
             return res.status(400).json({error: 'El nombre de la plataforma es requerido'});
@@ -101,7 +108,9 @@ const actualizarPlataforma = async (req, res) => {
         //   return res.status(404).json({ error: 'Plataforma no encontrada en la BD' });
         // }
         // Actualizo el nombre de la plataforma y guardo los cambios en la base de datos
-        // plataforma.nombre = nombre.trim();
+        // if (nombre && nombre.trim() !== '') plataformaBd.nombre = nombre.trim();
+        // if (slug && slug.trim() !== '') plataformaBd.slug = slug.trim();
+        // if (id_rawg !== undefined) plataformaBd.id_rawg = id_rawg;
         // Guardo el cambio en la base de datos
         // await plataforma.save();
         // respondo con la plataforma actualizada
@@ -115,6 +124,8 @@ const actualizarPlataforma = async (req, res) => {
         }
         // Actualizo el nombre de la plataforma
         plataforma.nombre = nombre.trim();
+        plataforma.slug = slug ? slug.trim() : plataforma.slug;
+        plataforma.id_rawg = id_rawg ? parseInt(id_rawg) : plataforma.id_rawg;
         // Devuelvo la plataforma actualizada
         return res.status(200).json(plataforma);
     }catch (error) {
