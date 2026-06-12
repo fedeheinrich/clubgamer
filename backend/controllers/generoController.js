@@ -59,7 +59,7 @@ const obtenerGeneroPorId = async (req, res) => {
 const modificarGeneroPorId = async (req, res) => {
     try {
         const { id } = req.params;
-        const { nombre: nombreRecibido, slug: slugRecibido } = req.body;
+        const { nombre: nombreRecibido, slug: slugRecibido, id_rawg: id_rawgRecibido } = req.body;
 
         // BD REAL (Comentado por ahora):
         // const generoBd = await Genero.findByPk(id);
@@ -68,6 +68,7 @@ const modificarGeneroPorId = async (req, res) => {
         // }
         // generoBd.nombre = nombreRecibido ? nombreRecibido : generoBd.nombre;
         // generoBd.slug = slugRecibido ? slugRecibido : generoBd.slug;
+        // generoBd.id_rawg = idRawgRecibido !== undefined ? idRawgRecibido : generoBd.id_rawg;
         // await generoBd.save();
         // return res.status(200).json(generoBd);
 
@@ -78,6 +79,7 @@ const modificarGeneroPorId = async (req, res) => {
         }
         genero.nombre = nombreRecibido ? nombreRecibido : genero.nombre;
         genero.slug = slugRecibido ? slugRecibido : genero.slug;
+        genero.id_rawg = idRawgRecibido !== undefined ? idRawgRecibido : genero.id_rawg;
         return res.status(200).json(genero);
     } catch (error) {
         console.error('Error en el servidor', error);
@@ -89,18 +91,19 @@ const modificarGeneroPorId = async (req, res) => {
 // Crear genero
 const crearGenero = async (req, res) => {
     try {
-        const { nombre, slug } = req.body;
+        const { nombre, slug, id_rawg } = req.body;
         // Validacion: no permite texto vacio
         if (!nombre || nombre.trim() === '' || !slug || slug.trim() === '') {
             return res.status(400).json({ error: 'El nombre y el slug son obligatorios y no pueden estar vacíos' });
         }
         // BD REAL (Comentado por ahora):
-        // const nuevoGenero = await Genero.create({ nombre: nombre.trim(), slug: slug.trim() });
+        // const nuevoGenero = await Genero.create({ nombre: nombre.trim(), slug: slug.trim(), id_rawg: id_rawg ? id_rawg : null });
         // return res.status(201).json(nuevoGenero);
 
         // Por ahora, creo el género en la base de datos falsa (mock) para pruebas
         const nuevoGenero = {
             id: generosMock.length > 0 ? Math.max(...generosMock.map(g => g.id)) + 1 : 1, // Genera un ID incremental
+            id_rawg: id_rawg ? id_rawg : null, // Si se proporciona id_rawg, lo asigna; de lo contrario, lo deja como null
             nombre: nombre.trim(),
             slug: slug.trim()
         };
