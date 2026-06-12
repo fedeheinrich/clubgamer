@@ -61,6 +61,14 @@ const modificarGeneroPorId = async (req, res) => {
         const { id } = req.params;
         const { nombre: nombreRecibido, slug: slugRecibido, id_rawg: id_rawgRecibido } = req.body;
 
+        // Validacion: no permite texto vacio
+        if (nombreRecibido !== undefined && nombreRecibido.trim() === '') {
+            return res.status(400).json({error: 'El nombre no puede estar vacío ni ser puros espacios'});
+        }
+        if (slugRecibido !== undefined && slugRecibido.trim() === '') {
+            return res.status(400).json({error: 'El slug no puede estar vacío ni ser puros espacios'});
+        }
+
         // BD REAL (Comentado por ahora):
         // const generoBd = await Genero.findByPk(id);
         // if (!generoBd) {
@@ -68,7 +76,7 @@ const modificarGeneroPorId = async (req, res) => {
         // }
         // generoBd.nombre = nombreRecibido ? nombreRecibido : generoBd.nombre;
         // generoBd.slug = slugRecibido ? slugRecibido : generoBd.slug;
-        // generoBd.id_rawg = idRawgRecibido !== undefined ? idRawgRecibido : generoBd.id_rawg;
+        // generoBd.id_rawg = id_rawgRecibido !== undefined ? id_rawgRecibido : generoBd.id_rawg;
         // await generoBd.save();
         // return res.status(200).json(generoBd);
 
@@ -79,7 +87,7 @@ const modificarGeneroPorId = async (req, res) => {
         }
         genero.nombre = nombreRecibido ? nombreRecibido : genero.nombre;
         genero.slug = slugRecibido ? slugRecibido : genero.slug;
-        genero.id_rawg = idRawgRecibido !== undefined ? idRawgRecibido : genero.id_rawg;
+        genero.id_rawg = id_rawgRecibido !== undefined ? id_rawgRecibido : genero.id_rawg;
         return res.status(200).json(genero);
     } catch (error) {
         console.error('Error en el servidor', error);
