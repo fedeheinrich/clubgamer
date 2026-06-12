@@ -8,12 +8,12 @@
 // 2. MOCK / BD FALSA (Borrar después)
 // ==========================================
 let plataformasMock = [
-  { id: 4, nombre: 'PC' },
-  { id: 18, nombre: 'PlayStation 4' },
-  { id: 187, nombre: 'PlayStation 5' },
-  { id: 1, nombre: 'Xbox One' },
-  { id: 186, nombre: 'Xbox Series S/X' },
-  { id: 7, nombre: 'Nintendo Switch' }
+  { id: 1, id_rawg: 4, nombre: 'PC' },
+  { id: 2, id_rawg: 18, nombre: 'PlayStation 4' },
+  { id: 3, id_rawg: 187, nombre: 'PlayStation 5' },
+  { id: 4, id_rawg: 1, nombre: 'Xbox One' },
+  { id: 5, id_rawg: 186, nombre: 'Xbox Series S/X' },
+  { id: 6, id_rawg: 7, nombre: 'Nintendo Switch' }
 ];
 
 
