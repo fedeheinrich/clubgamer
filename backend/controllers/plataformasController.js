@@ -68,6 +68,9 @@ const crearPlataforma = async (req, res) => {
         if (!nombre || nombre.trim() === '') {
             return res.status(400).json({error: 'El nombre de la plataforma es requerido'});
         }
+        if (slug !== undefined && slug.trim() === '') {
+            return res.status(400).json({error: 'El slug no puede estar vacío'});
+        }
         // BD REAL (Comentado por ahora):
         // En la BD real, Sequelize se encarga de crear el ID solo.
         // const nuevaPlataforma = await Plataforma.create({ 
@@ -97,9 +100,12 @@ const actualizarPlataforma = async (req, res) => {
     try{
         const { id } = req.params;
         const { nombre, slug, id_rawg } = req.body; // Obtengo el nombre nuevo desde el cuerpo de la solicitud (req.body)
-        // Validacion: no permite texto vacio
-        if (!nombre || nombre.trim() === '') {
-            return res.status(400).json({error: 'El nombre de la plataforma es requerido'});
+        // Validacionnes: no permite textos vacios
+        if (nombre !== undefined && nombre.trim() === '') {
+            return res.status(400).json({error: 'El nombre no puede estar vacío'});
+        }
+        if (slug !== undefined && slug.trim() === '') {
+            return res.status(400).json({error: 'El slug no puede estar vacío'});
         }
         // BD REAL (Comentado por ahora):
         // Busco la plataforma por id en la base de datos
@@ -123,9 +129,9 @@ const actualizarPlataforma = async (req, res) => {
             return res.status(404).json({error: 'Plataforma no encontrada'});
         }
         // Actualizo el nombre de la plataforma
-        plataforma.nombre = nombre.trim();
+        plataforma.nombre = nombre ? nombre.trim() : plataforma.nombre;
         plataforma.slug = slug ? slug.trim() : plataforma.slug;
-        plataforma.id_rawg = id_rawg ? parseInt(id_rawg) : plataforma.id_rawg;
+        plataforma.id_rawg = id_rawg !== undefined ? parseInt(id_rawg) : plataforma.id_rawg;
         // Devuelvo la plataforma actualizada
         return res.status(200).json(plataforma);
     }catch (error) {
