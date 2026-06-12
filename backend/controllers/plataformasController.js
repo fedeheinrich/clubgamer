@@ -103,8 +103,8 @@ const actualizarPlataforma = async (req, res) => {
         }
         // BD REAL (Comentado por ahora):
         // Busco la plataforma por id en la base de datos
-        // const plataforma = await Plataforma.findByPk(id);
-        // if (!plataforma) {
+        // const plataformaBd = await Plataforma.findByPk(id);
+        // if (!plataformaBd) {
         //   return res.status(404).json({ error: 'Plataforma no encontrada en la BD' });
         // }
         // Actualizo el nombre de la plataforma y guardo los cambios en la base de datos
@@ -112,9 +112,9 @@ const actualizarPlataforma = async (req, res) => {
         // if (slug && slug.trim() !== '') plataformaBd.slug = slug.trim();
         // if (id_rawg !== undefined) plataformaBd.id_rawg = id_rawg;
         // Guardo el cambio en la base de datos
-        // await plataforma.save();
+        // await plataformaBd.save();
         // respondo con la plataforma actualizada
-        // return res.status(200).json(plataforma);
+        // return res.status(200).json(plataformaBd);
 
         // Por ahora, busco la plataforma en la base de datos falsa (mock) para pruebas
         const plataforma = plataformasMock.find( i => i.id === parseInt(id));
