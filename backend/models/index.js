@@ -42,32 +42,38 @@ const Plataforma = PlataformaModel(sequelize);
 
 Juego.belongsToMany(User, {
   through: JuegoUser,
-  foreignKey: 'id_juego'
+  foreignKey: 'id_juego',
+  otherKey: 'id_usuario' // * Se agrego para que Sequalize reconozca la Clave del Modelo con el que se conecta generando la tabla intermedia, ya que si no encuentra una clave con nombre en ingles, por ejemplo, UserId o user_id, inventa una columna para ese campo. En nuestro caso se llama id_usuario y se la especificamos
 });
 
 User.belongsToMany(Juego, {
   through: JuegoUser,
-  foreignKey: 'id_usuario'
+  foreignKey: 'id_usuario',
+  otherKey: 'id_juego' // Idem *
 });
 
 Juego.belongsToMany(Genero, {
   through: JuegoGenero,
-  foreignKey: 'id_juego'
+  foreignKey: 'id_juego',
+  otherKey: 'id_genero' // Idem *
 });
 
 Genero.belongsToMany(Juego, {
   through: JuegoGenero,
-  foreignKey: 'id_genero'
+  foreignKey: 'id_genero',
+  otherKey: 'id_juego' // Idem *
 });
 
 Juego.belongsToMany(Plataforma, {
   through: JuegoPlataforma,
-  foreignKey: 'id_juego'
+  foreignKey: 'id_juego',
+  otherKey: 'id_plataforma' // Idem *
 });
 
 Plataforma.belongsToMany(Juego, {
   through: JuegoPlataforma,
-  foreignKey: 'id_plataforma'
+  foreignKey: 'id_plataforma',
+  otherKey: 'id_juego' // Idem *
 });
 
 module.exports = {
