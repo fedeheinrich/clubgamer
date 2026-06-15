@@ -18,14 +18,16 @@ module.exports = {
         }
       },
       estado: {
-        type: Sequelize.ENUM('Completado', 'Jugando', 'Pendiente'),
-        allowNull: false
+        type: Sequelize.ENUM('completado', 'jugado', 'pendiente'),
+        allowNull: false,
+        defaultValue: 'pendiente'
       },
       calificacion_personal: {
         type: Sequelize.INTEGER,
+        allowNull: true,
         validate: {
-            max: 10,
-            min: 1
+            max: 5,
+            min: 0
         }
       },
       tiempo_de_juego: {

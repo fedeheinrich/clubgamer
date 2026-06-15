@@ -7,13 +7,21 @@ module.exports = {
         autoIncrement: true,
         allowNull: false
       },
+      id_rawg: {
+        type: Sequelize.INTEGER,
+        allowNull: false
+      },
       titulo: {
         type: Sequelize.STRING,
         allowNull: false
       },
       calificacion: {
         type: Sequelize.INTEGER,
-        allowNull: false
+        allowNull: false,
+        validate: {
+          min: 0,
+          max: 5
+        }
       },
       lanzamiento: {
         type: Sequelize.DATEONLY,
@@ -22,6 +30,11 @@ module.exports = {
       url_imagen: {
         type: Sequelize.STRING,
         allowNull: false
+      },
+      slug: {
+        type: Sequelize.STRING,
+        allowNull: false,
+        unique: true
       },
       createdAt: {
         type: Sequelize.DATE,

@@ -7,9 +7,18 @@ module.exports = {
         autoIncrement: true,
         allowNull: false
       },
+      id_rawg: {
+        type: Sequelize.INTEGER,
+        allowNull: false
+      },
       nombre: {
         type: Sequelize.STRING,
         allowNull: false
+      },
+      slug: {
+        type: Sequelize.STRING,
+        allowNull: false,
+        unique: true
       },
       createdAt: {
         type: Sequelize.DATE,
