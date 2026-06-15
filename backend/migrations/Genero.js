@@ -1,3 +1,4 @@
+// backend/migrations/genero.js
 module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.createTable('generos', {
@@ -9,7 +10,7 @@ module.exports = {
       },
       id_rawg: {
         type: Sequelize.INTEGER,
-        allowNull: false
+        allowNull: true // Corregido a true para que permita al administrador crear un genero personalizado que no exista en la API externa
       },
       nombre: {
         type: Sequelize.STRING,
