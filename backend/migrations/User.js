@@ -14,17 +14,12 @@ module.exports = {
       email: {
         type: Sequelize.STRING,
         allowNull: false,
-        validate: {
-            email: true
-        }
-      },
+        unique: true, // Agrega unique: true para que no se registren usuarios distintos con el mismo email
+      },        // Se quitaron las validaciones de caracteres por que van en el modelo
       password: {
         type: Sequelize.STRING,
-        allowNull: false,
-        validate: {
-            len: [6, 255]
-        }
-      },
+        allowNull: false, 
+      },          // Se quitaron las validaciones de caracteres por que van en el modelo
       createdAt: {
         type: Sequelize.DATE,
         allowNull: false
