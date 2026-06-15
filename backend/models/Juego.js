@@ -7,6 +7,11 @@ module.exports = (sequelize) => {
       primaryKey: true,
       autoIncrement: true
     },
+    id_rawg: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+      unique: true
+    },
     titulo: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -15,12 +20,12 @@ module.exports = (sequelize) => {
         len: [2, 100]
       }
     },
-    calificacion: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      validate: {
-        min: 1,
-        max: 10
+    calificacion_global: { // Modifica el nombre para mas claridad, la calificacion personal se encuentra en JuegoUser
+      type: DataTypes.FLOAT, // Cambiado a Float por que la API de RAWG devuelve la calificacion con decimales
+      allowNull: true, // Cambiado a true para permitir que un administrador pudiera crear un juego sin calificacion
+      validate: {   // Corregido a la escala de puntaje de RAWG (0 A 5 Estrellas)
+        min: 0,
+        max: 5
       }
     },
     url_imagen: {
@@ -33,6 +38,14 @@ module.exports = (sequelize) => {
     lanzamiento: {
         type: DataTypes.DATEONLY,
         allowNull: false
+    },
+    slug: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      unique: true,
+      validate: {
+        notEmpty: true
+      }
     }
   }, {
     tableName: 'juegos',
