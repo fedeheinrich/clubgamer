@@ -9,7 +9,7 @@ module.exports = {
       },
       id_rawg: {
         type: Sequelize.INTEGER,
-        allowNull: false
+        allowNull: true // Corregido a true para que el administrador pueda crear un juego que no exista en la api externa
       },
       nombre: {
         type: Sequelize.STRING,
