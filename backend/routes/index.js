@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const authRoutes = require('./auth');
 const plataformasRoutes = require('./plataformas');
+const generosRoutes = require('./generos');
 
 // Ruta de prueba
 router.get('/health', (req, res) => {
@@ -30,6 +31,9 @@ router.get('/test', (req, res) => {
 
 // Rutas de plataformas
 router.use('/plataformas', plataformasRoutes);
+
+// Rutas de géneros
+router.use('/generos', generosRoutes);
 
 
 module.exports = router;
