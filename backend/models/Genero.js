@@ -7,6 +7,10 @@ module.exports = (sequelize) => {
       primaryKey: true,
       autoIncrement: true
     },
+    id_rawg:{
+      type: DataTypes.INTEGER,
+      allowNull: true
+    },
     nombre: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -14,9 +18,14 @@ module.exports = (sequelize) => {
         notEmpty: true,
         len: [2, 100]
       }
+    },
+    slug: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      unique: true
     }
   }, {
-    tableName: 'genero',
+    tableName: 'generos',
     timestamps: true,
   });
 
