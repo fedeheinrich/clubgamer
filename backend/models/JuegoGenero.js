@@ -4,14 +4,16 @@ module.exports = (sequelize) => {
   const JuegoGenero = sequelize.define('JuegoGenero', {
     id_juego: {
       type: DataTypes.INTEGER,
-      allowNull: false
+      allowNull: false,
+      primaryKey: true
     },
     id_genero: {
       type: DataTypes.INTEGER,
-      allowNull: false
+      allowNull: false,
+      primaryKey: true
     }
   }, {
-    tableName: 'juegoGenero',
+    tableName: 'juegos_generos', // Corregido a plural para mantener consistencia con todos los archivos
     timestamps: true,
   });
 
