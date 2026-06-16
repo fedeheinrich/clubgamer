@@ -11,6 +11,49 @@ El proyecto fue desarrollado como trabajo práctico para la cátedra de Programa
 
 Durante la primera etapa del desarrollo, el foco está puesto principalmente en el backend y la base de datos. Por este motivo, se prioriza la creación de modelos, migraciones, seeders, rutas REST, controladores, validaciones, documentación técnica y pruebas manuales de la API.
 
+## ✨ Características Principales
+
+- Catálogo general de videojuegos.
+- Alta, consulta y modificación de videojuegos.
+- Gestión de plataformas disponibles.
+- Gestión de géneros asociados a los videojuegos.
+- Asociación de videojuegos con múltiples plataformas.
+- Asociación de videojuegos con múltiples géneros.
+- Colección personal de videojuegos por usuario.
+- Registro del estado de cada videojuego dentro de la colección.
+- Estados posibles: pendiente, jugando o completado.
+- Registro de calificación personal.
+- Registro de horas jugadas.
+- Filtros de búsqueda por título, plataforma, género y año.
+- Paginación de resultados.
+- API REST desarrollada con Express.
+- Base de datos relacional con PostgreSQL.
+- Modelado de datos mediante Sequelize.
+- Entorno de desarrollo contenerizado con Docker Compose.
+- Administración visual de base de datos mediante pgAdmin.
+- Documentación de endpoints mediante Postman.
+- Pruebas manuales documentadas en `API_test.md`.
+
+## 🧩 Alcance de la Primera Etapa
+
+La primera etapa del proyecto se centra en el desarrollo del backend y la base de datos. El objetivo es dejar preparada una API REST funcional que permita administrar las entidades principales del sistema y probarlas de forma manual mediante Postman o comandos curl.
+
+Para esta entrega se trabaja sobre las siguientes áreas:
+
+- Modelado de entidades con Sequelize.
+- Creación de migraciones y seeders.
+- Desarrollo de controladores y rutas para la API.
+- CRUD de plataformas.
+- CRUD de géneros.
+- CRUD de videojuegos.
+- Gestión de la colección personal del usuario.
+- Validaciones de entrada.
+- Manejo básico de errores HTTP.
+- Documentación técnica del proyecto.
+- Documentación de pruebas manuales de la API.
+
+Algunas funcionalidades, como autenticación JWT completa, integración definitiva con RAWG, frontend completo y testing automatizado con Jest, quedan previstas para etapas posteriores del desarrollo.
+
 ## 👥 Integrantes - Grupo 19
 - [@fedeheinrich](https://github.com/fedeheinrich) - Federico Heinrich
 - [@Oviedo-Matias](https://github.com/Oviedo-Matias) - Matias Oviedo
@@ -141,48 +184,6 @@ A continuación, se detalla la responsabilidad de cada integrante sobre los prin
 | **Homero Colombo** | `README.md`, `postman_collection.json`, documentación de Postman y scripts de pruebas automatizadas | Documentación técnica del proyecto, colección Postman y testing automatizado. |
 | **Nicolás Espulef** | `docker-compose.yml`, `.env.example`, configuración de Render y despliegue | Infraestructura, despliegue del backend y base de datos, configuración de entornos y variables de entorno. |
 
-## ✨ Características Principales
-
-- Catálogo general de videojuegos.
-- Alta, consulta y modificación de videojuegos.
-- Gestión de plataformas disponibles.
-- Gestión de géneros asociados a los videojuegos.
-- Asociación de videojuegos con múltiples plataformas.
-- Asociación de videojuegos con múltiples géneros.
-- Colección personal de videojuegos por usuario.
-- Registro del estado de cada videojuego dentro de la colección.
-- Estados posibles: pendiente, jugando o completado.
-- Registro de calificación personal.
-- Registro de horas jugadas.
-- Filtros de búsqueda por título, plataforma, género y año.
-- Paginación de resultados.
-- API REST desarrollada con Express.
-- Base de datos relacional con PostgreSQL.
-- Modelado de datos mediante Sequelize.
-- Entorno de desarrollo contenerizado con Docker Compose.
-- Administración visual de base de datos mediante pgAdmin.
-- Documentación de endpoints mediante Postman.
-- Pruebas manuales documentadas en `API_test.md`.
-
-## 🧩 Alcance de la Primera Etapa
-
-La primera etapa del proyecto se centra en el desarrollo del backend y la base de datos. El objetivo es dejar preparada una API REST funcional que permita administrar las entidades principales del sistema y probarlas de forma manual mediante Postman o comandos curl.
-
-Para esta entrega se trabaja sobre las siguientes áreas:
-
-- Modelado de entidades con Sequelize.
-- Creación de migraciones y seeders.
-- Desarrollo de controladores y rutas para la API.
-- CRUD de plataformas.
-- CRUD de géneros.
-- CRUD de videojuegos.
-- Gestión de la colección personal del usuario.
-- Validaciones de entrada.
-- Manejo básico de errores HTTP.
-- Documentación técnica del proyecto.
-- Documentación de pruebas manuales de la API.
-
-Algunas funcionalidades, como autenticación JWT completa, integración definitiva con RAWG, frontend completo y testing automatizado con Jest, quedan previstas para etapas posteriores del desarrollo.
 
 ## 🏗️ Arquitectura General
 
@@ -240,6 +241,122 @@ Backend (Express)
 - Postman
 - Jest
 - Supertest
+
+## 🚀 Instalación y Ejecución
+
+### Requisitos previos
+
+Para ejecutar el proyecto de forma local es necesario contar con:
+
+- Git
+- Docker
+- Docker Compose
+- Node.js, en caso de ejecutar servicios fuera de Docker
+- Una API Key de RAWG
+
+### Clonar el repositorio
+
+```bash
+git clone https://github.com/fedeheinrich/clubgamer.git
+cd clubgamer
+```
+
+### Cambiar a la rama de desarrollo
+
+```bash
+git checkout develop
+```
+
+### Configurar variables de entorno
+
+Antes de levantar el backend, se debe crear un archivo `.env` dentro de la carpeta `backend/`.
+
+Se recomienda tomar como referencia el archivo:
+
+```txt
+backend/.env.example
+```
+
+### Levantar los servicios con Docker
+
+Desde la raíz del proyecto:
+
+```bash
+docker compose build
+docker compose up -d
+```
+
+### Verificar que el backend funciona
+
+Una vez levantados los servicios, se puede verificar el estado de la API accediendo a:
+
+```txt
+http://localhost:3001/api/health
+```
+
+Respuesta esperada:
+
+```json
+{
+  "status": "OK",
+  "message": "API funcionando correctamente",
+  "timestamp": "2024-XX-XXTXX:XX:XX.XXXZ",
+  "environment": "development"
+}
+```
+
+### Detener los servicios
+
+```bash
+docker compose down
+```
+
+Para detener los servicios y eliminar los volúmenes de la base de datos:
+
+```bash
+docker compose down -v
+```
+
+## ⚙️ Configuración del Entorno
+
+El backend utiliza variables de entorno para definir la configuración del servidor, la conexión a la base de datos, la integración con RAWG y valores necesarios para autenticación.
+
+El archivo `.env` debe crearse dentro de la carpeta `backend/` y no debe subirse al repositorio.
+
+### Variables disponibles
+
+| Variable | Descripción |
+|-----------|-------------|
+| PORT | Puerto utilizado por el servidor Express. |
+| NODE_ENV | Entorno de ejecución de la aplicación. |
+| DB_HOST | Host de la base de datos PostgreSQL. |
+| DB_PORT | Puerto de PostgreSQL. |
+| DB_NAME | Nombre de la base de datos. |
+| DB_USER | Usuario de PostgreSQL. |
+| DB_PASSWORD | Contraseña del usuario de PostgreSQL. |
+| RAWG_API_KEY | Clave de acceso a la API RAWG. |
+| JWT_SECRET | Clave utilizada para la autenticación JWT. |
+| CORS_ORIGIN | Origen permitido para las solicitudes CORS. |
+
+### Ejemplo de archivo `.env`
+
+```env
+PORT=3001
+NODE_ENV=development
+
+DB_HOST=localhost
+DB_PORT=5432
+DB_NAME=app_database
+DB_USER=app_user
+DB_PASSWORD=app_password
+
+RAWG_API_KEY=ACA_PONES_TU_CLAVE_DE_RAWG
+
+JWT_SECRET=secreto_jwt_clubgamer_2024
+CORS_ORIGIN=http://localhost:3000
+```
+
+> El archivo `.env` se encuentra excluido del control de versiones mediante `.gitignore`, ya que puede contener credenciales, claves privadas o información sensible.
 
 ## 🗄️ Base de Datos
 
@@ -317,4 +434,38 @@ La aplicación expone una API REST desarrollada con Express para administrar los
 | POST | /api/colecciones |
 | PUT | /api/colecciones/:id_juego |
 | DELETE | /api/colecciones/:id_juego |
+
+### Endpoints de Autenticación
+
+| Método | Endpoint |
+|----------|----------|
+| POST | /api/auth/register |
+| POST | /api/auth/login |
+| GET | /api/auth/perfil |
+
+## 🔗 Integración con RAWG
+
+Club Gamer utiliza la API pública de RAWG como fuente de información de videojuegos.
+
+Cuando un videojuego es solicitado por el sistema:
+
+1. Se busca primero en la base de datos local.
+2. Si existe, se devuelve inmediatamente.
+3. Si no existe, se consulta la API de RAWG.
+4. La información obtenida se almacena en PostgreSQL.
+5. El resultado es devuelto al cliente.
+
+Este mecanismo reduce consultas externas y permite construir progresivamente un catálogo local de videojuegos.
+
+## 📄 Documentación Complementaria
+
+La documentación técnica del proyecto se encuentra distribuida en los siguientes recursos:
+
+- README.md
+- API_test.md
+- Colección Postman
+- Migraciones Sequelize
+- Seeders de prueba
+
+Las pruebas manuales de la API pueden realizarse mediante Postman o utilizando los ejemplos documentados en API_test.md.
 
