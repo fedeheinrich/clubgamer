@@ -3,6 +3,8 @@ const router = express.Router();
 const authRoutes = require('./auth');
 const plataformasRoutes = require('./plataformas');
 const generosRoutes = require('./generos');
+const coleccionesRoutes = require('./colecciones');
+const videojuegosRoutes = require('./videojuegos')
 
 // Ruta de prueba
 router.get('/health', (req, res) => {
@@ -35,5 +37,10 @@ router.use('/plataformas', plataformasRoutes);
 // Rutas de géneros
 router.use('/generos', generosRoutes);
 
+// Rutas de colecciones
+router.use('/colecciones', coleccionesRoutes);
+
+// Rutas de videojuegos
+router.use('/videojuegos', videojuegosRoutes);
 
 module.exports = router;
