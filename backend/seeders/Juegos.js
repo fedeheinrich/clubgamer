@@ -7,7 +7,7 @@ module.exports = {
 
         //Para no sobrecargar la API solo se consultan los 200 más populares en 5 consultas de 40 páginas
         for (let pagina = 1; pagina <= 5; pagina++) {
-            const url = `https://api.rawg.io/API/games?key=${process.env.RAWG_API_KEY}&ordering=-added&page_size=40&page=${pagina}`;
+            const url = `https://api.rawg.io/api/games?key=${process.env.RAWG_API_KEY}&ordering=-added&page_size=40&page=${pagina}`;
             const response = await axios.get(url);
             juegosPopulares.push(...response.data.results);
         }

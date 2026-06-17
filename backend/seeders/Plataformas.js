@@ -4,7 +4,7 @@ require('dotenv').config();
 module.exports = {
     async up(queryInterface, Sequelize) {
         const response = await axios.get(
-            `https://api.rawg.io/API/platforms?key=${process.env.RAWG_API_KEY}`
+            `https://api.rawg.io/api/platforms?key=${process.env.RAWG_API_KEY}`
         )
 
         const plataformas = response.data.map(plataforma => ({
