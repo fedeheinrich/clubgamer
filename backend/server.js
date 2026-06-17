@@ -79,6 +79,7 @@ async function startServer() {
       console.log(`⚠️  Server started without database on port ${PORT}`);
     });
   }
+  console.log("NODE_ENV =", process.env.NODE_ENV);
 }
 
 startServer();
