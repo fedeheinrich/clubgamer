@@ -5,6 +5,7 @@ const plataformasRoutes = require('./plataformas');
 const generosRoutes = require('./generos');
 const coleccionesRoutes = require('./colecciones');
 const userRoutes = require('./user');
+const videojuegosRoutes = require('./videojuegos')
 
 // Ruta de prueba
 router.get('/health', (req, res) => {
@@ -42,5 +43,7 @@ router.use('/colecciones', coleccionesRoutes);
 
 //Rutas de user
 router.use('./usuarios', userRoutes);
+// Rutas de videojuegos
+router.use('/videojuegos', videojuegosRoutes);
 
 module.exports = router;
