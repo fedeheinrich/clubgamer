@@ -1,11 +1,11 @@
-const {User} = requiere('../models')
+const {User} = require('../models')
 
 //obtenerTodosLosUsuarios
 const obtenerTodosLosUsuarios = async(req, res) => {
     try{
         const users = await User.findAll();
 
-        res.status(200).json({
+        return res.status(200).json({
             success: true, data: users
         });
     }catch(error){
@@ -23,7 +23,7 @@ const actualizarUsuario = async(req, res) => {
         
         if (!user){
             return res.status(404).json({
-                success: false, error: "Error al encontrar el usuario"
+                success: false, error: "No existe el usuario que desea actualizar."
             });
         }
 
@@ -47,7 +47,7 @@ const actualizarUsuario = async(req, res) => {
         console.error(error)
 
         return res.status(500).json({
-            success: false, error: "Error al actualizar el usuario"
+            success: false, error: "Error al intentar actualizar el usuario"
         });
     }
 }
@@ -55,11 +55,11 @@ const actualizarUsuario = async(req, res) => {
 const eliminarUsuario = async(req,res) => {
     try{
         const {id} = req.params;
-        const user = User.findByPK(id)
+        const user = await User.findByPk(id);
 
         if (!user){
             return res.status(404).json({
-                success: false, error: "Error al encontrar el usuario"
+                success: false, error: "No existe el usuario que desea eliminar."
             });
         }
 
@@ -72,7 +72,7 @@ const eliminarUsuario = async(req,res) => {
         console.error(error)
 
         return res.status(500).json({
-            success: false, error: "Error al eliminar usuario"
+            success: false, error: "Error interno al intentar eliminar el usuario"
         });
     }
 }
