@@ -7,7 +7,7 @@ module.exports = {
             `https://api.rawg.io/api/platforms?key=${process.env.RAWG_API_KEY}`
         )
 
-        const plataformas = response.data.map(plataforma => ({
+        const plataformas = response.data.results.map(plataforma => ({
             id_rawg: plataforma.id,
             nombre: plataforma.name,
             slug: plataforma.slug,
