@@ -7,7 +7,7 @@ module.exports = {
             {
                 nombre: 'test',
                 email: 'test@gmail.com',
-                password: bcrypt.hash('password123', 10),
+                password: hashedPassword,
                 createdAt: new Date(),
                 updatedAt: new Date()
             }
