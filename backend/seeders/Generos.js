@@ -7,10 +7,10 @@ module.exports = {
             `https://api.rawg.io/api/genres?key=${process.env.RAWG_API_KEY}`
         )
 
-        const generos = response.data.map(genero => ({
-            id_rawg: genero.results.id,
-            nombre: genero.results.name,
-            slug: genero.results.slug,
+        const generos = response.data.results.map(genero => ({
+            id_rawg: genero.id,
+            nombre: genero.name,
+            slug: genero.slug,
             createdAt: new Date(),
             updatedAt: new Date(),
         }));

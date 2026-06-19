@@ -8,9 +8,9 @@ module.exports = {
         )
 
         const plataformas = response.data.map(plataforma => ({
-            id_rawg: plataforma.results.id,
-            nombre: plataforma.results.name,
-            slug: plataforma.results.slug,
+            id_rawg: plataforma.id,
+            nombre: plataforma.name,
+            slug: plataforma.slug,
             createdAt: new Date(),
             updatedAt: new Date(),
         }));
