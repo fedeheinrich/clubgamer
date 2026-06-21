@@ -40,40 +40,60 @@ const JuegoPlataforma = JuegoPlataformaModel(sequelize);
 const PlataformaModel = require('./Plataforma');
 const Plataforma = PlataformaModel(sequelize);
 
+// Relación Usuario - Juego
 Juego.belongsToMany(User, {
   through: JuegoUser,
   foreignKey: 'id_juego',
-  otherKey: 'id_usuario' // * Se agrego para que Sequalize reconozca la Clave del Modelo con el que se conecta generando la tabla intermedia, ya que si no encuentra una clave con nombre en ingles, por ejemplo, UserId o user_id, inventa una columna para ese campo. En nuestro caso se llama id_usuario y se la especificamos
+  otherKey: 'id_usuario'
 });
 
 User.belongsToMany(Juego, {
   through: JuegoUser,
   foreignKey: 'id_usuario',
-  otherKey: 'id_juego' // Idem *
+  otherKey: 'id_juego'
 });
 
+// Relación Juego - Género
 Juego.belongsToMany(Genero, {
   through: JuegoGenero,
   foreignKey: 'id_juego',
-  otherKey: 'id_genero' // Idem *
+  otherKey: 'id_genero'
 });
 
 Genero.belongsToMany(Juego, {
   through: JuegoGenero,
   foreignKey: 'id_genero',
-  otherKey: 'id_juego' // Idem *
+  otherKey: 'id_juego'
 });
 
+// Relación Juego - Plataforma
 Juego.belongsToMany(Plataforma, {
   through: JuegoPlataforma,
   foreignKey: 'id_juego',
-  otherKey: 'id_plataforma' // Idem *
+  otherKey: 'id_plataforma'
 });
 
 Plataforma.belongsToMany(Juego, {
   through: JuegoPlataforma,
   foreignKey: 'id_plataforma',
-  otherKey: 'id_juego' // Idem *
+  otherKey: 'id_juego'
+});
+
+// Asociaciones directas para consultar la colección con include
+JuegoUser.belongsTo(Juego, {
+  foreignKey: 'id_juego'
+});
+
+Juego.hasMany(JuegoUser, {
+  foreignKey: 'id_juego'
+});
+
+JuegoUser.belongsTo(User, {
+  foreignKey: 'id_usuario'
+});
+
+User.hasMany(JuegoUser, {
+  foreignKey: 'id_usuario'
 });
 
 module.exports = {

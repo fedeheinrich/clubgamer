@@ -82,33 +82,44 @@ const eliminarJuegoDeColeccion = async(req,res) =>{
 }
 
 // PUT /api/coleccion/:id_juego
-const actualizarEstadoColeccion = async(req,res) => {
-    try{
+const actualizarEstadoColeccion = async (req, res) => {
+    try {
         const { id_juego } = req.params;
         const { estado, calificacion_personal, tiempo_de_juego_horas } = req.body;
         const id_usuario = req.body.id_usuario || 1;
-        // Busco la fila que junta al usuario con el juego
-        const registro = await JuegoUser.findOne({where: {id_usuario, id_juego}});
 
-        if(!registro) {
-            return res.status(404).json({success: false, error: "El videojuego no se encuentra en la colección."});
+        const registro = await JuegoUser.findOne({
+            where: { id_usuario, id_juego }
+        });
+
+        if (!registro) {
+            return res.status(404).json({
+                success: false,
+                error: "El videojuego no se encuentra en la colección."
+            });
         }
-        // Aplico los cambios en la fila 
+
         await registro.update({
-            estado: estado? estado.toLowerCase() : registro.estado,
-            calificacion_personal: calificacion_personal !== undefined? calificacion_personal : registro.calificacion_personal,
-            tiempo_de_juego_horas: tiempo_de_juego_horas !== undefined? tiempo_de_juego_horas : registro.tiempo_de_juego_horas
+            estado: estado ? estado.toLowerCase() : registro.estado,
+            calificacion_personal: calificacion_personal !== undefined ? calificacion_personal : registro.calificacion_personal,
+            tiempo_de_juego_horas: tiempo_de_juego_horas !== undefined ? tiempo_de_juego_horas : registro.tiempo_de_juego_horas
         });
 
         return res.status(200).json({
             success: true,
-            mensaje: "Progreso de la coleccion actualizado",
+            mensaje: "Progreso de la colección actualizado",
             data: registro
-        })
+        });
 
-    } catch (error){
-            return res.status(500).json({ success: false, error: "Error al modificar los datos de la colección." });
+    } catch (error) {
+        console.error("Error al modificar colección:", error);
+
+        return res.status(500).json({
+            success: false,
+            error: "Error al modificar los datos de la colección.",
+            detalle: error.message
+        });
     }
-}
+};
 
 module.exports = {agregarJuegoAColeccion, obtenerColeccion, eliminarJuegoDeColeccion, actualizarEstadoColeccion};
