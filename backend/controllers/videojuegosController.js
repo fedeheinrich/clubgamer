@@ -78,6 +78,58 @@ const videojuegosController = {
             }
     },
 
+    buscarJuegosPorTitulo: async (req, res) => {
+    try {
+        const { titulo } = req.query;
+        
+        // 1. Validación del parámetro de búsqueda
+        if (!titulo || typeof titulo !== 'string' || titulo.trim() === '') {
+            return res.status(400).json({ 
+                success: false, 
+                error: "El parámetro de búsqueda 'titulo' es obligatorio y debe ser una cadena no vacía."
+            });
+        }
+
+        const terminoBusqueda = titulo.trim();
+        const RAWG_API_KEY = process.env.RAWG_API_KEY || 'TU_API_KEY_AQUÍ';
+
+        // 2. Petición directa a la API de RAWG usando el parámetro de búsqueda
+        const response = await fetch(`https://api.rawg.io/api/games?key=${RAWG_API_KEY}&search=${encodeURIComponent(terminoBusqueda)}`);
+        
+        if (!response.ok) {
+            return res.status(response.status).json({ 
+                success: false, 
+                error: "Error al comunicarse con la API de RAWG." 
+            });
+        }
+
+        const data = await response.json();
+        
+        //Mapeamos la respuesta para devolver unicamente los campos requeridos para el buscador, y el id_rawg para que el frontend pueda usarlo para luego pedir los detalles del juego seleccionado
+        const juegosFiltrados = data.results.map(juego => ({
+            id_rawg: juego.id,                       // El ID original de RAWG que utulizaremos para enlazar después
+            titulo: juego.name,                      // Nombre del juego
+            lanzamiento: juego.released || null,     // Fecha de lanzamiento
+            url_imagen: juego.background_image || null // Link de la foto
+        }));
+
+        // 4. Devolvemos la lista limpia al cliente
+        return res.status(200).json({ 
+            success: true, 
+            origen: 'API RAWG (Buscador)',
+            cantidad: juegosFiltrados.length,
+            data: juegosFiltrados 
+        });
+
+    } catch (error) {
+        return res.status(500).json({ 
+            success: false, 
+            error: "Error interno al intentar buscar los juegos en RAWG.", 
+            detalle: error.message 
+        });
+    }
+},
+
     actualizarJuego: async (req, res) => {
         try{
             const { id } = req.params;
