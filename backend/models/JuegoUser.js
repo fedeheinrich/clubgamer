@@ -15,9 +15,9 @@ module.exports = (sequelize) => {
     calificacion_personal: {
       type: DataTypes.INTEGER,
       allowNull: true, // Corregido a true para que inicie en null, un usuario que agrego un juego en estado "Pendiente" no deberia poder calificarlo
-      validate: {
-        min: 1,
-        max: 10
+      validate: { // Se corrige la validación para que sea consistente con el sistema de calificación de RAWG
+        min: 0,
+        max: 5
       }
     },
     tiempo_de_juego_horas: {
