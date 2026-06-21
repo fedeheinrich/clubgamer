@@ -42,7 +42,7 @@ router.use('/generos', generosRoutes);
 router.use('/colecciones', coleccionesRoutes);
 
 //Rutas de user
-router.use('./usuarios', userRoutes);
+router.use('/usuarios', userRoutes);
 // Rutas de videojuegos
 router.use('/videojuegos', videojuegosRoutes);
 
