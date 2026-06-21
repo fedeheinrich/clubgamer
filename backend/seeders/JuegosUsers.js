@@ -1,6 +1,6 @@
 module.exports = {
     async up(queryInterface, Sequelize) {
-        const juegosUsuarios = {
+        const juegosUsuarios = [{
             id_usuario: 1,
             id_juego: 1,
             calificacion_personal: 4,
@@ -8,10 +8,10 @@ module.exports = {
             estado: 'jugando',
             createdAt: new Date(),
             updatedAt: new Date(),
-        };
+        }];
 
         await queryInterface.bulkInsert(
-            'juegos_users',
+            'juegos_usuarios',
             juegosUsuarios
         );
     },
