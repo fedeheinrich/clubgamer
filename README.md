@@ -89,7 +89,7 @@ Para mantener el repositorio organizado entre los seis, utilizamos la estrategia
 
 ## 📂 Estructura del Proyecto
 
-```text
+
 clubgamer/
 │
 ├── .gitignore
