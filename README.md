@@ -89,7 +89,7 @@ Para mantener el repositorio organizado entre los seis, utilizamos la estrategia
 
 ## 📂 Estructura del Proyecto
 
-
+```text
 clubgamer/
 │
 ├── .gitignore
@@ -206,7 +206,9 @@ clubgamer/
 │   └── Caddyfile                        # Configuración del proxy reverso Caddy.
 │
 └── node_modules/                        # Dependencias instaladas (no versionadas).
-    
+```text
+
+
 ## 🗂️ División de Archivos
 
 A continuación, se detalla la responsabilidad de cada integrante sobre los principales módulos del repositorio:
