@@ -1,6 +1,11 @@
 const express = require('express');
 const router = express.Router();
 const authRoutes = require('./auth');
+const plataformasRoutes = require('./plataformas');
+const generosRoutes = require('./generos');
+const coleccionesRoutes = require('./colecciones');
+const userRoutes = require('./user');
+const videojuegosRoutes = require('./videojuegos')
 
 // Ruta de prueba
 router.get('/health', (req, res) => {
@@ -26,5 +31,19 @@ router.get('/test', (req, res) => {
     }
   });
 });
+
+// Rutas de plataformas
+router.use('/plataformas', plataformasRoutes);
+
+// Rutas de géneros
+router.use('/generos', generosRoutes);
+
+// Rutas de colecciones
+router.use('/colecciones', coleccionesRoutes);
+
+//Rutas de user
+router.use('/usuarios', userRoutes);
+// Rutas de videojuegos
+router.use('/videojuegos', videojuegosRoutes);
 
 module.exports = router;

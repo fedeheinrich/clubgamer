@@ -13,4 +13,4 @@ COPY . .
 EXPOSE 3001
 
 # Comando por defecto
-CMD ["npm", "run", "dev"]
+CMD sh -c "npm run migrate && npm start"
