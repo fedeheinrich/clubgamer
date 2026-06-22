@@ -387,7 +387,7 @@ El sistema se encuentra modelado mediante entidades relacionales que representan
 
 ## Endpoints y Documentación en Postman
 
-**Documentación Completa:** &nbsp;<a href="[https://documenter.getpostman.com/view/24385288/2sBXwmRtUh](https://documenter.getpostman.com/view/50343050/2sBXwvK94A)"><img src="https://img.shields.io/badge/Postman-FF6C37?style=for-the-badge&logo=postman&logoColor=white" align="center" height="28"></a>
+[![Postman](https://img.shields.io/badge/Postman-FF6C37?style=for-the-badge&logo=postman&logoColor=white)](https://documenter.getpostman.com/view/50343050/2sBXwvK94A)
 
 ## 📡 API REST
 
