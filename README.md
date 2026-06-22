@@ -385,6 +385,10 @@ El sistema se encuentra modelado mediante entidades relacionales que representan
 - Un usuario puede registrar múltiples videojuegos en su colección.
 - Un videojuego puede formar parte de la colección de múltiples usuarios.
 
+## Endpoints y Documentación en Postman
+
+**Documentación Completa:** &nbsp;<a href="[https://documenter.getpostman.com/view/24385288/2sBXwmRtUh](https://documenter.getpostman.com/view/50343050/2sBXwvK94A)"><img src="https://img.shields.io/badge/Postman-FF6C37?style=for-the-badge&logo=postman&logoColor=white" align="center" height="28"></a>
+
 ## 📡 API REST
 
 La aplicación expone una API REST desarrollada con Express para administrar los recursos principales del sistema.
