@@ -89,87 +89,123 @@ Para mantener el repositorio organizado entre los seis, utilizamos la estrategia
 
 ## 📂 Estructura del Proyecto
 
-    clubgamer/
-    │
-    ├── backend/
-    │   │── server.js                          # Punto de entrada del servidor Express.
-    │   │── package.json                       # Dependencias y scripts del backend.
-    │   │── Dockerfile
-    │   │── Dockerfile.dev
-    │   │
-    │   ├── config/
-    │   │   ├── config.js                      # Configuración general del proyecto.
-    │   │   └── database.js                    # Configuración de conexión a PostgreSQL.
-    │   │
-    │   ├── controllers/                       # Lógica de negocio de la API.
-    │   │   ├── authController.js
-    │   │   ├── coleccionController.js
-    │   │   ├── generoController.js
-    │   │   ├── plataformasController.js
-    │   │   └── videojuegosController.js
-    │   │
-    │   ├── middleware/                        # Middlewares de autenticación y validaciones.
-    │   │   └── auth.js
-    │   │
-    │   ├── models/                            # Modelos Sequelize y relaciones.
-    │   │   ├── User.js
-    │   │   ├── Juego.js
-    │   │   ├── Genero.js
-    │   │   ├── Plataforma.js
-    │   │   ├── JuegoUser.js
-    │   │   ├── JuegoGenero.js
-    │   │   ├── JuegoPlataforma.js
-    │   │   └── index.js
-    │   │
-    │   ├── migrations/                        # Migraciones de la base de datos.
-    │   │   ├── User.js
-    │   │   ├── Juego.js
-    │   │   ├── Genero.js
-    │   │   ├── Plataforma.js
-    │   │   ├── JuegoUser.js
-    │   │   ├── JuegoGenero.js
-    │   │   └── JuegoPlataforma.js
-    │   │
-    │   ├── seeders/                           # Datos iniciales de prueba.
-    │   │
-    │   ├── routes/                            # Definición de endpoints REST.
-    │   │   ├── auth.js
-    │   │   ├── colecciones.js
-    │   │   ├── generos.js
-    │   │   ├── plataformas.js
-    │   │   ├── videojuegos.js
-    │   │   └── index.js
-    │   │
-    │   ├── tests/                             # Testing automatizado.
-    │   │
-    │   └── utils/
-    │       └── rawgHelper.js                  # Integración con la API RAWG.
-    │
-    ├── frontend/
-    │   ├── public/
-    │   └── src/
-    │       ├── assets/
-    │       │   ├── icons/
-    │       │   └── images/
-    │       ├── components/
-    │       │   ├── common/
-    │       │   ├── layout/
-    │       │   └── ui/
-    │       ├── hooks/
-    │       ├── pages/
-    │       ├── services/
-    │       ├── styles/
-    │       └── utils/
-    │
-    ├── database/                              # Configuración y persistencia de PostgreSQL.
-    │
-    ├── pgadmin/                               # Administración visual de la base de datos.
-    │
-    ├── caddy/                                 # Configuración de proxy y servidor web.
-    │
-    ├── docker-compose.yml                     # Orquestación de servicios.
-    │
-    └── README.md                              # Documentación general del proyecto.
+```text
+clubgamer/
+│
+├── .gitignore
+├── API_test.md                          # Guía de pruebas y ejemplos de uso de la API.
+├── docker-compose.yml                   # Orquestación de servicios Docker.
+├── LICENSE
+├── rd.md
+├── README.md                            # Documentación principal del proyecto.
+│
+├── backend/
+│   │── .env.example                     # Plantilla de variables de entorno.
+│   │── Dockerfile                       # Imagen Docker para producción.
+│   │── Dockerfile.dev                   # Imagen Docker para desarrollo.
+│   │── package.json                     # Dependencias y scripts del backend.
+│   │── server.js                        # Punto de entrada del servidor Express.
+│   │
+│   ├── config/
+│   │   ├── config.js                    # Configuración general de Sequelize.
+│   │   └── database.js                  # Configuración de conexión a PostgreSQL.
+│   │
+│   ├── controllers/                     # Lógica de negocio de la API.
+│   │   ├── authController.js
+│   │   ├── coleccionController.js
+│   │   ├── generoController.js
+│   │   ├── plataformasController.js
+│   │   ├── userController.js
+│   │   └── videojuegosController.js
+│   │
+│   ├── middleware/                      # Middlewares de autenticación y validaciones.
+│   │   └── auth.js
+│   │
+│   ├── migrations/                      # Migraciones de la base de datos.
+│   │   ├── 01-User.js
+│   │   ├── 02-Plataforma.js
+│   │   ├── 03-Genero.js
+│   │   ├── 04-Juego.js
+│   │   ├── 05-JuegoUser.js
+│   │   ├── 06-JuegoGenero.js
+│   │   └── 07-JuegoPlataforma.js
+│   │
+│   ├── models/                          # Modelos Sequelize y relaciones.
+│   │   ├── User.js
+│   │   ├── Juego.js
+│   │   ├── Genero.js
+│   │   ├── Plataforma.js
+│   │   ├── JuegoUser.js
+│   │   ├── JuegoGenero.js
+│   │   ├── JuegoPlataforma.js
+│   │   └── index.js
+│   │
+│   ├── routes/                          # Definición de endpoints REST.
+│   │   ├── auth.js
+│   │   ├── colecciones.js
+│   │   ├── generos.js
+│   │   ├── plataformas.js
+│   │   ├── user.js
+│   │   ├── videojuegos.js
+│   │   └── index.js
+│   │
+│   ├── seeders/                         # Datos iniciales para pruebas y desarrollo.
+│   │   ├── 01-Users.js
+│   │   ├── 02-Juegos.js
+│   │   ├── 03-Generos.js
+│   │   ├── 04-Plataformas.js
+│   │   └── 05-JuegosUsers.js
+│   │
+│   ├── tests/                           # Pruebas automatizadas del backend.
+│   │
+│   └── utils/
+│       └── rawgHelper.js                # Integración con la API RAWG.
+│
+├── frontend/
+│   │── .env.development                 # Variables de entorno del frontend.
+│   │── craco.config.js                  # Configuración de CRACO.
+│   │── Dockerfile                       # Imagen Docker para producción.
+│   │── Dockerfile.dev                   # Imagen Docker para desarrollo.
+│   │── package.json                     # Dependencias y scripts del frontend.
+│   │
+│   ├── public/
+│   │   └── index.html                   # Plantilla HTML principal.
+│   │
+│   └── src/
+│       │── App.js
+│       │── App.css
+│       │── index.js
+│       │── index.css
+│       │
+│       ├── assets/
+│       │   ├── icons/                   # Íconos del proyecto.
+│       │   └── images/                  # Imágenes y recursos gráficos.
+│       │       └── clubgamer-logo.png
+│       │
+│       ├── components/
+│       │   ├── common/                  # Componentes reutilizables.
+│       │   ├── layout/                  # Componentes de estructura visual.
+│       │   └── ui/                      # Componentes de interfaz.
+│       │
+│       ├── hooks/                       # Hooks personalizados de React.
+│       ├── pages/                       # Páginas principales de la aplicación.
+│       ├── services/                    # Servicios de comunicación con la API.
+│       ├── styles/                      # Estilos globales y específicos.
+│       └── utils/                       # Funciones auxiliares del frontend.
+│
+├── database/
+│   └── init.sql                         # Script de inicialización de PostgreSQL.
+│
+├── pgadmin/
+│   ├── Dockerfile                       # Imagen Docker de pgAdmin.
+│   ├── pgpass                           # Credenciales de acceso a PostgreSQL.
+│   ├── servers-with-password.json       # Configuración automática con contraseña.
+│   └── servers.json                     # Configuración automática de servidores.
+│
+├── caddy/
+│   └── Caddyfile                        # Configuración del proxy reverso Caddy.
+│
+└── node_modules/                        # Dependencias instaladas (no versionadas).
     
 ## 🗂️ División de Archivos
 
