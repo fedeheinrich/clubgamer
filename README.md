@@ -364,6 +364,11 @@ La base de datos utiliza PostgreSQL como sistema gestor y Sequelize como ORM pri
 
 El sistema se encuentra modelado mediante entidades relacionales que representan videojuegos, usuarios, géneros, plataformas y las relaciones entre ellos.
 
+
+<img width="1257" height="782" alt="Captura de pantalla (137)" src="https://github.com/user-attachments/assets/394a86e4-d1bd-4ea8-8206-714849fe366e" />
+
+
+
 ### Entidades Principales
 
 | Entidad | Descripción |
