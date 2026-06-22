@@ -95,16 +95,16 @@ clubgamer/
 ├── .gitignore
 ├── API_test.md                          # Guía de pruebas y ejemplos de uso de la API.
 ├── docker-compose.yml                   # Orquestación de servicios Docker.
-├── LICENSE
+├── LICENSE                              # Licencia del proyecto.
 ├── rd.md
 ├── README.md                            # Documentación principal del proyecto.
 │
 ├── backend/
-│   │── .env.example                     # Plantilla de variables de entorno.
-│   │── Dockerfile                       # Imagen Docker para producción.
-│   │── Dockerfile.dev                   # Imagen Docker para desarrollo.
-│   │── package.json                     # Dependencias y scripts del backend.
-│   │── server.js                        # Punto de entrada del servidor Express.
+│   ├── .env.example                     # Plantilla de variables de entorno.
+│   ├── Dockerfile                       # Imagen Docker para producción.
+│   ├── Dockerfile.dev                   # Imagen Docker para desarrollo.
+│   ├── package.json                     # Dependencias y scripts del backend.
+│   ├── server.js                        # Punto de entrada del servidor Express.
 │   │
 │   ├── config/
 │   │   ├── config.js                    # Configuración general de Sequelize.
@@ -162,20 +162,20 @@ clubgamer/
 │       └── rawgHelper.js                # Integración con la API RAWG.
 │
 ├── frontend/
-│   │── .env.development                 # Variables de entorno del frontend.
-│   │── craco.config.js                  # Configuración de CRACO.
-│   │── Dockerfile                       # Imagen Docker para producción.
-│   │── Dockerfile.dev                   # Imagen Docker para desarrollo.
-│   │── package.json                     # Dependencias y scripts del frontend.
+│   ├── .env.development                 # Variables de entorno del frontend.
+│   ├── craco.config.js                  # Configuración de CRACO.
+│   ├── Dockerfile                       # Imagen Docker para producción.
+│   ├── Dockerfile.dev                   # Imagen Docker para desarrollo.
+│   ├── package.json                     # Dependencias y scripts del frontend.
 │   │
 │   ├── public/
 │   │   └── index.html                   # Plantilla HTML principal.
 │   │
 │   └── src/
-│       │── App.js
-│       │── App.css
-│       │── index.js
-│       │── index.css
+│       ├── App.js
+│       ├── App.css
+│       ├── index.js
+│       ├── index.css
 │       │
 │       ├── assets/
 │       │   ├── icons/                   # Íconos del proyecto.
@@ -204,9 +204,8 @@ clubgamer/
 │
 ├── caddy/
 │   └── Caddyfile                        # Configuración del proxy reverso Caddy.
-│
-└── node_modules/                        # Dependencias instaladas (no versionadas).
-```text
+```
+
 
 
 ## 🗂️ División de Archivos
@@ -504,15 +503,12 @@ Cuando un videojuego es solicitado por el sistema:
 
 Este mecanismo reduce consultas externas y permite construir progresivamente un catálogo local de videojuegos.
 
-## 📄 Documentación Complementaria
+## 📚 Documentación
 
-La documentación técnica del proyecto se encuentra distribuida en los siguientes recursos:
-
-- README.md
-- API_test.md
-- Colección Postman
-- Migraciones Sequelize
-- Seeders de prueba
+- 📖 [README.md](README.md) — Documentación principal del proyecto.
+- 🧪 [API_test.md](API_test.md) — Casos de prueba y ejemplos de uso de la API.
+- 📜 [LICENSE](LICENSE) — Licencia del proyecto.
+- 📮 [Documentación Postman](https://documenter.getpostman.com/view/50343050/2sBXwvK94A) — Colección y documentación interactiva de endpoints.
 
 Las pruebas manuales de la API pueden realizarse mediante Postman o utilizando los ejemplos documentados en API_test.md.
 
