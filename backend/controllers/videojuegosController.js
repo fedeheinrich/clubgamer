@@ -110,7 +110,9 @@ const videojuegosController = {
             id_rawg: juego.id,                       // El ID original de RAWG que utulizaremos para enlazar después
             titulo: juego.name,                      // Nombre del juego
             lanzamiento: juego.released || null,     // Fecha de lanzamiento
-            url_imagen: juego.background_image || null // Link de la foto
+            url_imagen: juego.background_image || null, // Link de la foto
+            slug: juego.slug || null,                   // Slug del juego
+            calificacion_global: juego.rating || null  // Calificación global del juego
         }));
 
         // 4. Devolvemos la lista limpia al cliente
