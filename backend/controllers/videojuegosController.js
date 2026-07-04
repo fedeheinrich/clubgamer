@@ -1,4 +1,4 @@
-const { Juego, Genero, Plataforma } = require('../models');
+const { Juego, Genero, Plataforma, JuegoGenero, JuegoPlataforma } = require('../models');
 const { obtenerJuego } = require('../utils/rawgHelper');
 
 const videojuegosController = {
@@ -45,7 +45,7 @@ const videojuegosController = {
 
     crearJuego: async (req, res) => {
         try{
-            const { id_rawg, titulo, calificacion_global, lanzamiento, url_imagen, slug } = req.body;
+            const { id_rawg, titulo, calificacion_global, lanzamiento, url_imagen, slug, generos, plataformas } = req.body;
             // Correcion, el id lo genera Sequelize de forma incremental
             // Validación de título
             if (!titulo || typeof titulo !== 'string' || titulo.trim() === '') {
@@ -73,14 +73,42 @@ const videojuegosController = {
                 calificacion_global: calificacion_global || 0
              });
             
-            return res.status(201).json({ success: true, mensaje: "Juego creado localmente", data: nuevoJuego });
+            // --- NUEVO: Manejo de tablas intermedias ---
 
-            } catch (error) {
-                if (error.name === 'SequelizeUniqueConstraintError'){
-                    return res.status(409).json({success: false, error: "El ID de RAWG o el Slug de este juego ya estan registrados."})
-                }
-                return res.status(500).json({success:false, error: "Error al intentar crear el juego.", detalle: error.message });
+            // 3. Si envían géneros (array de IDs), armamos las relaciones y guardamos
+            if (generos && Array.isArray(generos) && generos.length > 0) {
+                const relacionesGeneros = generos.map(id_genero => ({
+                    id_juego: nuevoJuego.id,
+                    id_genero: id_genero
+                }));
+                await JuegoGenero.bulkCreate(relacionesGeneros);
             }
+
+            // 4. Si envían plataformas (array de IDs), armamos las relaciones y guardamos
+            if (plataformas && Array.isArray(plataformas) && plataformas.length > 0) {
+                const relacionesPlataformas = plataformas.map(id_plataforma => ({
+                    id_juego: nuevoJuego.id,
+                    id_plataforma: id_plataforma
+                }));
+                await JuegoPlataforma.bulkCreate(relacionesPlataformas);
+            }
+
+            // 5. Buscamos el juego recién creado para devolverlo completo (con sus Includes)
+            const juegoCompleto = await Juego.findByPk(nuevoJuego.id, {
+                include: [
+                    { model: Genero, attributes: ['id', 'nombre', 'slug'], through: { attributes: [] } }, 
+                    { model: Plataforma, attributes: ['id', 'nombre', 'slug'], through: { attributes: [] } } 
+                ]
+            });
+
+            return res.status(201).json({ success: true, mensaje: "Juego creado localmente", data: juegoCompleto });
+
+        } catch (error) {
+            if (error.name === 'SequelizeUniqueConstraintError'){
+                return res.status(409).json({success: false, error: "El ID de RAWG o el Slug de este juego ya estan registrados."})
+            }
+            return res.status(500).json({success:false, error: "Error al intentar crear el juego.", detalle: error.message });
+        }
     },
 
     buscarJuegosPorTitulo: async (req, res) => {
