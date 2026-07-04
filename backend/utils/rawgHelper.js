@@ -8,10 +8,20 @@ const axios = require('axios');
 const asociarGeneros = async (idJuegoLocal, generosRawg) => {
     // Si no hay generos para ascoiar en la respueta de la API termina acá
     if (!generosRawg || generosRawg.length === 0) return;
-    // Extraemos los IDs que vienen de RAWG
-    const idGenerosRawg = generosRawg.map( g => g.id);
-    // Buscamos los IDs locales que correspondan a los IDs de RAWG
-    const generosLocales = await Genero.findAll({ where: { id_rawg: idGenerosRawg}});
+    
+    // Nos aseguramos de que cada género exista en la BD local, si no, lo crea
+    for (const genero of generosRawg) {
+        await Genero.findOrCreate({
+            where: { id_rawg: genero.id },
+            defaults: {
+                nombre: genero.name,
+                slug: genero.slug
+            }
+        });
+    }
+    // 2. Ahora que sabemos que existen, los buscamos
+    const idGenerosRawg = generosRawg.map(g => g.id);
+    const generosLocales = await Genero.findAll({ where: { id_rawg: idGenerosRawg } });
     // Armamos la parejas (ID de nuestro juego local + ID de nuestro genero local)
     const relaciones = generosLocales.map( genero => ({ 
         id_juego: idJuegoLocal, 
@@ -25,7 +35,17 @@ const asociarGeneros = async (idJuegoLocal, generosRawg) => {
 const asociarPlataformas = async (idJuegoLocal, plataformasRawg) => {
     // Si no hay plataformas para asociar termina acá
     if (!plataformasRawg || plataformasRawg.length === 0) return;
-    // Extraemos los IDs que vienen de RAWG
+    // Nos aseguramos de que cada plataforma exista en la BD local, si no, lo crea
+    for (const plataforma of plataformasRawg) {
+        await Plataforma.findOrCreate({
+            where: { id_rawg: plataforma.platform.id },
+            defaults: {
+                nombre: plataforma.platform.name,
+                slug: plataforma.platform.slug
+            }
+        });
+    }
+    // 2. Ahora que sabemos que existen, los buscamos
     const idPlataformasRawg = plataformasRawg.map( p => p.platform.id);
     // Buscamos los IDs locales que correspondan a los IDs de RAWG
     const plataformasLocales = await Plataforma.findAll({ where: { id_rawg: idPlataformasRawg}});
