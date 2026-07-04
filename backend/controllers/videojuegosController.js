@@ -1,4 +1,4 @@
-const { Juego } = require('../models');
+const { Juego, Genero, Plataforma } = require('../models');
 const { obtenerJuego } = require('../utils/rawgHelper');
 
 const videojuegosController = {
@@ -30,7 +30,12 @@ const videojuegosController = {
     obtenerTodosLosJuegos: async (req, res) => {
         try{
             // Trae todos los juegos de la BD
-            const juegos  = await Juego.findAll();
+            const juegos  = await Juego.findAll({
+                include: [
+                    { model: Genero, attributes: ['id', 'nombre','slug'], through: { attributes: [] } }, 
+                    { model: Plataforma, attributes: ['id', 'nombre','slug'], through: { attributes: [] } } 
+                ]
+            });
 
             return res.status(200).json({success: true, data: juegos});
         } catch (error) {
