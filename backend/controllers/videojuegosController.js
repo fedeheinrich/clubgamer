@@ -117,7 +117,19 @@ const videojuegosController = {
             lanzamiento: juego.released || null,     // Fecha de lanzamiento
             url_imagen: juego.background_image || null, // Link de la foto
             slug: juego.slug || null,                   // Slug del juego
-            calificacion_global: juego.rating || null  // Calificación global del juego
+            calificacion_global: juego.rating || null, // Calificación global del juego
+            // Extraemos los géneros del JSON de RAWG y los formateamos
+            Generos: juego.genres ? juego.genres.map(g => ({
+                id_rawg: g.id,
+                nombre: g.name,
+                slug: g.slug
+            })) : [],
+            // Extraemos las plataformas (RAWG las anida dentro de un objeto 'platform')
+            Plataformas: juego.platforms ? juego.platforms.map(p => ({
+                id_rawg: p.platform.id,
+                nombre: p.platform.name,
+                slug: p.platform.slug
+            })) : [] 
         }));
 
         // 4. Devolvemos la lista limpia al cliente
