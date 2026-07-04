@@ -6,8 +6,8 @@ const agregarJuegoAColeccion = async (req, res) => {
     try {
         const { id_juego, estado, calificacion_personal, tiempo_de_juego_horas } = req.body;
         
-        // Hardcodeamos provisionalmente el usuario 1 hasta enganchar el JWT
-        const id_usuario = req.body.id_usuario || 1; 
+        // Usuario obtenido desde el token JWT validado por el middleware verificarToken
+        const id_usuario = req.user.id;
 
         if (!id_juego) {
             return res.status(400).json({ success: false, error: "El campo id_juego es obligatorio." });
@@ -36,11 +36,13 @@ const agregarJuegoAColeccion = async (req, res) => {
         return res.status(500).json({ success: false, error: "Error interno al guardar en la colección.", detalle: error.message });
     }
 };
+
 // Obtener la coleccion de un usuario
 // GET /api/coleccion
 const obtenerColeccion = async(req,res) =>{
     try {
-        const id_usuario = req.query.id_usuario || 1; 
+        // Usuario obtenido desde el token JWT validado por el middleware verificarToken
+        const id_usuario = req.user.id;
 
         // Trae la lista de interacciones e incluye los datos generales del juego
         const miColeccion = await JuegoUser.findAll({
@@ -56,14 +58,15 @@ const obtenerColeccion = async(req,res) =>{
     } catch (error) {
         return res.status(500).json({ success: false, error: "Error al recuperar tu colección.", detalle: error.message });
     }
-}
+};
 
 // Eliminar un juego de la colec
 // DELETE /api/coleccion/:id_juego
 const eliminarJuegoDeColeccion = async(req,res) =>{
     try {
         const { id_juego } = req.params;
-        const id_usuario = req.body.id_usuario || 1;
+        // Usuario obtenido desde el token JWT validado por el middleware verificarToken
+        const id_usuario = req.user.id;
 
         const registro = await JuegoUser.findOne({ where: { id_usuario, id_juego } });
 
@@ -77,16 +80,17 @@ const eliminarJuegoDeColeccion = async(req,res) =>{
         return res.status(200).json({ success: true, mensaje: "Juego removido de tu colección con éxito." });
 
     } catch (error) {
-        return res.status(500).json({ success: false, error: "Error al eliminar el juego de la colección." });
+        return res.status(500).json({ success: false, error: "Error al eliminar el juego de la colección.", detalle: error.message });
     }
-}
+};
 
 // PUT /api/coleccion/:id_juego
 const actualizarEstadoColeccion = async (req, res) => {
     try {
         const { id_juego } = req.params;
         const { estado, calificacion_personal, tiempo_de_juego_horas } = req.body;
-        const id_usuario = req.body.id_usuario || 1;
+        // Usuario obtenido desde el token JWT validado por el middleware verificarToken
+        const id_usuario = req.user.id;
 
         const registro = await JuegoUser.findOne({
             where: { id_usuario, id_juego }
@@ -122,4 +126,4 @@ const actualizarEstadoColeccion = async (req, res) => {
     }
 };
 
-module.exports = {agregarJuegoAColeccion, obtenerColeccion, eliminarJuegoDeColeccion, actualizarEstadoColeccion};
+module.exports = { agregarJuegoAColeccion, obtenerColeccion, eliminarJuegoDeColeccion, actualizarEstadoColeccion };
