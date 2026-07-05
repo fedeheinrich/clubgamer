@@ -180,7 +180,7 @@ const videojuegosController = {
     actualizarJuego: async (req, res) => {
         try{
             const { id } = req.params;
-            const { titulo, calificacion_global, lanzamiento, url_imagen, slug } = req.body;
+            const { titulo, calificacion_global, lanzamiento, url_imagen, slug, generos, plataformas } = req.body;
 
             const juego = await Juego.findByPk(id);
             if (!juego){
@@ -203,8 +203,41 @@ const videojuegosController = {
                 url_imagen: url_imagen || juego.url_imagen,
                 calificacion_global: calificacion_global !== undefined? calificacion_global : juego.calificacion_global
             });
+            // --- NUEVO: Actualización de tablas intermedias ---
 
-            return res.status(200).json({ success: true, mensaje: "Juego actualizado correctamente", data: juego });
+            // 3. Actualizar Géneros
+            // Verificamos si el frontend envió un array (incluso si está vacío, significa que destildaron todo)
+            if (generos && Array.isArray(generos)) {
+                // Primero: Destruimos todas las asociaciones anteriores de este juego
+                await JuegoGenero.destroy({ where: { id_juego: juego.id } });
+                
+                // Segundo: Si el array tiene elementos, insertamos las nuevas asociaciones
+                if (generos.length > 0) {
+                    const relacionesGeneros = generos.map(id_genero => ({ id_juego: juego.id, id_genero }));
+                    await JuegoGenero.bulkCreate(relacionesGeneros);
+                }
+            }
+
+            // 4. Actualizar Plataformas (Misma lógica)
+            if (plataformas && Array.isArray(plataformas)) {
+                await JuegoPlataforma.destroy({ where: { id_juego: juego.id } });
+                
+                if (plataformas.length > 0) {
+                    const relacionesPlataformas = plataformas.map(id_plataforma => ({ id_juego: juego.id, id_plataforma }));
+                    await JuegoPlataforma.bulkCreate(relacionesPlataformas);
+                }
+            }
+
+            // 5. Buscamos el juego actualizado para devolverlo con los Includes cargados
+            const juegoActualizado = await Juego.findByPk(juego.id, {
+                include: [
+                    { model: Genero, attributes: ['id', 'nombre', 'slug'], through: { attributes: [] } }, 
+                    { model: Plataforma, attributes: ['id', 'nombre', 'slug'], through: { attributes: [] } } 
+                ]
+            });
+
+            return res.status(200).json({ success: true, mensaje: "Juego actualizado correctamente", data: juegoActualizado });
+
         } catch (error) {
             return res.status(500).json({success: false, error: "Error interno al intentar actualizar el juego.", detalle: error.message});
         }
