@@ -1,5 +1,6 @@
 // src/pages/Bienvenida.jsx
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 // Rutas de imágenes saliendo de /pages hacia /assets/images
 import fondoGamer from '../assets/images/fondo 3.jpg'; 
@@ -45,12 +46,12 @@ function Bienvenida() {
           </p>
 
           <div className="flex flex-wrap gap-4 pt-2">
-            <button className="flex items-center gap-2 bg-gradient-to-r from-[#00c6ff] to-[#0072ff] hover:opacity-90 text-white font-bold px-6 py-3 rounded-lg shadow-[0_4px_15px_rgba(0,198,255,0.3)] transition-transform active:scale-95 text-sm sm:text-base">
+            <Link to="/registro" className="flex items-center gap-2 bg-gradient-to-r from-[#00c6ff] to-[#0072ff] hover:opacity-90 text-white font-bold px-6 py-3 rounded-lg shadow-[0_4px_15px_rgba(0,198,255,0.3)] transition-transform active:scale-95 text-sm sm:text-base">
               <span>🎮</span> REGISTRARME
-            </button>
-            <button className="flex items-center gap-2 bg-transparent border-2 border-[#1e293b] hover:border-[#00f2fe] text-white font-bold px-6 py-3 rounded-lg transition-colors active:scale-95 text-sm sm:text-base">
+            </Link>
+            <Link to="/login" className="flex items-center gap-2 bg-transparent border-2 border-[#1e293b] hover:border-[#00f2fe] text-white font-bold px-6 py-3 rounded-lg transition-colors active:scale-95 text-sm sm:text-base">
               <span>👤</span> INGRESAR
-            </button>
+            </Link>
           </div>
         </div>
 
