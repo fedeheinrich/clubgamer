@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 // Rutas de imágenes saliendo de /pages hacia /assets/images
 import fondoGamer from '../assets/images/fondo 3.jpg'; 
-import logoClubGamer from '../assets/images/clubgamer-logo.png';
+import logoClubGamer from '../assets/images/logo.png';
 import iconColecciona from '../assets/images/coleccion1.png';
 import iconPuntua from '../assets/images/estrella1.png';
 import iconDescubri from '../assets/images/lupa.png';
