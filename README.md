@@ -261,6 +261,7 @@ Backend (Express)
 ### Frontend
 
 - React
+- Vite
 - Axios
 - React Router
 
