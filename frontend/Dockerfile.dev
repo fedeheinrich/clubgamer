@@ -24,4 +24,4 @@ COPY . .
 EXPOSE 3000
 
 # Comando con hot reload habilitado
-CMD ["npm", "start"]
+CMD ["sh", "-c", "npm install && npm start"]

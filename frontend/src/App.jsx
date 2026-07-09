@@ -1,0 +1,36 @@
+// src/App.jsx
+import React from 'react';
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
+import { QueryClient, QueryClientProvider } from 'react-query';
+import { Toaster } from 'react-hot-toast';
+
+import Welcome from './pages/Bienvenida';
+import Login from './pages/Login';
+import Registro from './pages/Registro';
+import Catalogo from './pages/Catalogo';
+import NotFound from './pages/NotFound';
+import './App.css';
+
+const queryClient = new QueryClient();
+
+function App() {
+  return (
+    <QueryClientProvider client={queryClient}>
+      <BrowserRouter>
+        <div className="app-shell">
+          <Routes>
+            <Route path="/" element={<Welcome />} />
+            <Route path="/inicio" element={<Navigate to="/" replace />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/registro" element={<Registro />} />
+            <Route path="/catalogo" element={<Catalogo />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </div>
+        <Toaster position="top-right" toastOptions={{ duration: 3000 }} />
+      </BrowserRouter>
+    </QueryClientProvider>
+  );
+}
+
+export default App;
