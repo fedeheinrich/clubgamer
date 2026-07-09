@@ -1,4 +1,5 @@
 # Club Gamer - Proyecto Segundo Parcial
+
 ## Materia: Programación III - Primer Cuatrimestre, 2do año 📚
 
 ## 🎮 ¿Qué es Club Gamer?
@@ -55,6 +56,7 @@ Para esta entrega se trabaja sobre las siguientes áreas:
 Algunas funcionalidades, como autenticación JWT completa, integración definitiva con RAWG, frontend completo y testing automatizado con Jest, quedan previstas para etapas posteriores del desarrollo.
 
 ## 👥 Integrantes - Grupo 19
+
 - [@fedeheinrich](https://github.com/fedeheinrich) - Federico Heinrich
 - [@Oviedo-Matias](https://github.com/Oviedo-Matias) - Matias Oviedo
 - [@Tincho2319](https://github.com/Tincho2319) - Martin Alcaraz
@@ -68,22 +70,24 @@ Para mantener el repositorio organizado entre los seis, utilizamos la estrategia
 
 ### Estrategia de Ramificación Git Flow
 
-* main: Código en su version estable y completa (V1.0).
+- main: Código en su version estable y completa (V1.0).
 
-* release/x.0 : Preparacion de una nueva version. Se crea cuando develop tiene suficientes funcionalidades para una entrega, sirve para corregir errores menores durante la revision, ajustar numeros de version, actualizar documentacion y **IMPORTANTE: no agregar funcionalidades nuevas**.
-    > *Se crea desde **develop***, y una vez que se completa el trabajo en dicha rama (obtenemos la version estable) se realiza el merge a develop y a main para actualizar el codigo en ambas ramas.
-* develop: rama de desarrollo.
+- release/x.0 : Preparacion de una nueva version. Se crea cuando develop tiene suficientes funcionalidades para una entrega, sirve para corregir errores menores durante la revision, ajustar numeros de version, actualizar documentacion y **IMPORTANTE: no agregar funcionalidades nuevas**.
+  > \*Se crea desde **develop\***, y una vez que se completa el trabajo en dicha rama (obtenemos la version estable) se realiza el merge a develop y a main para actualizar el codigo en ambas ramas.
+- develop: rama de desarrollo.
 
-* feature/nombre-de-la-funcionalidad: Para crear nuevas funcionalidades. 
-    > *Se crea desde **develop*** para trabajar en una nueva funcion a implementar. Una vez completada la funcionalidad, se hace el merge a develop y se elimina la rama.
+- feature/nombre-de-la-funcionalidad: Para crear nuevas funcionalidades.
 
-* hotfix: Correcion urgente de un error que se encuentra en main.
-    > Cuando encontramos un error importante en la version estable, *se crea desde **main*** para trabajar en la correcion del error y solucionarlo lo antes posible. Una vez corregido el bug, se hace el merge a main y a develop.
+  > \*Se crea desde **develop\*** para trabajar en una nueva funcion a implementar. Una vez completada la funcionalidad, se hace el merge a develop y se elimina la rama.
+
+- hotfix: Correcion urgente de un error que se encuentra en main.
+  > Cuando encontramos un error importante en la version estable, \*se crea desde **main\*** para trabajar en la correcion del error y solucionarlo lo antes posible. Una vez corregido el bug, se hace el merge a main y a develop.
 
 ### Estandares de contribución
 
-- **Commits**: Utilizar titulos descriptivos con el formato `tipo: descripción`. 
-    > Ejemplo: `feat: implementación de login` o `fix: corrección de ruta API`.
+- **Commits**: Utilizar titulos descriptivos con el formato `tipo: descripción`.
+
+  > Ejemplo: `feat: implementación de login` o `fix: corrección de ruta API`.
 
 - **Revisiones de Pull Requests (PR)**: Al menos un compañero de equipo debe revisar una solicitud de incorporacion de cambios antes de fusionarla (merge) con develop.
 
@@ -162,19 +166,16 @@ clubgamer/
 │       └── rawgHelper.js                # Integración con la API RAWG.
 │
 ├── frontend/
-│   ├── .env.development                 # Variables de entorno del frontend.
-│   ├── craco.config.js                  # Configuración de CRACO.
 │   ├── Dockerfile                       # Imagen Docker para producción.
 │   ├── Dockerfile.dev                   # Imagen Docker para desarrollo.
+│   ├── index.html                       # Plantilla HTML principal de Vite.
 │   ├── package.json                     # Dependencias y scripts del frontend.
-│   │
-│   ├── public/
-│   │   └── index.html                   # Plantilla HTML principal.
+│   ├── vite.config.js                   # Configuración de Vite.
 │   │
 │   └── src/
-│       ├── App.js
+│       ├── App.jsx
 │       ├── App.css
-│       ├── index.js
+│       ├── index.jsx
 │       ├── index.css
 │       │
 │       ├── assets/
@@ -206,21 +207,18 @@ clubgamer/
 │   └── Caddyfile                        # Configuración del proxy reverso Caddy.
 ```
 
-
-
 ## 🗂️ División de Archivos
 
 A continuación, se detalla la responsabilidad de cada integrante sobre los principales módulos del repositorio:
 
-| Responsable | Archivos y Carpetas Principales | Funcionalidad / Módulo |
-| :--- | :--- | :--- |
-| **Federico Heinrich** | `backend/controllers/plataformasController.js`, `backend/routes/plataformas.js`, `backend/routes/index.js` | Configuración inicial del repositorio, arquitectura base del backend y gestión de plataformas (CRUD y endpoints). |
-| **Matías Oviedo** | `backend/models/*`, `backend/migrations/*`, `backend/seeders/*` | Modelado de datos, relaciones Sequelize, migraciones, seeders e integración de la estructura de almacenamiento para RAWG. |
-| **Martín Alcaraz** | `backend/controllers/videojuegosController.js`, `backend/controllers/coleccionController.js`, `backend/routes/videojuegos.js`, `backend/routes/colecciones.js`, `backend/utils/rawgHelper.js` | Gestión de videojuegos, colecciones de usuario, integración con PostgreSQL e intermediario con la API RAWG. |
-| **Nahuel Cappa** | `backend/tests/*`, `API_test.md`, `backend/middleware/*` | Validaciones de entrada, testing manual y documentación de pruebas de la API. |
-| **Homero Colombo** | `README.md`, `postman_collection.json`, documentación de Postman y scripts de pruebas automatizadas | Documentación técnica del proyecto, colección Postman y testing automatizado. |
-| **Nicolás Espulef** | `docker-compose.yml`, `.env.example`, configuración de Render y despliegue | Infraestructura, despliegue del backend y base de datos, configuración de entornos y variables de entorno. |
-
+| Responsable           | Archivos y Carpetas Principales                                                                                                                                                               | Funcionalidad / Módulo                                                                                                    |
+| :-------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------ |
+| **Federico Heinrich** | `backend/controllers/plataformasController.js`, `backend/routes/plataformas.js`, `backend/routes/index.js`                                                                                    | Configuración inicial del repositorio, arquitectura base del backend y gestión de plataformas (CRUD y endpoints).         |
+| **Matías Oviedo**     | `backend/models/*`, `backend/migrations/*`, `backend/seeders/*`                                                                                                                               | Modelado de datos, relaciones Sequelize, migraciones, seeders e integración de la estructura de almacenamiento para RAWG. |
+| **Martín Alcaraz**    | `backend/controllers/videojuegosController.js`, `backend/controllers/coleccionController.js`, `backend/routes/videojuegos.js`, `backend/routes/colecciones.js`, `backend/utils/rawgHelper.js` | Gestión de videojuegos, colecciones de usuario, integración con PostgreSQL e intermediario con la API RAWG.               |
+| **Nahuel Cappa**      | `backend/tests/*`, `API_test.md`, `backend/middleware/*`                                                                                                                                      | Validaciones de entrada, testing manual y documentación de pruebas de la API.                                             |
+| **Homero Colombo**    | `README.md`, `postman_collection.json`, documentación de Postman y scripts de pruebas automatizadas                                                                                           | Documentación técnica del proyecto, colección Postman y testing automatizado.                                             |
+| **Nicolás Espulef**   | `docker-compose.yml`, `.env.example`, configuración de Render y despliegue                                                                                                                    | Infraestructura, despliegue del backend y base de datos, configuración de entornos y variables de entorno.                |
 
 ## 🏗️ Arquitectura General
 
@@ -263,6 +261,7 @@ Backend (Express)
 ### Frontend
 
 - React
+- Vite
 - Axios
 - React Router
 
@@ -362,18 +361,18 @@ El archivo `.env` debe crearse dentro de la carpeta `backend/` y no debe subirse
 
 ### Variables disponibles
 
-| Variable | Descripción |
-|-----------|-------------|
-| PORT | Puerto utilizado por el servidor Express. |
-| NODE_ENV | Entorno de ejecución de la aplicación. |
-| DB_HOST | Host de la base de datos PostgreSQL. |
-| DB_PORT | Puerto de PostgreSQL. |
-| DB_NAME | Nombre de la base de datos. |
-| DB_USER | Usuario de PostgreSQL. |
-| DB_PASSWORD | Contraseña del usuario de PostgreSQL. |
-| RAWG_API_KEY | Clave de acceso a la API RAWG. |
-| JWT_SECRET | Clave utilizada para la autenticación JWT. |
-| CORS_ORIGIN | Origen permitido para las solicitudes CORS. |
+| Variable     | Descripción                                 |
+| ------------ | ------------------------------------------- |
+| PORT         | Puerto utilizado por el servidor Express.   |
+| NODE_ENV     | Entorno de ejecución de la aplicación.      |
+| DB_HOST      | Host de la base de datos PostgreSQL.        |
+| DB_PORT      | Puerto de PostgreSQL.                       |
+| DB_NAME      | Nombre de la base de datos.                 |
+| DB_USER      | Usuario de PostgreSQL.                      |
+| DB_PASSWORD  | Contraseña del usuario de PostgreSQL.       |
+| RAWG_API_KEY | Clave de acceso a la API RAWG.              |
+| JWT_SECRET   | Clave utilizada para la autenticación JWT.  |
+| CORS_ORIGIN  | Origen permitido para las solicitudes CORS. |
 
 ### Ejemplo de archivo `.env`
 
@@ -401,21 +400,18 @@ La base de datos utiliza PostgreSQL como sistema gestor y Sequelize como ORM pri
 
 El sistema se encuentra modelado mediante entidades relacionales que representan videojuegos, usuarios, géneros, plataformas y las relaciones entre ellos.
 
-
 <img width="1257" height="782" alt="Diagrama entidad-relacion" src="./frontend/src/assets/images/diagrama_programacion3f_V3.drawio.png" />
-
-
 
 ### Entidades Principales
 
-| Entidad | Descripción |
-|----------|----------|
-| User | Usuarios registrados en la aplicación |
-| Juego | Catálogo general de videojuegos |
-| Genero | Géneros asociados a los videojuegos |
-| Plataforma | Plataformas disponibles |
-| JuegoUser | Relación entre usuarios y videojuegos |
-| JuegoGenero | Relación entre videojuegos y géneros |
+| Entidad         | Descripción                              |
+| --------------- | ---------------------------------------- |
+| User            | Usuarios registrados en la aplicación    |
+| Juego           | Catálogo general de videojuegos          |
+| Genero          | Géneros asociados a los videojuegos      |
+| Plataforma      | Plataformas disponibles                  |
+| JuegoUser       | Relación entre usuarios y videojuegos    |
+| JuegoGenero     | Relación entre videojuegos y géneros     |
 | JuegoPlataforma | Relación entre videojuegos y plataformas |
 
 ### Relaciones
@@ -437,57 +433,57 @@ La aplicación expone una API REST desarrollada con Express para administrar los
 
 ### Endpoints del Sistema
 
-| Método | Endpoint | Descripción |
-|----------|----------|----------|
-| GET | /api/health | Verifica el estado del servidor |
-| GET | /api/test | Endpoint de prueba |
+| Método | Endpoint    | Descripción                     |
+| ------ | ----------- | ------------------------------- |
+| GET    | /api/health | Verifica el estado del servidor |
+| GET    | /api/test   | Endpoint de prueba              |
 
 ### Endpoints de Plataformas
 
-| Método | Endpoint |
-|----------|----------|
-| GET | /api/plataformas |
-| GET | /api/plataformas/:id |
-| POST | /api/plataformas |
-| PUT | /api/plataformas/:id |
+| Método | Endpoint             |
+| ------ | -------------------- |
+| GET    | /api/plataformas     |
+| GET    | /api/plataformas/:id |
+| POST   | /api/plataformas     |
+| PUT    | /api/plataformas/:id |
 | DELETE | /api/plataformas/:id |
 
 ### Endpoints de Géneros
 
-| Método | Endpoint |
-|----------|----------|
-| GET | /api/generos |
-| GET | /api/generos/:id |
-| POST | /api/generos |
-| PUT | /api/generos/:id |
+| Método | Endpoint         |
+| ------ | ---------------- |
+| GET    | /api/generos     |
+| GET    | /api/generos/:id |
+| POST   | /api/generos     |
+| PUT    | /api/generos/:id |
 | DELETE | /api/generos/:id |
 
 ### Endpoints de Videojuegos
 
-| Método | Endpoint |
-|----------|----------|
-| GET | /api/videojuegos |
-| GET | /api/videojuegos/:id |
-| POST | /api/videojuegos |
-| PUT | /api/videojuegos/:id |
+| Método | Endpoint             |
+| ------ | -------------------- |
+| GET    | /api/videojuegos     |
+| GET    | /api/videojuegos/:id |
+| POST   | /api/videojuegos     |
+| PUT    | /api/videojuegos/:id |
 | DELETE | /api/videojuegos/:id |
 
 ### Endpoints de Colecciones
 
-| Método | Endpoint |
-|----------|----------|
-| GET | /api/colecciones |
-| POST | /api/colecciones |
-| PUT | /api/colecciones/:id_juego |
+| Método | Endpoint                   |
+| ------ | -------------------------- |
+| GET    | /api/colecciones           |
+| POST   | /api/colecciones           |
+| PUT    | /api/colecciones/:id_juego |
 | DELETE | /api/colecciones/:id_juego |
 
 ### Endpoints de Autenticación
 
-| Método | Endpoint |
-|----------|----------|
-| POST | /api/auth/register |
-| POST | /api/auth/login |
-| GET | /api/auth/perfil |
+| Método | Endpoint           |
+| ------ | ------------------ |
+| POST   | /api/auth/register |
+| POST   | /api/auth/login    |
+| GET    | /api/auth/perfil   |
 
 ## 🔗 Integración con RAWG
 
@@ -511,4 +507,3 @@ Este mecanismo reduce consultas externas y permite construir progresivamente un 
 - 📮 [Documentación Postman](https://documenter.getpostman.com/view/50343050/2sBXwvK94A) — Colección y documentación interactiva de endpoints.
 
 Las pruebas manuales de la API pueden realizarse mediante Postman o utilizando los ejemplos documentados en API_test.md.
-

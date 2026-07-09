@@ -28,20 +28,102 @@ const videojuegosController = {
     },
 
     obtenerTodosLosJuegos: async (req, res) => {
-        try{
-            // Trae todos los juegos de la BD
-            const juegos  = await Juego.findAll({
-                include: [
-                    { model: Genero, attributes: ['id', 'nombre','slug'], through: { attributes: [] } }, 
-                    { model: Plataforma, attributes: ['id', 'nombre','slug'], through: { attributes: [] } } 
-                ]
-            });
+       try {
+        const { anio, plataforma, genero, limit, page } = req.query;
+        const { Op } = require('sequelize'); // Importamos el operador de Sequelize para usarlo en los filtros
+        
+        //Configuración de la Paginación Dinámica
+        // Si el cliente no envía limit o page, tomamos 10 y 1 por defecto
+        const limitePorPagina = parseInt(limit) || 10;
+        const paginaActual = parseInt(page) || 1;
 
-            return res.status(200).json({success: true, data: juegos});
-        } catch (error) {
-            return res.status(500).json({success: false, error:"Error al recuperar el catalogo de Juegos.", detalle: error.message});
-        }   
-    },
+        // Validamos que no nos manden valores raros o negativos
+        if (isNaN(limitePorPagina) || limitePorPagina <= 0 || limitePorPagina > 100) {
+            return res.status(400).json({ 
+                success: false, 
+                error: "El parámetro 'limit' debe ser un número entero positivo (máximo 100)." 
+            });
+        }
+        if (isNaN(paginaActual) || paginaActual <= 0) {
+            return res.status(400).json({ 
+                success: false, 
+                error: "El parámetro 'page' debe ser un número entero positivo mayor a 0." 
+            });
+        }
+
+        // Cálculo matemático del Offset
+        const desplazarOffset = (paginaActual - 1) * limitePorPagina;
+
+        //Objetos de condiciones para los filtros
+        const dondeJuego = {};
+        const dondePlataforma = {};
+        const dondeGenero = {};
+
+        // Filtro por Año)
+        if (anio) {
+            const anioInt = parseInt(anio);
+            if (isNaN(anioInt) || anioInt < 1970 || anioInt > 2030) {
+                return res.status(400).json({ success: false, error: "El filtro 'anio' debe ser un año válido." });
+            }
+            dondeJuego.lanzamiento = { [Op.between]: [`${anioInt}-01-01`, `${anioInt}-12-31`] };
+        }
+
+        // Filtro por Plataforma
+        if (plataforma && typeof plataforma === 'string' && plataforma.trim() !== '') {
+            dondePlataforma.nombre = { [Op.like]: `%${plataforma.trim()}%` };
+        }
+
+        //Filtro por Género
+        if (genero && typeof genero === 'string' && genero.trim() !== '') {
+            dondeGenero.nombre = { [Op.like]: `%${genero.trim()}%` };
+        }
+
+        //Consulta Completa a la Base de Datos con findAndCountAll
+        const { count, rows } = await Juego.findAndCountAll({
+            where: dondeJuego,
+            limit: limitePorPagina,
+            offset: desplazarOffset,
+            distinct: true,
+            include: [
+                {
+                    model: Plataforma,
+                    as: 'Plataformas', // Ajustar al alias real de tus asociaciones
+                    where: dondePlataforma,
+                    required: plataforma ? true : false,
+                    through: { attributes: [] }
+                },
+                {
+                    model: Genero,
+                    as: 'Generos', // Ajustar al alias real de tus asociaciones para la entidad Genero
+                    where: dondeGenero,
+                    required: genero ? true : false, // Si viene el filtro hace un INNER JOIN, sino un LEFT JOIN
+                    through: { attributes: [] } // Oculta la tabla intermedia Juego_genero en el JSON de respuesta
+                }
+            ]
+        });
+
+        // 4. Cálculo de Metadata para el Frontend
+        const totalPaginas = Math.ceil(count / limitePorPagina);
+
+        return res.status(200).json({
+            success: true,
+            paginacion: {
+                total_items: count,
+                total_paginas: totalPaginas,
+                pagina_actual: paginaActual,
+                limite_por_pagina: limitePorPagina
+            },
+            data: rows
+        });
+
+    } catch (error) {
+        return res.status(500).json({ 
+            success: false, 
+            error: "Error interno al intentar listar, filtrar o paginar los videojuegos.", 
+            detalle: error.message 
+        });
+    }
+},
 
     crearJuego: async (req, res) => {
         try{
@@ -72,10 +154,7 @@ const videojuegosController = {
                 url_imagen,
                 calificacion_global: calificacion_global || 0
              });
-            
-            // --- NUEVO: Manejo de tablas intermedias ---
 
-            // 3. Si envían géneros (array de IDs), armamos las relaciones y guardamos
             if (generos && Array.isArray(generos) && generos.length > 0) {
                 const relacionesGeneros = generos.map(id_genero => ({
                     id_juego: nuevoJuego.id,
@@ -84,7 +163,6 @@ const videojuegosController = {
                 await JuegoGenero.bulkCreate(relacionesGeneros);
             }
 
-            // 4. Si envían plataformas (array de IDs), armamos las relaciones y guardamos
             if (plataformas && Array.isArray(plataformas) && plataformas.length > 0) {
                 const relacionesPlataformas = plataformas.map(id_plataforma => ({
                     id_juego: nuevoJuego.id,
@@ -93,7 +171,6 @@ const videojuegosController = {
                 await JuegoPlataforma.bulkCreate(relacionesPlataformas);
             }
 
-            // 5. Buscamos el juego recién creado para devolverlo completo (con sus Includes)
             const juegoCompleto = await Juego.findByPk(nuevoJuego.id, {
                 include: [
                     { model: Genero, attributes: ['id', 'nombre', 'slug'], through: { attributes: [] } }, 
@@ -203,22 +280,20 @@ const videojuegosController = {
                 url_imagen: url_imagen || juego.url_imagen,
                 calificacion_global: calificacion_global !== undefined? calificacion_global : juego.calificacion_global
             });
-            // --- NUEVO: Actualización de tablas intermedias ---
-
-            // 3. Actualizar Géneros
-            // Verificamos si el frontend envió un array (incluso si está vacío, significa que destildaron todo)
+           
+            // Verificamos si el frontend envió un array 
             if (generos && Array.isArray(generos)) {
                 // Primero: Destruimos todas las asociaciones anteriores de este juego
                 await JuegoGenero.destroy({ where: { id_juego: juego.id } });
                 
-                // Segundo: Si el array tiene elementos, insertamos las nuevas asociaciones
+                //Si el array tiene elementos, insertamos las nuevas asociaciones
                 if (generos.length > 0) {
                     const relacionesGeneros = generos.map(id_genero => ({ id_juego: juego.id, id_genero }));
                     await JuegoGenero.bulkCreate(relacionesGeneros);
                 }
             }
 
-            // 4. Actualizar Plataformas (Misma lógica)
+            // 4. Actualizar Plataformas
             if (plataformas && Array.isArray(plataformas)) {
                 await JuegoPlataforma.destroy({ where: { id_juego: juego.id } });
                 
