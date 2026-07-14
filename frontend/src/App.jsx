@@ -8,6 +8,7 @@ import Welcome from './pages/Bienvenida';
 import Login from './pages/Login';
 import Registro from './pages/Registro';
 import Catalogo from './pages/Catalogo';
+import Colecciones from './pages/Colecciones';
 import NotFound from './pages/NotFound';
 import './App.css';
 
@@ -25,6 +26,7 @@ function App() {
             <Route path="/registro" element={<Registro />} />
             <Route path="/catalogo" element={<Catalogo />} />
             <Route path="*" element={<NotFound />} />
+            <Route path="/colecciones" element={<Colecciones />} />
           </Routes>
         </div>
         <Toaster position="top-right" toastOptions={{ duration: 3000 }} />
