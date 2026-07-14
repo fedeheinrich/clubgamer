@@ -1,5 +1,3 @@
-// src/pages/Bienvenida.jsx
-import React from 'react';
 import { Link } from 'react-router-dom';
 
 // Rutas de imágenes saliendo de /pages hacia /assets/images

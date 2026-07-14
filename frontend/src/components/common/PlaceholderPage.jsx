@@ -1,4 +1,3 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
 
 function PlaceholderPage({ title, description, backTo = '/', backLabel = 'Volver al inicio' }) {
