@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import {
   HomeIcon,
@@ -11,6 +11,7 @@ import {
   ChevronRightIcon
 } from '@heroicons/react/24/outline';
 
+import SidebarNavigation from '../components/layout/SidebarNavigation';
 import logoClubGamer from '../assets/images/logohorizontal.png';
 
 function GamepadIcon({ className }) {
@@ -31,7 +32,7 @@ function GamepadIcon({ className }) {
 }
 
 function Colecciones() {
-  const coleccionesMock = [
+  const coleccionesIniciales = [
     {
       id: 1,
       nombre: 'Favoritos',
@@ -82,9 +83,45 @@ function Colecciones() {
     }
   ];
 
+  const [colecciones, setColecciones] = useState(coleccionesIniciales);
+
+  const agregarColeccion = () => {
+    const nuevaColeccion = {
+      id: Date.now(),
+      nombre: 'Nueva colección',
+      descripcion: 'Colección creada localmente',
+      total: 0,
+      color: 'from-fuchsia-500 to-pink-500',
+      badge: 'text-fuchsia-300 border-fuchsia-400/40',
+      extra: '+0 más',
+      juegos: []
+    };
+
+    setColecciones((prevColecciones) => [nuevaColeccion, ...prevColecciones]);
+  };
+
+  const editarColeccion = (id) => {
+    setColecciones((prevColecciones) =>
+      prevColecciones.map((coleccion) =>
+        coleccion.id === id
+          ? {
+              ...coleccion,
+              nombre: `${coleccion.nombre} editada`
+            }
+          : coleccion
+      )
+    );
+  };
+
+  const eliminarColeccion = (id) => {
+    setColecciones((prevColecciones) =>
+      prevColecciones.filter((coleccion) => coleccion.id !== id)
+    );
+  };
+
   const menu = [
     { id: 'inicio', label: 'Inicio', to: '/', icon: HomeIcon },
-    { id: 'colecciones', label: 'Colecciones', to: '/colecciones', icon: SquaresPlusIcon, active: true },
+    { id: 'colecciones', label: 'Colecciones', to: '/colecciones', icon: SquaresPlusIcon },
     { id: 'juegos', label: 'Juegos', to: '/catalogo', icon: GamepadIcon },
     { id: 'perfil', label: 'Mi perfil', to: '/login', icon: UserIcon }
   ];
@@ -92,29 +129,7 @@ function Colecciones() {
   return (
     <main className="min-h-screen bg-gradient-to-b from-[#04091f] via-[#070d2d] to-[#161f7d] text-white">
       <div className="flex min-h-screen">
-        <aside className="hidden w-64 shrink-0 p-6 lg:flex lg:flex-col">
-          <img src={logoClubGamer} alt="Club Gamer" className="mb-10 h-auto w-48 object-contain" />
-
-          <nav className="mx-auto mt-10 w-full max-w-[196px] space-y-5">
-            {menu.map((item) => {
-              const Icon = item.icon;
-              return (
-                <Link
-                  key={item.id}
-                  to={item.to}
-                  className={`group relative flex items-center gap-3.5 rounded-xl px-3 py-3 text-[1.12rem] font-semibold transition
-                    ${item.active ? 'text-white' : 'text-slate-200/95 hover:text-white'}`}
-                >
-                  {item.active && (
-                    <span className="absolute -left-6 top-1/2 h-11 w-3 -translate-y-1/2 rounded-r-full bg-[#3D63FF] shadow-[0_0_18px_rgba(61,99,255,0.95)]" />
-                  )}
-                  <Icon className={`h-6 w-6 shrink-0 ${item.active ? 'text-[#3D63FF]' : 'text-white'}`} />
-                  <span>{item.label}</span>
-                </Link>
-              );
-            })}
-          </nav>
-        </aside>
+        <SidebarNavigation logoSrc={logoClubGamer} logoAlt="Club Gamer" items={menu} activeId="colecciones" />
 
         <section className="flex-1 p-4 sm:p-6 lg:p-8">
           <header className="mb-8 grid grid-cols-1 gap-4 lg:grid-cols-12">
@@ -149,57 +164,72 @@ function Colecciones() {
               <p className="mt-1 text-slate-300">Organiza tus juegos como más te guste.</p>
             </div>
 
-            <button className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-violet-600 to-cyan-500 px-5 py-3 text-sm font-bold shadow-lg shadow-cyan-900/40 hover:brightness-110">
+            <button
+              onClick={agregarColeccion}
+              className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-violet-600 to-cyan-500 px-5 py-3 text-sm font-bold shadow-lg shadow-cyan-900/40 hover:brightness-110"
+            >
               <PlusIcon className="h-5 w-5" />
               Nueva colección
             </button>
           </div>
 
           <div className="space-y-4">
-            {coleccionesMock.map((col) => (
-              <article
-                key={col.id}
-                className="relative overflow-hidden rounded-2xl border border-white/15 bg-[#070c25]/85 p-4 shadow-xl shadow-black/25"
-              >
-                <div className={`absolute left-0 top-0 h-full w-1.5 bg-gradient-to-b ${col.color}`} />
-                <div className="flex flex-col gap-4 xl:flex-row xl:items-center">
-                  <div className="xl:w-72">
-                    <h2 className="text-3xl font-extrabold leading-tight">{col.nombre}</h2>
-                    <p className="mt-1 text-sm text-slate-300">{col.descripcion}</p>
-                    <span className={`mt-3 inline-flex rounded-full border px-3 py-1 text-xs font-bold ${col.badge}`}>
-                      {col.total} Juegos
-                    </span>
-                  </div>
+            {colecciones.length === 0 ? (
+              <p className="rounded-2xl border border-white/10 bg-white/5 p-6 text-slate-300">
+                No tenés colecciones todavía.
+              </p>
+            ) : (
+              colecciones.map((col) => (
+                <article
+                  key={col.id}
+                  className="relative overflow-hidden rounded-2xl border border-white/15 bg-[#070c25]/85 p-4 shadow-xl shadow-black/25"
+                >
+                  <div className={`absolute left-0 top-0 h-full w-1.5 bg-gradient-to-b ${col.color}`} />
+                  <div className="flex flex-col gap-4 xl:flex-row xl:items-center">
+                    <div className="xl:w-72">
+                      <h2 className="text-3xl font-extrabold leading-tight">{col.nombre}</h2>
+                      <p className="mt-1 text-sm text-slate-300">{col.descripcion}</p>
+                      <span className={`mt-3 inline-flex rounded-full border px-3 py-1 text-xs font-bold ${col.badge}`}>
+                        {col.total} Juegos
+                      </span>
+                    </div>
 
-                  <div className="flex flex-1 items-center gap-3 overflow-x-auto">
-                    {col.juegos.map((img, idx) => (
-                      <img
-                        key={idx}
-                        src={img}
-                        alt={`Juego ${idx + 1}`}
-                        className="h-24 w-24 shrink-0 rounded-xl border border-white/10 object-cover"
-                      />
-                    ))}
+                    <div className="flex flex-1 items-center gap-3 overflow-x-auto">
+                      {col.juegos.map((img, idx) => (
+                        <img
+                          key={idx}
+                          src={img}
+                          alt={`Juego ${idx + 1}`}
+                          className="h-24 w-24 shrink-0 rounded-xl border border-white/10 object-cover"
+                        />
+                      ))}
 
-                    <div className="flex h-24 w-20 shrink-0 items-center justify-center rounded-xl border border-white/15 bg-white/5 text-xl font-black text-slate-300">
-                      {col.extra}
+                      <div className="flex h-24 w-20 shrink-0 items-center justify-center rounded-xl border border-white/15 bg-white/5 text-xl font-black text-slate-300">
+                        {col.extra}
+                      </div>
+                    </div>
+
+                    <div className="flex items-center gap-2 self-end xl:self-center">
+                      <button
+                        onClick={() => editarColeccion(col.id)}
+                        className="rounded-lg border border-white/15 bg-white/5 p-2 hover:bg-white/10"
+                      >
+                        <PencilSquareIcon className="h-5 w-5" />
+                      </button>
+                      <button
+                        onClick={() => eliminarColeccion(col.id)}
+                        className="rounded-lg border border-white/15 bg-white/5 p-2 hover:bg-white/10"
+                      >
+                        <TrashIcon className="h-5 w-5" />
+                      </button>
+                      <button className="rounded-lg border border-white/15 bg-white/5 p-2 hover:bg-white/10">
+                        <ChevronRightIcon className="h-5 w-5" />
+                      </button>
                     </div>
                   </div>
-
-                  <div className="flex items-center gap-2 self-end xl:self-center">
-                    <button className="rounded-lg border border-white/15 bg-white/5 p-2 hover:bg-white/10">
-                      <PencilSquareIcon className="h-5 w-5" />
-                    </button>
-                    <button className="rounded-lg border border-white/15 bg-white/5 p-2 hover:bg-white/10">
-                      <TrashIcon className="h-5 w-5" />
-                    </button>
-                    <button className="rounded-lg border border-white/15 bg-white/5 p-2 hover:bg-white/10">
-                      <ChevronRightIcon className="h-5 w-5" />
-                    </button>
-                  </div>
-                </div>
-              </article>
-            ))}
+                </article>
+              ))
+            )}
           </div>
         </section>
       </div>
