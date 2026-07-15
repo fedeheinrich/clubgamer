@@ -10,21 +10,23 @@ function Header({
     placeholderBuscador = 'Buscar juegos, colecciones y más...'
 }) {
     return (
-        <header>
-            <div className="...">
-                <Link to="/" className="...">
-                    <img src={logoSrc} alt={logoAlt} className="..." />
+        <header className="header">
+            <div className="header__logo">
+                <Link to="/" className="header__logo-link">
+                    <img src={logoSrc} alt={logoAlt} className="header__logo-image" />
                 </Link>
             </div>
 
-            <div className="...">
-                <input placeholder={placeholderBuscador} />
+            <div className="header__search">
+                <input className="header__search-input" placeholder={placeholderBuscador} />
             </div>
 
-            <div className="...">
-                <p>Hola, {username}</p>
-                <p>{textoBienvenida}</p>
-                <img src={avatarSrc} alt="Avatar" className="..." />
+            <div className="header__user">
+                <div className="header__user-text">
+                    <p className="header__user-name">Hola, {username}</p>
+                    <p className="header__user-message">{textoBienvenida}</p>
+                </div>
+                <img src={avatarSrc} alt="Avatar" className="header__avatar" />
             </div>
 
         </header>
