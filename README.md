@@ -264,6 +264,9 @@ Backend (Express)
 - Vite
 - Axios
 - React Router
+- Tailwind CSS
+- ESLint
+- Prettier
 
 ### Infraestructura
 
