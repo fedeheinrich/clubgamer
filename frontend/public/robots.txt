@@ -1,0 +1,9 @@
+# https://www.robotstxt.org/robotstxt.html
+User-agent: *
+Allow: /
+
+# Desactivar indexación de archivos de configuración y rutas internas si las hubiera
+Disallow: /api/
+Disallow: /*.json
+Disallow: /*.xml
+Disallow: /*.webmanifest
