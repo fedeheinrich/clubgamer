@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import logoClubGamer from '../../assets/images/logohorizontal.png';
+import './Header.css';
 
 function Header({
     logoSrc = logoClubGamer,
@@ -7,18 +8,26 @@ function Header({
     username = 'Usuario',
     textoBienvenida = 'Bienvenido de vuelta a la plataforma',
     avatarSrc = 'https://i.pravatar.cc/150?img=3',
-    placeholderBuscador = 'Buscar juegos, colecciones y más...'
+    placeholderBuscador = 'Buscar juegos, colecciones y más...',
+    showLogo = true
 }) {
     return (
-        <header className="header">
-            <div className="header__logo">
-                <Link to="/" className="header__logo-link">
-                    <img src={logoSrc} alt={logoAlt} className="header__logo-image" />
-                </Link>
-            </div>
+        <header className={`header ${showLogo ? '' : 'header--no-logo'}`}>
+            {showLogo ? (
+                <div className="header__logo">
+                    <Link to="/" className="header__logo-link">
+                        <img src={logoSrc} alt={logoAlt} className="header__logo-image" />
+                    </Link>
+                </div>
+            ) : null}
 
             <div className="header__search">
-                <input className="header__search-input" placeholder={placeholderBuscador} />
+                <input
+                    className="header__search-input"
+                    type="search"
+                    placeholder={placeholderBuscador}
+                    aria-label={placeholderBuscador}
+                />
             </div>
 
             <div className="header__user">

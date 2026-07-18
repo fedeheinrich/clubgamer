@@ -6,13 +6,15 @@ function SidebarNavigation({
   items = [],
   activeId,
 }) {
+  const hasLogo = Boolean(logoSrc);
+
   return (
-    <aside className="hidden w-64 shrink-0 p-6 lg:flex lg:flex-col">
-      {logoSrc ? (
+    <aside className={`hidden w-64 shrink-0 p-6 lg:flex lg:flex-col ${hasLogo ? '' : 'pt-8'}`}>
+      {hasLogo ? (
         <img src={logoSrc} alt={logoAlt} className="mb-10 h-auto w-48 object-contain" />
       ) : null}
 
-      <nav className="mx-auto mt-10 w-full max-w-[196px] space-y-5">
+      <nav className={`mx-auto w-full max-w-[196px] space-y-5 ${hasLogo ? 'mt-10' : 'mt-4'}`}>
         {items.map((item) => {
           const Icon = item.icon;
           const isActive = item.id === activeId || item.active;
