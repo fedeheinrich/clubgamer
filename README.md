@@ -1,6 +1,4 @@
-# Club Gamer - Proyecto Segundo Parcial
-
-## Materia: Programación III - Primer Cuatrimestre, 2do año 📚
+# Club Gamer - Proyecto Trabajo Final de Programación III
 
 ## 🎮 ¿Qué es Club Gamer?
 
