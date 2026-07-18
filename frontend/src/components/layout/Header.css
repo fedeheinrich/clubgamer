@@ -11,10 +11,6 @@
 	color: #f5f7ff;
 }
 
-.header--no-logo {
-	grid-template-columns: minmax(280px, 1fr) auto auto;
-}
-
 .header__logo {
 	display: flex;
 	align-items: center;
@@ -158,13 +154,6 @@
 	.header__user {
 		grid-area: user;
 		justify-self: end;
-	}
-
-	.header--no-logo {
-		grid-template-columns: 1fr auto;
-		grid-template-areas:
-			'user user'
-			'search search';
 	}
 }
 
