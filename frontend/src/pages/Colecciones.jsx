@@ -127,7 +127,7 @@ function Colecciones() {
   return (
     <main className="min-h-screen bg-gradient-to-b from-[#04091f] via-[#070d2d] to-[#161f7d] text-white flex flex-col">
       {/* Header ocupando todo el ancho */}
-      <div className="px-4 pt-4 sm:px-6 sm:pt-6 lg:px-8 lg:pt-8 pb-2">
+      <div className="px-4 pt-1 sm:px-6 sm:pt-2 lg:px-8 lg:pt-2 pb-2">
         <Header
           username="Tomas"
           textoBienvenida="Bienvenido de vuelta a la plataforma."

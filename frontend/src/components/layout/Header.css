@@ -29,7 +29,7 @@
 
 .header__logo-image {
 	display: block;
-	width: clamp(120px, 15vw, 178px);
+	width: clamp(160px, 20vw, 220px);
 	height: auto;
 	object-fit: contain;
 	filter: drop-shadow(0 8px 14px rgba(24, 35, 82, 0.35));
