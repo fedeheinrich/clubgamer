@@ -1,20 +1,12 @@
 import { Link } from 'react-router-dom';
 
 function SidebarNavigation({
-  logoSrc,
-  logoAlt = 'Logo',
   items = [],
   activeId,
 }) {
-  const hasLogo = Boolean(logoSrc);
-
   return (
-    <aside className={`hidden w-64 shrink-0 p-6 lg:flex lg:flex-col ${hasLogo ? '' : 'pt-8'}`}>
-      {hasLogo ? (
-        <img src={logoSrc} alt={logoAlt} className="mb-10 h-auto w-48 object-contain" />
-      ) : null}
-
-      <nav className={`mx-auto w-full max-w-[196px] space-y-5 ${hasLogo ? 'mt-10' : 'mt-4'}`}>
+    <aside className="hidden w-64 shrink-0 p-6 pt-8 lg:flex lg:flex-col">
+      <nav className="mx-auto mt-4 w-full max-w-[196px] space-y-5">
         {items.map((item) => {
           const Icon = item.icon;
           const isActive = item.id === activeId || item.active;
