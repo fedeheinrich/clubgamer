@@ -120,7 +120,7 @@ function Colecciones() {
   const menu = [
     { id: 'inicio', label: 'Inicio', to: '/', icon: HomeIcon },
     { id: 'colecciones', label: 'Colecciones', to: '/colecciones', icon: SquaresPlusIcon },
-    { id: 'juegos', label: 'Juegos', to: '/catalogo', icon: GamepadIcon },
+    { id: 'juegos', label: 'Juegos', to: '/juegos', icon: GamepadIcon },
     { id: 'perfil', label: 'Mi perfil', to: '/login', icon: UserIcon }
   ];
 
