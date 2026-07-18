@@ -3,15 +3,14 @@ import {
   HomeIcon,
   SquaresPlusIcon,
   UserIcon,
-  MagnifyingGlassIcon,
   PencilSquareIcon,
   TrashIcon,
   PlusIcon,
   ChevronRightIcon
 } from '@heroicons/react/24/outline';
 
+import Header from '../components/layout/Header';
 import SidebarNavigation from '../components/layout/SidebarNavigation';
-import logoClubGamer from '../assets/images/logohorizontal.png';
 
 function GamepadIcon({ className }) {
   return (
@@ -126,36 +125,23 @@ function Colecciones() {
   ];
 
   return (
-    <main className="min-h-screen bg-gradient-to-b from-[#04091f] via-[#070d2d] to-[#161f7d] text-white">
-      <div className="flex min-h-screen">
-        <SidebarNavigation logoSrc={logoClubGamer} logoAlt="Club Gamer" items={menu} activeId="colecciones" />
+    <main className="min-h-screen bg-gradient-to-b from-[#04091f] via-[#070d2d] to-[#161f7d] text-white flex flex-col">
+      {/* Header ocupando todo el ancho */}
+      <div className="px-4 pt-4 sm:px-6 sm:pt-6 lg:px-8 lg:pt-8 pb-2">
+        <Header
+          username="Tomas"
+          textoBienvenida="Bienvenido de vuelta a la plataforma."
+          avatarSrc="https://i.pravatar.cc/80?img=12"
+          placeholderBuscador="Buscar colecciones..."
+          logoAlt="Club Gamer"
+        />
+      </div>
 
-        <section className="flex-1 p-4 sm:p-6 lg:p-8">
-          <header className="mb-8 grid grid-cols-1 gap-4 lg:grid-cols-12">
-            <div className="lg:col-span-5">
-              <label className="flex items-center gap-3 rounded-2xl border border-white/10 bg-[#070d2b]/90 px-4 py-3">
-                <MagnifyingGlassIcon className="h-5 w-5 text-slate-400" />
-                <input
-                  type="text"
-                  placeholder="Buscar colecciones..."
-                  className="w-full bg-transparent text-sm text-white placeholder:text-slate-500 outline-none"
-                />
-              </label>
-            </div>
+      <div className="flex flex-1">
+        {/* Sidebar vertical sin logo */}
+        <SidebarNavigation items={menu} activeId="colecciones" />
 
-            <div className="lg:col-span-5 rounded-2xl border border-cyan-400/20 bg-[radial-gradient(circle_at_80%_20%,rgba(34,211,238,0.2),transparent_45%),#0a1235] px-5 py-3">
-              <p className="text-2xl font-extrabold leading-none">Hola, Tomas</p>
-              <p className="mt-1 text-sm text-slate-300">Bienvenido de vuelta a la plataforma.</p>
-            </div>
-
-            <div className="lg:col-span-2 flex items-center justify-start lg:justify-end">
-              <img
-                src="https://i.pravatar.cc/80?img=12"
-                alt="Avatar"
-                className="h-14 w-14 rounded-full border-2 border-cyan-400/60 object-cover"
-              />
-            </div>
-          </header>
+        <section className="flex-1 p-4 sm:p-6 lg:p-8 pt-0 lg:pt-2">
 
           <div className="mb-6 flex flex-wrap items-end justify-between gap-4">
             <div>
