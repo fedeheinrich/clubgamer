@@ -11,6 +11,7 @@ import {
 
 import Header from '../components/layout/Header';
 import SidebarNavigation from '../components/layout/SidebarNavigation';
+import CartelEditarColeccion from '../components/ui/CartelEditarColeccion';
 
 function GamepadIcon({ className }) {
   return (
@@ -82,6 +83,14 @@ function Colecciones() {
   ];
 
   const [colecciones, setColecciones] = useState(coleccionesIniciales);
+
+// Funciones de prueba, editar despues
+  const funcionCerrar = () => {
+    console.log("cerrando cartel");
+  };
+  const funcionConfirmar = () => {
+    console.log("Guardando cambios");
+  };
 
   const agregarColeccion = () => {
     const nuevaColeccion = {
@@ -218,6 +227,12 @@ function Colecciones() {
           </div>
         </section>
       </div>
+      <CartelEditarColeccion
+        nombreActual="Pepito"
+        descripcionActual="Mis juegos favoritos!" // Datos de prueba, editar despues
+        funcionCerrar={funcionCerrar}
+        funcionConfirmar={funcionConfirmar}
+      />
     </main>
   );
 }
