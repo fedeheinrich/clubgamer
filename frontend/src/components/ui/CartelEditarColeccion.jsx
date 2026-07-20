@@ -29,7 +29,7 @@ function CartelEditarColeccion({
                 <label className="text-blanco font-outfit font-bold text-lg">Descripción (opcional)</label>
                 <textarea value={descripcion} onChange={(e)=> setDescripcion(e.target.value)} className="rounded-lg bg-white/5 text-blanco p-2 border border-white/20 min-h-[7rem]" placeholder={descripcionActual}></textarea> 
                 <span className="text-sm text-slate-400 text-right">
-                    {descripcion.length}/30
+                    {descripcion.length}/120
                 </span>
             </div>
 
