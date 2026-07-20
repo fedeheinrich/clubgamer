@@ -83,10 +83,12 @@ function Colecciones() {
   ];
 
   const [colecciones, setColecciones] = useState(coleccionesIniciales);
+  const [coleccionAEditar, setColeccionAEditar] = useState(null);
 
 // Funciones de prueba, editar despues
   const funcionCerrar = () => {
     console.log("cerrando cartel");
+    setColeccionAEditar(null);
   };
   const funcionConfirmar = () => {
     console.log("Guardando cambios");
@@ -105,19 +107,6 @@ function Colecciones() {
     };
 
     setColecciones((prevColecciones) => [nuevaColeccion, ...prevColecciones]);
-  };
-
-  const editarColeccion = (id) => {
-    setColecciones((prevColecciones) =>
-      prevColecciones.map((coleccion) =>
-        coleccion.id === id
-          ? {
-              ...coleccion,
-              nombre: `${coleccion.nombre} editada`
-            }
-          : coleccion
-      )
-    );
   };
 
   const eliminarColeccion = (id) => {
@@ -205,7 +194,7 @@ function Colecciones() {
 
                     <div className="flex items-center gap-2 self-end xl:self-center">
                       <button
-                        onClick={() => editarColeccion(col.id)}
+                        onClick={() => setColeccionAEditar(col)}
                         className="rounded-lg border border-white/15 bg-white/5 p-2 hover:bg-white/10"
                       >
                         <PencilSquareIcon className="h-5 w-5" />
@@ -226,13 +215,16 @@ function Colecciones() {
             )}
           </div>
         </section>
-      </div>
-      <CartelEditarColeccion
-        nombreActual="Pepito"
-        descripcionActual="Mis juegos favoritos!" // Datos de prueba, editar despues
-        funcionCerrar={funcionCerrar}
-        funcionConfirmar={funcionConfirmar}
-      />
+      </div>  
+      {coleccionAEditar && (
+        <CartelEditarColeccion
+          nombreActual={coleccionAEditar.nombre}
+          descripcionActual={coleccionAEditar.descripcion}
+          funcionCerrar={funcionCerrar}
+          funcionConfirmar={funcionConfirmar}
+        />
+      )}
+
     </main>
   );
 }
