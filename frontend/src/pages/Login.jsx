@@ -2,7 +2,8 @@ import { useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import { Link } from "react-router-dom";
 import logohorizontal from '../assets/images/logohorizontal.png';
-import fondo from '../assets/images/fondo 3.jpg'
+import fondo from '../assets/images/fondo 3.jpg';
+import imagen_login from '../assets/images/Inicio_de_sesion_imagen.png';
 
 function Login() {
     const [email, setEmail] = useState("");
@@ -56,7 +57,7 @@ function Login() {
                 </form>
             </div>
             <div className="w-1/2 flex justify-center items-center">
-
+                <img src={imagen_login} alt="imagen_login"/>
             </div>
         </div>
     )
