@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { Search } from 'lucide-react';
 import logoClubGamer from '../../assets/images/logohorizontal.png';
 import './Header.css';
 
@@ -19,6 +20,7 @@ function Header({
             </div>
 
             <div className="header__search">
+                <Search className="header__search-icon" size={18} />
                 <input
                     className="header__search-input"
                     type="search"

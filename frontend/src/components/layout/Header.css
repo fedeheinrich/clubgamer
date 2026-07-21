@@ -38,17 +38,13 @@
 	justify-self: center;
 }
 
-.header__search::before {
-	content: '';
+.header__search-icon {
 	position: absolute;
 	left: 1rem;
 	top: 50%;
-	width: 1rem;
-	height: 1rem;
 	transform: translateY(-50%);
-	background: no-repeat center / contain url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2398A2C7' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='11' cy='11' r='7'/%3E%3Cpath d='m20 20-3.5-3.5'/%3E%3C/svg%3E");
+	color: #98A2C7;
 	pointer-events: none;
-	opacity: 0.95;
 }
 
 .header__search-input {
@@ -92,11 +88,10 @@
 	padding: 0.55rem 1rem 0.55rem 1.05rem;
 	border: 1px solid rgba(90, 108, 184, 0.22);
 	border-radius: 1rem;
-	background:
-		radial-gradient(circle at 84% 20%, rgba(77, 110, 255, 0.33), transparent 34%),
-		radial-gradient(circle at 76% 86%, rgba(42, 60, 130, 0.55), transparent 30%),
-		linear-gradient(135deg, rgba(18, 24, 49, 0.95), rgba(24, 32, 67, 0.95));
-	box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+	background-image: url(../../assets/images/Imagenmando.png);
+	background-position: right;
+	background-size: cover;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
 }
 
 .header__user-text::after {
