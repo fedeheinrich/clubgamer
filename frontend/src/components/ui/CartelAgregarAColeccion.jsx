@@ -1,4 +1,6 @@
 import CartelBase from './CartelBase';
+import {useState} from 'react';
+import {Star} from 'lucide-react';
 
 function CartelAgregarAColeccion({
     colecciones,
@@ -6,7 +8,8 @@ function CartelAgregarAColeccion({
     funcionCerrar,
     funcionConfirmar
 }){
-    
+    const [puntuacion, setPuntuacion] = useState(0);
+    const [hoverEstrella, setHoverEstrella] = useState(0);
     
     return (
         <CartelBase
@@ -18,35 +21,107 @@ function CartelAgregarAColeccion({
             {/* Bloque 1: Info del juego (Imagen, Titulo, Año)*/}
             <div className="flex items-center gap-4">
                 <img src={juegoSeleccionado.imagen} alt="Imagen del juego" className="rounded-md w-20 h-20 object-cover"></img>
-                <div>
-                    <h2 className="font-outfit font-bold text-xl">{juegoSeleccionado.titulo}</h2>
-                    <p>{juegoSeleccionado.anioLanzamiento}</p>
+                <div className="flex flex-col gap-1">
+                    <h2 className="font-sora font-bold text-xl">{juegoSeleccionado.titulo}</h2>
+                    <p className="font-outfit font-medium text-sm text-white/60">{juegoSeleccionado.anioLanzamiento}</p>
                 </div>
             </div>
             
             {/* Bloque 2: Seleccion de Coleccion (Checkbox de colecciones, boton de crearNuevaColeccion)*/}
             <div>
-                <h2>1. Elegí una colección</h2>
-                <select>
+                <h2 className="font-sora font-bold text-lg">1. Elegí una colección</h2>
+                <select className="font-outfit text-sm text-white/60">
                     {/*Acá deberian cargarse todas las colecciones del usuario */}
                 </select>
-                <button className="inline-flex items-center gap-2 rounded-xl bg-gris-cartel px-5 py-3 text-sm font-bold text-blanco border border-white/20">Crear nueva colección</button>
+                <button className="inline-flex items-center gap-2 rounded-xl bg-gris-cartel px-5 py-3 text-sm font-sora font-bold text-blanco border border-white/20">Crear nueva colección</button>
 
             </div>
             
             {/* Bloque 3: Puntuacion personal (0 a 5 estrellas)*/}
             <div>
-                <h2>2. ¿Cómo puntuarias este juego? (Opcional)</h2>
-                {/*Boton de 0 a 5 estrellas*/}
-                <button></button>
-                <p>Tu calificacion personal</p>
+                <h2 className="font-sora font-bold text-lg">2. ¿Cómo puntuarias este juego? (Opcional)</h2>
+            {/*Bloque de boton de 5 estrellas */}
+                <div className="flex items-center gap-1">
+                    {/* Estrella 1 */}
+                    <button 
+                        type="button"
+                        onClick={() => setPuntuacion(1)}
+                        onMouseEnter={() => setHoverEstrella(1)}
+                        onMouseLeave={() => setHoverEstrella(puntuacion)}
+                        className="transition-colors focus:outline-none"
+                    >
+                        <Star 
+                            size={24} 
+                            className={1 <= (hoverEstrella || puntuacion) ? "text-yellow-400 fill-yellow-400" : "text-white/20"} 
+                        />
+                    </button>
+
+                    {/* Estrella 2 */}
+                    <button 
+                        type="button"
+                        onClick={() => setPuntuacion(2)}
+                        onMouseEnter={() => setHoverEstrella(2)}
+                        onMouseLeave={() => setHoverEstrella(puntuacion)}
+                        className="transition-colors focus:outline-none"
+                    >
+                        <Star 
+                            size={24} 
+                            className={2 <= (hoverEstrella || puntuacion) ? "text-yellow-400 fill-yellow-400" : "text-white/20"} 
+                        />
+                    </button>
+
+                    {/* Estrella 3 */}
+                    <button 
+                        type="button"
+                        onClick={() => setPuntuacion(3)}
+                        onMouseEnter={() => setHoverEstrella(3)}
+                        onMouseLeave={() => setHoverEstrella(puntuacion)}
+                        className="transition-colors focus:outline-none"
+                    >
+                        <Star 
+                            size={24} 
+                            className={3 <= (hoverEstrella || puntuacion) ? "text-yellow-400 fill-yellow-400" : "text-white/20"} 
+                        />
+                    </button>
+
+                    {/* Estrella 4 */}
+                    <button 
+                        type="button"
+                        onClick={() => setPuntuacion(4)}
+                        onMouseEnter={() => setHoverEstrella(4)}
+                        onMouseLeave={() => setHoverEstrella(puntuacion)}
+                        className="transition-colors focus:outline-none"
+                    >
+                        <Star 
+                            size={24} 
+                            className={4 <= (hoverEstrella || puntuacion) ? "text-yellow-400 fill-yellow-400" : "text-white/20"} 
+                        />
+                    </button>
+
+                    {/* Estrella 5 */}
+                    <button 
+                        type="button"
+                        onClick={() => setPuntuacion(5)}
+                        onMouseEnter={() => setHoverEstrella(5)}
+                        onMouseLeave={() => setHoverEstrella(puntuacion)}
+                        className="transition-colors focus:outline-none"
+                    >
+                        <Star 
+                            size={24} 
+                            className={5 <= (hoverEstrella || puntuacion) ? "text-yellow-400 fill-yellow-400" : "text-white/20"} 
+                        />
+                    </button>
+
+                    <p className="text-white/60 ml-2">{puntuacion}/5</p>
+                </div>
             </div>
             
+
             {/* Bloque 4: Horas jugadas (input de numero entero)*/}
-            <div>
-                <h2>3. Horas jugadas (Opcional)</h2>
+            <div className="flex flex-col gap-2">
+                <h2 className="font-sora font-bold text-lg">3. Horas jugadas (Opcional)</h2>
                 <input type="number" min="0"></input>
-                <p>Tiempo total que llevas jugando</p>
+                <p className="text-white/60">Tiempo total que llevas jugando</p>
             </div>
 
         </CartelBase>
