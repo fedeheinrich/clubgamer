@@ -87,11 +87,17 @@ function Colecciones() {
 
 // Funciones de prueba, editar despues
   const funcionCerrar = () => {
-    console.log("cerrando cartel");
     setColeccionAEditar(null);
   };
-  const funcionConfirmar = () => {
-    console.log("Guardando cambios");
+  const funcionConfirmar = (nuevoNombre, nuevaDescripcion) => {
+    setColecciones((prevColecciones) =>
+      prevColecciones.map((coleccion) =>
+        coleccion.id === coleccionAEditar.id
+          ? { ...coleccion, nombre: nuevoNombre, descripcion: nuevaDescripcion }
+          : coleccion
+      )
+    );
+    setColeccionAEditar(null);
   };
 
   const agregarColeccion = () => {

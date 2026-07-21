@@ -14,7 +14,7 @@ function CartelEditarColeccion({
             titulo ={"Editar colección"}
             funcionCerrar={funcionCerrar}
             textoBotonConfirmar="Guardar Cambios"
-            funcionConfirmar={funcionConfirmar}
+            funcionConfirmar={()=> funcionConfirmar(nombre, descripcion)}
         >
             <div className="flex flex-col gap-2">
                 <label className="text-blanco font-outfit font-bold text-lg">Nombre de la colección</label>
