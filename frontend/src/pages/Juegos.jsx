@@ -1,25 +1,8 @@
 import { useState } from 'react';
-import { HomeIcon, SquaresPlusIcon, UserIcon, ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/outline';
+import { Home, CopyPlus, Gamepad2, User, ChevronLeft, ChevronRight } from 'lucide-react';
 import Header from '../components/layout/Header';
 import SidebarNavigation from '../components/layout/SidebarNavigation';
 import Gamecard from '../components/ui/Gamecard';
-
-function GamepadIcon({ className }) {
-  return (
-    <svg viewBox="0 0 24 24" fill="none" className={className} aria-hidden="true">
-      <path
-        d="M7.4 9h9.2a4.6 4.6 0 0 1 4.45 5.78l-.48 1.73a2.45 2.45 0 0 1-4.2 1.02l-1.06-1.2a2.2 2.2 0 0 0-1.65-.74h-3.32c-.63 0-1.23.28-1.65.74l-1.06 1.2a2.45 2.45 0 0 1-4.2-1.02l-.48-1.73A4.6 4.6 0 0 1 7.4 9Z"
-        stroke="currentColor"
-        strokeWidth="1.8"
-        strokeLinejoin="round"
-      />
-      <path d="M8.2 12.1v2.1" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
-      <path d="M7.15 13.15h2.1" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
-      <circle cx="15.8" cy="12.6" r="0.85" fill="currentColor" />
-      <circle cx="17.9" cy="14.2" r="0.85" fill="currentColor" />
-    </svg>
-  );
-}
 
 function Juegos() {
   const [paginaActual, setPaginaActual] = useState(1);
@@ -89,10 +72,10 @@ function Juegos() {
   ];
 
   const menu = [
-    { id: 'inicio', label: 'Inicio', to: '/', icon: HomeIcon },
-    { id: 'colecciones', label: 'Colecciones', to: '/colecciones', icon: SquaresPlusIcon },
-    { id: 'juegos', label: 'Juegos', to: '/juegos', icon: GamepadIcon },
-    { id: 'perfil', label: 'Mi perfil', to: '/perfil', icon: UserIcon }
+    { id: 'inicio', label: 'Inicio', to: '/', icon: Home },
+    { id: 'colecciones', label: 'Colecciones', to: '/colecciones', icon: CopyPlus },
+    { id: 'juegos', label: 'Juegos', to: '/juegos', icon: Gamepad2 },
+    { id: 'perfil', label: 'Mi perfil', to: '/perfil', icon: User }
   ];
 
   // Genera los números de página a mostrar
@@ -153,7 +136,7 @@ function Juegos() {
               disabled={paginaActual === 1}
               className="flex items-center gap-1 rounded-lg px-2.5 py-1.5 text-xs font-semibold text-slate-300 transition hover:text-white disabled:opacity-40 disabled:cursor-not-allowed"
             >
-              <ChevronLeftIcon className="h-3.5 w-3.5" />
+              <ChevronLeft className="h-3.5 w-3.5" />
               Anterior
             </button>
 
@@ -183,7 +166,7 @@ function Juegos() {
               className="flex items-center gap-1 rounded-lg px-2.5 py-1.5 text-xs font-semibold text-slate-300 transition hover:text-white disabled:opacity-40 disabled:cursor-not-allowed"
             >
               Siguiente
-              <ChevronRightIcon className="h-3.5 w-3.5" />
+              <ChevronRight className="h-3.5 w-3.5" />
             </button>
           </nav>
         </section>

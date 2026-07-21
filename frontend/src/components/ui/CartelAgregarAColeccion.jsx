@@ -1,8 +1,7 @@
-import { useState } from 'react';
 import CartelBase from './CartelBase';
 
 function CartelAgregarAColeccion({
-    colecciones,
+    _colecciones,
     juegoSeleccionado,
     funcionCerrar,
     funcionConfirmar
