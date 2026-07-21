@@ -11,6 +11,7 @@ import {
 
 import Header from '../components/layout/Header';
 import SidebarNavigation from '../components/layout/SidebarNavigation';
+import Footer from '../components/layout/Footer';
 
 function GamepadIcon({ className }) {
   return (
@@ -218,6 +219,10 @@ function Colecciones() {
           </div>
         </section>
       </div>
+      {/* Agregué el footer */}
+      <Footer>
+
+      </Footer>
     </main>
   );
 }

@@ -1,0 +1,29 @@
+.Footer{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 2px;
+    border-style: transparent;
+    box-shadow: 0px 0px 7px 7px rgba(81,27,253,0.5);
+}
+
+.footer__logo{
+    display: flex;
+
+}
+
+.contacto{
+    display: flex;
+    flex-direction: column;
+    text-align: justify; 
+    border: 2px solid;
+    
+}
+
+.enlacesRápidos{
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    border: 2px solid;
+    margin-right: 20%;
+}
