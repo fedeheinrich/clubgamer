@@ -9,6 +9,7 @@ import {
   ChevronRightIcon
 } from '@heroicons/react/24/outline';
 
+
 import Header from '../components/layout/Header';
 import SidebarNavigation from '../components/layout/SidebarNavigation';
 import CartelEditarColeccion from '../components/ui/CartelEditarColeccion';
