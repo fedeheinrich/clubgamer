@@ -133,13 +133,13 @@ function Colecciones() {
 
           <div className="mb-6 flex flex-wrap items-end justify-between gap-4">
             <div>
-              <h1 className="text-3xl font-black sm:text-4xl">Mis colecciones</h1>
-              <p className="mt-1 text-slate-300">Organiza tus juegos como más te guste.</p>
+              <h1 className="text-3xl font-sora font-bold sm:text-4xl">Mis colecciones</h1>
+              <p className="mt-1 text-slate-300 font-medium">Organiza tus juegos como más te guste.</p>
             </div>
 
             <button
               onClick={agregarColeccion}
-              className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-violet-600 to-cyan-500 px-5 py-3 text-sm font-bold shadow-lg shadow-cyan-900/40 hover:brightness-110"
+              className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-violet-600 to-cyan-500 px-5 py-3 text-sm font-sora font-bold shadow-lg shadow-cyan-900/40 hover:brightness-110"
             >
               <Plus className="h-5 w-5" />
               Nueva colección
@@ -160,7 +160,7 @@ function Colecciones() {
                   <div className={`absolute left-0 top-0 h-full w-1.5 bg-gradient-to-b ${col.color}`} />
                   <div className="flex flex-col gap-4 xl:flex-row xl:items-center">
                     <div className="xl:w-72">
-                      <h2 className="text-3xl font-extrabold leading-tight">{col.nombre}</h2>
+                      <h2 className="text-3xl font-sora font-bold leading-tight">{col.nombre}</h2>
                       <p className="mt-1 text-sm text-slate-300">{col.descripcion}</p>
                       <span className={`mt-3 inline-flex rounded-full border px-3 py-1 text-xs font-bold ${col.badge}`}>
                         {col.total} Juegos

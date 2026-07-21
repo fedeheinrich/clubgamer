@@ -113,7 +113,7 @@ function Juegos() {
         <section className="flex-1 flex flex-col px-4 sm:px-6 lg:px-8 pt-2 pb-1">
           {/* Título */}
           <div className="shrink-0 mb-3">
-            <h1 className="text-3xl font-black">Explorar juegos</h1>
+            <h1 className="text-3xl font-sora font-bold">Explorar juegos</h1>
             <p className="text-sm text-slate-300">Descubrí y agrega juegos a tus colecciones.</p>
           </div>
 

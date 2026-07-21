@@ -109,9 +109,10 @@
 
 .header__user-name {
 	margin: 0;
+	font-family: 'Sora', sans-serif;
 	font-size: 0.98rem;
 	line-height: 1.05;
-	font-weight: 800;
+	font-weight: 700;
 	color: #ffffff;
 }
 

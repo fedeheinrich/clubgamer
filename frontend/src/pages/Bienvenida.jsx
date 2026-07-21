@@ -28,7 +28,7 @@ function Bienvenida() {
             <img src={logoClubGamer} alt="ClubGamer Logo" className="w-full h-auto object-contain" />
           </div>
 
-          <h1 className="text-4xl sm:text-5xl font-black tracking-wide leading-none">
+          <h1 className="text-4xl sm:text-5xl font-sora font-extrabold tracking-wide leading-none">
             TU MUNDO.<br />
             <span className="bg-gradient-to-r from-[#00f2fe] to-[#4facfe] bg-clip-text text-transparent">
               TUS JUEGOS.
@@ -44,10 +44,10 @@ function Bienvenida() {
           </p>
 
           <div className="flex flex-wrap gap-4 pt-2">
-            <Link to="/registro" className="flex items-center gap-2 bg-gradient-to-r from-[#00c6ff] to-[#0072ff] hover:opacity-90 text-white font-bold px-6 py-3 rounded-lg shadow-[0_4px_15px_rgba(0,198,255,0.3)] transition-transform active:scale-95 text-sm sm:text-base">
+            <Link to="/registro" className="flex items-center gap-2 bg-gradient-to-r from-[#00c6ff] to-[#0072ff] hover:opacity-90 text-white font-sora font-bold px-6 py-3 rounded-lg shadow-[0_4px_15px_rgba(0,198,255,0.3)] transition-transform active:scale-95 text-sm sm:text-base">
               <span>🎮</span> REGISTRARME
             </Link>
-            <Link to="/login" className="flex items-center gap-2 bg-transparent border-2 border-[#1e293b] hover:border-[#00f2fe] text-white font-bold px-6 py-3 rounded-lg transition-colors active:scale-95 text-sm sm:text-base">
+            <Link to="/login" className="flex items-center gap-2 bg-transparent border-2 border-[#1e293b] hover:border-[#00f2fe] text-white font-sora font-bold px-6 py-3 rounded-lg transition-colors active:scale-95 text-sm sm:text-base">
               <span>👤</span> INGRESAR
             </Link>
           </div>
@@ -86,7 +86,7 @@ function Bienvenida() {
         <div className="flex items-center gap-4">
           <img src={iconColecciona} alt="Colecciona" className="w-8 h-8 object-contain" />
           <div>
-            <h3 className="text-sm font-black tracking-wider leading-tight">COLECCIONA</h3>
+            <h3 className="text-sm font-sora font-bold tracking-wider leading-tight">COLECCIONA</h3>
             <p className="text-[10px] text-slate-500 font-bold tracking-wide">TUS JUEGOS</p>
           </div>
         </div>
@@ -96,7 +96,7 @@ function Bienvenida() {
         <div className="flex items-center gap-4">
           <img src={iconPuntua} alt="Puntúa" className="w-8 h-8 object-contain" />
           <div>
-            <h3 className="text-sm font-black tracking-wider leading-tight">PUNTUA</h3>
+            <h3 className="text-sm font-sora font-bold tracking-wider leading-tight">PUNTUA</h3>
             <p className="text-[10px] text-slate-500 font-bold tracking-wide">Y OPINA</p>
           </div>
         </div>
@@ -106,7 +106,7 @@ function Bienvenida() {
         <div className="flex items-center gap-4">
           <img src={iconDescubri} alt="Descubrí" className="w-8 h-8 object-contain" />
           <div>
-            <h3 className="text-sm font-black tracking-wider leading-tight">DESCUBRI</h3>
+            <h3 className="text-sm font-sora font-bold tracking-wider leading-tight">DESCUBRI</h3>
             <p className="text-[10px] text-slate-500 font-bold tracking-wide">JUEGOS</p>
           </div>
         </div>
