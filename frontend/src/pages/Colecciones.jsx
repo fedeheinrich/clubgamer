@@ -7,7 +7,9 @@ import {
   Pencil,
   Trash2,
   Plus,
-  ChevronRight
+  ChevronRight,
+  ChevronLeft,
+  X,
 } from 'lucide-react';
 
 import Header from '../components/layout/Header';
