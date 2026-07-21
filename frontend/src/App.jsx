@@ -5,7 +5,7 @@ import { Toaster } from 'react-hot-toast';
 import Welcome from './pages/Bienvenida';
 import Login from './pages/Login';
 import Registro from './pages/Registro';
-import Catalogo from './pages/Catalogo';
+import Juegos from './pages/Juegos';
 import Colecciones from './pages/Colecciones';
 import NotFound from './pages/NotFound';
 import './App.css';
@@ -22,7 +22,7 @@ function App() {
             <Route path="/inicio" element={<Navigate to="/" replace />} />
             <Route path="/login" element={<Login />} />
             <Route path="/registro" element={<Registro />} />
-            <Route path="/catalogo" element={<Catalogo />} />
+            <Route path="/juegos" element={<Juegos />} />
             <Route path="*" element={<NotFound />} />
             <Route path="/colecciones" element={<Colecciones />} />
           </Routes>

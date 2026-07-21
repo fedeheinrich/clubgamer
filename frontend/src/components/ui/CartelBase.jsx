@@ -1,0 +1,44 @@
+/*
+  Propiedaes
+  Titulo de cartel
+  Boton X
+  Casillero de respuesta con su titulo (puede ser de seleccion de numeros o input text)
+  Background gris, bordes redondeados
+  Boton cancelar
+  Boton guardar o agregar a la coleccion
+
+*/
+
+function CartelBase({
+    titulo,
+    funcionCerrar,
+    children,
+    textoBotonConfirmar,
+    funcionConfirmar,
+}){
+    return (
+        <div className="fixed inset-0 bg-black/30 flex items-center justify-center z-50 ">
+            <div className="flex flex-col justify-between bg-gris-cartel rounded-xl p-6 gap-8 max-w-lg w-full border border-white/20">
+            
+                <div className="flex justify-between gap-4 border-b border-white/10 pb-4">
+                    <h2 className="text-blanco font-sora font-bold text-xl">{titulo}</h2>
+                    <button className="text-blanco font-medium text-xl hover:text-slate-300 transition-colors" onClick={funcionCerrar}> ✕ </button>
+                </div>
+
+                
+                {children}
+                
+                <div className="flex justify-end gap-4">
+                    <button className="inline-flex items-center gap-2 rounded-xl bg-gris-cartel px-5 py-3 text-sm font-bold text-blanco border border-white/20 hover:bg-white/5" onClick={funcionCerrar}>Cancelar</button>
+                    <button className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-violet-600 to-cyan-500 px-5 py-3 text-sm font-sora font-bold shadow-lg shadow-cyan-900/40 hover:brightness-110" onClick={funcionConfirmar}>{textoBotonConfirmar}</button>
+                </div>
+            </div>
+        </div>
+        
+
+
+    );
+
+};
+
+export default CartelBase; 

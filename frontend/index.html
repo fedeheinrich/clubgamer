@@ -2,35 +2,45 @@
 <html lang="es">
 <head>
   <meta charset="utf-8" />
-  <link rel="icon" href="/favicon.ico" />
+  <link rel="icon" type="image/png" href="/favicon-96x96.png?v=1" sizes="96x96" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg?v=1" />
+  <link rel="shortcut icon" href="/favicon.ico?v=1" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=1" />
+  <meta name="apple-mobile-web-app-title" content="ClubGamer" />
+  <link rel="manifest" href="/site.webmanifest?v=1" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="theme-color" content="#000000" />
-  <meta name="description" content="Aplicación web full-stack con React, Express y PostgreSQL" />
-  <meta name="author" content="Tu Nombre" />
+  <meta name="description" content="ClubGamer - Tu Mundo, tus Juegos" />
+  <meta name="author" content="Federico Heinrich, Matias Oviedo, Homero Colombo, Martin Alcaraz, Nahuel Cappa, Nicolas Espulef" />
   
   <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website" />
-  <meta property="og:title" content="Mi Aplicación Web" />
-  <meta property="og:description" content="Sistema web moderno construido con tecnologías actuales" />
-  <meta property="og:image" content="/og-image.png" />
+  <meta property="og:title" content="ClubGamer" />
+  <meta property="og:description" content="Tu Mundo, tus Juegos" />
+  <meta property="og:image" content="/web-app-manifest-512x512.png" />
   
   <!-- Twitter -->
   <meta property="twitter:card" content="summary_large_image" />
-  <meta property="twitter:title" content="Mi Aplicación Web" />
-  <meta property="twitter:description" content="Sistema web moderno construido con tecnologías actuales" />
-  <meta property="twitter:image" content="%PUBLIC_URL%/twitter-image.png" />
+  <meta property="twitter:title" content="ClubGamer" />
+  <meta property="twitter:description" content="Tu Mundo, tus Juegos" />
+  <meta property="twitter:image" content="/web-app-manifest-512x512.png" />
+  
+  <!-- SEO Adicional -->
+  <meta name="robots" content="index, follow" />
+  <meta name="keywords" content="clubgamer, videojuegos, coleccion de juegos, trackear juegos, organizar juegos, gaming, utn" />
+  <link rel="canonical" href="" /> <!-- Completar con el dominio cuando este online -->
   
   <!-- Preconnect to external domains for performance -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   
   <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=Sora:wght@700&display=swap" rel="stylesheet">
   
   <!-- Font Awesome for icons (opcional) -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-  <title>Mi Aplicación Web</title>
+  <title>ClubGamer</title>
   
   <!-- Inline CSS para loading spinner y optimizaciones iniciales -->
   <style>
@@ -43,9 +53,7 @@
 
     /* Fuente base */
     body {
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-        'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-        sans-serif;
+      font-family: 'Outfit', sans-serif;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
       background-color: #f8fafc;

@@ -1,34 +1,18 @@
 import { useState } from 'react';
 import {
-  HomeIcon,
-  SquaresPlusIcon,
-  UserIcon,
-  PencilSquareIcon,
-  TrashIcon,
-  PlusIcon,
-  ChevronRightIcon
-} from '@heroicons/react/24/outline';
+  Home,
+  Gamepad2,
+  User,
+  CopyPlus,
+  Pencil,
+  Trash2,
+  Plus,
+  ChevronRight
+} from 'lucide-react';
 
 import Header from '../components/layout/Header';
 import SidebarNavigation from '../components/layout/SidebarNavigation';
-import Footer from '../components/layout/Footer';
-
-function GamepadIcon({ className }) {
-  return (
-    <svg viewBox="0 0 24 24" fill="none" className={className} aria-hidden="true">
-      <path
-        d="M7.4 9h9.2a4.6 4.6 0 0 1 4.45 5.78l-.48 1.73a2.45 2.45 0 0 1-4.2 1.02l-1.06-1.2a2.2 2.2 0 0 0-1.65-.74h-3.32c-.63 0-1.23.28-1.65.74l-1.06 1.2a2.45 2.45 0 0 1-4.2-1.02l-.48-1.73A4.6 4.6 0 0 1 7.4 9Z"
-        stroke="currentColor"
-        strokeWidth="1.8"
-        strokeLinejoin="round"
-      />
-      <path d="M8.2 12.1v2.1" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
-      <path d="M7.15 13.15h2.1" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
-      <circle cx="15.8" cy="12.6" r="0.85" fill="currentColor" />
-      <circle cx="17.9" cy="14.2" r="0.85" fill="currentColor" />
-    </svg>
-  );
-}
+import CartelEditarColeccion from '../components/ui/CartelEditarColeccion';
 
 function Colecciones() {
   const coleccionesIniciales = [
@@ -83,6 +67,22 @@ function Colecciones() {
   ];
 
   const [colecciones, setColecciones] = useState(coleccionesIniciales);
+  const [coleccionAEditar, setColeccionAEditar] = useState(null);
+
+// Funciones de prueba, editar despues
+  const funcionCerrar = () => {
+    setColeccionAEditar(null);
+  };
+  const funcionConfirmar = (nuevoNombre, nuevaDescripcion) => {
+    setColecciones((prevColecciones) =>
+      prevColecciones.map((coleccion) =>
+        coleccion.id === coleccionAEditar.id
+          ? { ...coleccion, nombre: nuevoNombre, descripcion: nuevaDescripcion }
+          : coleccion
+      )
+    );
+    setColeccionAEditar(null);
+  };
 
   const agregarColeccion = () => {
     const nuevaColeccion = {
@@ -99,19 +99,6 @@ function Colecciones() {
     setColecciones((prevColecciones) => [nuevaColeccion, ...prevColecciones]);
   };
 
-  const editarColeccion = (id) => {
-    setColecciones((prevColecciones) =>
-      prevColecciones.map((coleccion) =>
-        coleccion.id === id
-          ? {
-              ...coleccion,
-              nombre: `${coleccion.nombre} editada`
-            }
-          : coleccion
-      )
-    );
-  };
-
   const eliminarColeccion = (id) => {
     setColecciones((prevColecciones) =>
       prevColecciones.filter((coleccion) => coleccion.id !== id)
@@ -119,10 +106,10 @@ function Colecciones() {
   };
 
   const menu = [
-    { id: 'inicio', label: 'Inicio', to: '/', icon: HomeIcon },
-    { id: 'colecciones', label: 'Colecciones', to: '/colecciones', icon: SquaresPlusIcon },
-    { id: 'juegos', label: 'Juegos', to: '/catalogo', icon: GamepadIcon },
-    { id: 'perfil', label: 'Mi perfil', to: '/login', icon: UserIcon }
+    { id: 'inicio', label: 'Inicio', to: '/', icon: Home },
+    { id: 'colecciones', label: 'Colecciones', to: '/colecciones', icon: CopyPlus },
+    { id: 'juegos', label: 'Juegos', to: '/juegos', icon: Gamepad2 },
+    { id: 'perfil', label: 'Mi perfil', to: '/login', icon: User }
   ];
 
   return (
@@ -146,15 +133,15 @@ function Colecciones() {
 
           <div className="mb-6 flex flex-wrap items-end justify-between gap-4">
             <div>
-              <h1 className="text-3xl font-black sm:text-4xl">Mis colecciones</h1>
-              <p className="mt-1 text-slate-300">Organiza tus juegos como más te guste.</p>
+              <h1 className="text-3xl font-sora font-bold sm:text-4xl">Mis colecciones</h1>
+              <p className="mt-1 text-slate-300 font-medium">Organiza tus juegos como más te guste.</p>
             </div>
 
             <button
               onClick={agregarColeccion}
-              className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-violet-600 to-cyan-500 px-5 py-3 text-sm font-bold shadow-lg shadow-cyan-900/40 hover:brightness-110"
+              className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-violet-600 to-cyan-500 px-5 py-3 text-sm font-sora font-bold shadow-lg shadow-cyan-900/40 hover:brightness-110"
             >
-              <PlusIcon className="h-5 w-5" />
+              <Plus className="h-5 w-5" />
               Nueva colección
             </button>
           </div>
@@ -173,7 +160,7 @@ function Colecciones() {
                   <div className={`absolute left-0 top-0 h-full w-1.5 bg-gradient-to-b ${col.color}`} />
                   <div className="flex flex-col gap-4 xl:flex-row xl:items-center">
                     <div className="xl:w-72">
-                      <h2 className="text-3xl font-extrabold leading-tight">{col.nombre}</h2>
+                      <h2 className="text-3xl font-sora font-bold leading-tight">{col.nombre}</h2>
                       <p className="mt-1 text-sm text-slate-300">{col.descripcion}</p>
                       <span className={`mt-3 inline-flex rounded-full border px-3 py-1 text-xs font-bold ${col.badge}`}>
                         {col.total} Juegos
@@ -197,19 +184,19 @@ function Colecciones() {
 
                     <div className="flex items-center gap-2 self-end xl:self-center">
                       <button
-                        onClick={() => editarColeccion(col.id)}
+                        onClick={() => setColeccionAEditar(col)}
                         className="rounded-lg border border-white/15 bg-white/5 p-2 hover:bg-white/10"
                       >
-                        <PencilSquareIcon className="h-5 w-5" />
+                        <Pencil className="h-5 w-5" />
                       </button>
                       <button
                         onClick={() => eliminarColeccion(col.id)}
                         className="rounded-lg border border-white/15 bg-white/5 p-2 hover:bg-white/10"
                       >
-                        <TrashIcon className="h-5 w-5" />
+                        <Trash2 className="h-5 w-5" />
                       </button>
                       <button className="rounded-lg border border-white/15 bg-white/5 p-2 hover:bg-white/10">
-                        <ChevronRightIcon className="h-5 w-5" />
+                        <ChevronRight className="h-5 w-5" />
                       </button>
                     </div>
                   </div>
@@ -218,11 +205,16 @@ function Colecciones() {
             )}
           </div>
         </section>
-      </div>
-      {/* Agregué el footer */}
-      <Footer>
+      </div>  
+      {coleccionAEditar && (
+        <CartelEditarColeccion
+          nombreActual={coleccionAEditar.nombre}
+          descripcionActual={coleccionAEditar.descripcion}
+          funcionCerrar={funcionCerrar}
+          funcionConfirmar={funcionConfirmar}
+        />
+      )}
 
-      </Footer>
     </main>
   );
 }

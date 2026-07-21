@@ -1,6 +1,4 @@
-# Club Gamer - Proyecto Segundo Parcial
-
-## Materia: Programación III - Primer Cuatrimestre, 2do año 📚
+# Club Gamer - Proyecto Trabajo Final de Programación III
 
 ## 🎮 ¿Qué es Club Gamer?
 
@@ -148,10 +146,10 @@ clubgamer/
 │   │   ├── auth.js
 │   │   ├── colecciones.js
 │   │   ├── generos.js
+│   │   ├── index.js
 │   │   ├── plataformas.js
 │   │   ├── user.js
-│   │   ├── videojuegos.js
-│   │   └── index.js
+│   │   └── videojuegos.js
 │   │
 │   ├── seeders/                         # Datos iniciales para pruebas y desarrollo.
 │   │   ├── 01-Users.js
@@ -160,7 +158,7 @@ clubgamer/
 │   │   ├── 04-Plataformas.js
 │   │   └── 05-JuegosUsers.js
 │   │
-│   ├── tests/                           # Pruebas automatizadas del backend.
+│   ├── tests/                           # Pruebas automatizadas
 │   │
 │   └── utils/
 │       └── rawgHelper.js                # Integración con la API RAWG.
@@ -168,8 +166,11 @@ clubgamer/
 ├── frontend/
 │   ├── Dockerfile                       # Imagen Docker para producción.
 │   ├── Dockerfile.dev                   # Imagen Docker para desarrollo.
+│   ├── eslint.config.cjs                # Configuración de ESLint.
 │   ├── index.html                       # Plantilla HTML principal de Vite.
 │   ├── package.json                     # Dependencias y scripts del frontend.
+│   ├── postcss.config.js                # Configuración de PostCSS.
+│   ├── tailwind.config.js               # Configuración de Tailwind CSS.
 │   ├── vite.config.js                   # Configuración de Vite.
 │   │
 │   └── src/
@@ -181,18 +182,42 @@ clubgamer/
 │       ├── assets/
 │       │   ├── icons/                   # Íconos del proyecto.
 │       │   └── images/                  # Imágenes y recursos gráficos.
-│       │       └── clubgamer-logo.png
+│       │       ├── coleccion1.png
+│       │       ├── estrella1.png
+│       │       ├── flecha-izquierda.png
+│       │       ├── fondo 3.jpg
+│       │       ├── icono.png
+│       │       ├── logo.png
+│       │       ├── logohorizontal.png
+│       │       ├── lupa.png
+│       │       └── diagrama_programacion3f_V3.drawio.png
 │       │
 │       ├── components/
-│       │   ├── common/                  # Componentes reutilizables.
-│       │   ├── layout/                  # Componentes de estructura visual.
-│       │   └── ui/                      # Componentes de interfaz.
+│       │   ├── common/                  # Componentes reutilizables generales.
+│       │   │   └── PlaceholderPage.jsx
+│       │   ├── layout/                  # Componentes de estructura visual (Header, Sidebar).
+│       │   │   ├── Header.css
+│       │   │   ├── Header.jsx
+│       │   │   └── SidebarNavigation.jsx
+│       │   └── ui/                      # Componentes de interfaz de usuario.
+│       │       └── Gamecard.jsx
 │       │
-│       ├── hooks/                       # Hooks personalizados de React.
+│       ├── hooks/                       # Hooks personalizados
+│       │
 │       ├── pages/                       # Páginas principales de la aplicación.
+│       │   ├── Bienvenida.jsx
+│       │   ├── Colecciones.jsx
+│       │   ├── Juegos.jsx
+│       │   ├── Login.jsx
+│       │   ├── NotFound.jsx
+│       │   └── Registro.jsx
+│       │
 │       ├── services/                    # Servicios de comunicación con la API.
-│       ├── styles/                      # Estilos globales y específicos.
-│       └── utils/                       # Funciones auxiliares del frontend.
+│       │   └── gameService.js
+│       │
+│       ├── styles/                      # Estilos globales y específicos (directorio con .gitkeep).
+│       │
+│       └── utils/                       # Funciones auxiliares (directorio con .gitkeep).
 │
 ├── database/
 │   └── init.sql                         # Script de inicialización de PostgreSQL.
