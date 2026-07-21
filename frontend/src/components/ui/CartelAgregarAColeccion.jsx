@@ -1,7 +1,7 @@
 import CartelBase from './CartelBase';
 
 function CartelAgregarAColeccion({
-    _colecciones,
+    colecciones,
     juegoSeleccionado,
     funcionCerrar,
     funcionConfirmar
