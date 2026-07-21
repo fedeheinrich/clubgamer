@@ -10,7 +10,9 @@ function CartelAgregarAColeccion({
 }){
     const [puntuacion, setPuntuacion] = useState(0);
     const [hoverEstrella, setHoverEstrella] = useState(0);
-    
+    const [coleccionSeleccionada, setColeccionSeleccionada] = useState(null);
+    const [horasJugadas, setHorasJugadas] = useState(0);
+
     return (
         <CartelBase
             titulo="Agregar a colección"
@@ -30,8 +32,14 @@ function CartelAgregarAColeccion({
             {/* Bloque 2: Seleccion de Coleccion (Checkbox de colecciones, boton de crearNuevaColeccion)*/}
             <div>
                 <h2 className="font-sora font-bold text-lg">1. Elegí una colección</h2>
-                <select className="font-outfit text-sm text-white/60">
+                <select defaultValue={coleccionSeleccionada} onChange={(e) => setColeccionSeleccionada(e.target.value)} className="font-outfit text-sm text-white/60">
                     {/*Acá deberian cargarse todas las colecciones del usuario */}
+                    <option value="">Selecciona una colección</option>
+                    {colecciones.map((coleccion) => (
+                        <option key={coleccion.id} value={coleccion.id}>
+                            {coleccion.nombre}
+                        </option>
+                    ))}
                 </select>
                 <button className="inline-flex items-center gap-2 rounded-xl bg-gris-cartel px-5 py-3 text-sm font-sora font-bold text-blanco border border-white/20">Crear nueva colección</button>
 
@@ -120,7 +128,13 @@ function CartelAgregarAColeccion({
             {/* Bloque 4: Horas jugadas (input de numero entero)*/}
             <div className="flex flex-col gap-2">
                 <h2 className="font-sora font-bold text-lg">3. Horas jugadas (Opcional)</h2>
-                <input type="number" min="0"></input>
+                <input 
+                    type="number" 
+                    min="0"
+                    value={horasJugadas}
+                    onChange={(e) => setHorasJugadas(e.target.value)}
+                    className="w-full bg-transparent border border-white/20 rounded-xl px-4 py-2 text-white font-outfit focus:outline-none focus:border-morado-principal transition-colors"
+                ></input>
                 <p className="text-white/60">Tiempo total que llevas jugando</p>
             </div>
 
