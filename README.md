@@ -1,57 +1,44 @@
-# Club Gamer - Proyecto Trabajo Final de Programación III
+# Club Gamer - Trabajo Final de Programación III
 
 ## 🎮 ¿Qué es Club Gamer?
 
-Club Gamer es una aplicación web full-stack desarrollada para gestionar una colección personal de videojuegos. El objetivo principal del sistema es permitir que un usuario pueda consultar un catálogo de juegos, agregar títulos a su propia colección y registrar información relacionada con su progreso dentro de cada juego.
+Club Gamer es una aplicación web full-stack diseñada para la gestión y seguimiento de colecciones personales de videojuegos. El objetivo principal del sistema es brindar a los jugadores una plataforma moderna e intuitiva para explorar un extenso catálogo de juegos, organizar sus títulos en colecciones personalizadas y registrar información detallada sobre su progreso y experiencia de juego.
 
-La aplicación está pensada como una herramienta de organización para jugadores, tomando como referencia plataformas modernas de seguimiento de videojuegos. A través del sistema, cada usuario podrá clasificar sus juegos según estado, plataforma y género, además de registrar datos personales como calificación y cantidad de horas jugadas.
+A través del sistema, cada usuario puede clasificar sus títulos por estado (pendiente, jugando, completado), plataforma y género, además de añadir valoraciones personales, horas jugadas y reseñas.
 
-El proyecto fue desarrollado como trabajo práctico para la cátedra de Programación III en la UTN FRBB. En esta segunda entrega se trabaja sobre una arquitectura full-stack compuesta por un frontend en React, un backend en Node.js con Express, una base de datos PostgreSQL administrada mediante Sequelize y un entorno de ejecución basado en Docker Compose.
-
-Durante la primera etapa del desarrollo, el foco está puesto principalmente en el backend y la base de datos. Por este motivo, se prioriza la creación de modelos, migraciones, seeders, rutas REST, controladores, validaciones, documentación técnica y pruebas manuales de la API.
+El proyecto fue desarrollado como Trabajo Final integrador para la cátedra de **Programación III** en la **UTN FRBB**. Se trata de una solución full-stack compuesta por un **Frontend interactivo en React** (con Vite y Tailwind CSS), un **Backend RESTful en Node.js con Express**, una base de datos **PostgreSQL** administrada mediante **Sequelize ORM**, integración con la **API de RAWG** para la carga automática de catálogo, y un entorno completamente contenerizado mediante **Docker Compose**.
 
 ## ✨ Características Principales
 
-- Catálogo general de videojuegos.
-- Alta, consulta y modificación de videojuegos.
-- Gestión de plataformas disponibles.
-- Gestión de géneros asociados a los videojuegos.
-- Asociación de videojuegos con múltiples plataformas.
-- Asociación de videojuegos con múltiples géneros.
-- Colección personal de videojuegos por usuario.
-- Registro del estado de cada videojuego dentro de la colección.
-- Estados posibles: pendiente, jugando o completado.
-- Registro de calificación personal.
-- Registro de horas jugadas.
-- Filtros de búsqueda por título, plataforma, género y año.
-- Paginación de resultados.
-- API REST desarrollada con Express.
-- Base de datos relacional con PostgreSQL.
-- Modelado de datos mediante Sequelize.
-- Entorno de desarrollo contenerizado con Docker Compose.
-- Administración visual de base de datos mediante pgAdmin.
-- Documentación de endpoints mediante Postman.
-- Pruebas manuales documentadas en `API_test.md`.
+- **Interfaz Web Interactiva:** Desarrollada en React con Vite, Tailwind CSS y diseño responsive.
+- **Autenticación y Seguridad:** Registro e inicio de sesión de usuarios con encriptación (`bcrypt`), tokens `JWT` e interceptores en el frontend.
+- **Catálogo General de Videojuegos:** Integración con la API externa de RAWG para consulta, autocompletado y sincronización de datos.
+- **Colección Personal por Usuario:** Alta, modificación y eliminación de juegos en colecciones personalizadas.
+- **Seguimiento de Progreso:** Registro de estado (pendiente, jugando, completado), valoración personal y horas jugadas.
+- **Búsqueda Avanzada y Paginación:** Filtros por título, plataforma, género y año de lanzamiento.
+- **API RESTful:** Backend estructurado en Node.js y Express mediante arquitectura MVC.
+- **Base de Datos Relacional:** PostgreSQL administrada con Sequelize ORM (modelos, migraciones, seeders y relaciones muchos a muchos).
+- **Entorno Contenerizado:** Despliegue y orquestación con Docker Compose (Frontend, Backend, PostgreSQL, Redis, Caddy y pgAdmin).
 
-## 🧩 Alcance de la Primera Etapa
+## 🧩 Etapas
 
-La primera etapa del proyecto se centra en el desarrollo del backend y la base de datos. El objetivo es dejar preparada una API REST funcional que permita administrar las entidades principales del sistema y probarlas de forma manual mediante Postman o comandos curl.
+El desarrollo del proyecto se estructuró en dos entregas principales:
 
-Para esta entrega se trabaja sobre las siguientes áreas:
+### 🔹 Primera Etapa: Backend y Base de Datos
+Centrada en la construcción de la arquitectura base del servidor y la API REST:
+- Modelado de entidades relacionales con Sequelize ORM.
+- Creación de migraciones y seeders para datos iniciales.
+- Desarrollo de controladores, rutas REST y validaciones de entrada.
+- Implementación de CRUDs para Videojuegos, Géneros, Plataformas y Colecciones.
+- Pruebas manuales y documentación de la API con Postman (`API_test.md`).
 
-- Modelado de entidades con Sequelize.
-- Creación de migraciones y seeders.
-- Desarrollo de controladores y rutas para la API.
-- CRUD de plataformas.
-- CRUD de géneros.
-- CRUD de videojuegos.
-- Gestión de la colección personal del usuario.
-- Validaciones de entrada.
-- Manejo básico de errores HTTP.
-- Documentación técnica del proyecto.
-- Documentación de pruebas manuales de la API.
-
-Algunas funcionalidades, como autenticación JWT completa, integración definitiva con RAWG, frontend completo y testing automatizado con Jest, quedan previstas para etapas posteriores del desarrollo.
+### 🔹 Segunda Etapa: Frontend e Integración Full-Stack
+Centrada en la interfaz gráfica de usuario y la integración completa del sistema:
+- Desarrollo de la aplicación web interactiva en React (con Vite y Tailwind CSS).
+- Implementación de autenticación de usuarios (Registro/Login), manejo de sesión y rutas protegidas.
+- Conexión del Frontend con la API REST del Backend mediante Axios e interceptores.
+- Integración completa con la API externa de RAWG.
+- Contenerización y orquestación del entorno full-stack con Docker Compose.
 
 ## 👥 Integrantes - Grupo 19
 
@@ -195,14 +182,24 @@ clubgamer/
 │       ├── components/
 │       │   ├── common/                  # Componentes reutilizables generales.
 │       │   │   └── PlaceholderPage.jsx
-│       │   ├── layout/                  # Componentes de estructura visual (Header, Sidebar).
+│       │   ├── layout/                  # Componentes de estructura visual.
+│       │   │   ├── Footer.css
+│       │   │   ├── Footer.jsx
 │       │   │   ├── Header.css
 │       │   │   ├── Header.jsx
 │       │   │   └── SidebarNavigation.jsx
 │       │   └── ui/                      # Componentes de interfaz de usuario.
+│       │       ├── CartelAgregarAColeccion.jsx
+│       │       ├── CartelBase.jsx
+│       │       ├── CartelCrearColeccion.jsx
+│       │       ├── CartelEditarColeccion.jsx
 │       │       └── Gamecard.jsx
 │       │
-│       ├── hooks/                       # Hooks personalizados
+│       ├── contexts/                    # Contexto global de React (Autenticación).
+│       │   └── AuthContext.jsx
+│       │
+│       ├── hooks/                       # Hooks personalizados (useAuth).
+│       │   └── useAuth.jsx
 │       │
 │       ├── pages/                       # Páginas principales de la aplicación.
 │       │   ├── Bienvenida.jsx
@@ -213,11 +210,12 @@ clubgamer/
 │       │   └── Registro.jsx
 │       │
 │       ├── services/                    # Servicios de comunicación con la API.
+│       │   ├── axiosInterceptor.jsx
 │       │   └── gameService.js
 │       │
-│       ├── styles/                      # Estilos globales y específicos (directorio con .gitkeep).
+│       ├── styles/                      # Estilos globales.
 │       │
-│       └── utils/                       # Funciones auxiliares (directorio con .gitkeep).
+│       └── utils/                       # Funciones auxiliares.
 │
 ├── database/
 │   └── init.sql                         # Script de inicialización de PostgreSQL.
@@ -236,14 +234,14 @@ clubgamer/
 
 A continuación, se detalla la responsabilidad de cada integrante sobre los principales módulos del repositorio:
 
-| Responsable           | Archivos y Carpetas Principales                                                                                                                                                               | Funcionalidad / Módulo                                                                                                    |
-| :-------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------ |
-| **Federico Heinrich** | `backend/controllers/plataformasController.js`, `backend/routes/plataformas.js`, `backend/routes/index.js`                                                                                    | Configuración inicial del repositorio, arquitectura base del backend y gestión de plataformas (CRUD y endpoints).         |
-| **Matías Oviedo**     | `backend/models/*`, `backend/migrations/*`, `backend/seeders/*`                                                                                                                               | Modelado de datos, relaciones Sequelize, migraciones, seeders e integración de la estructura de almacenamiento para RAWG. |
-| **Martín Alcaraz**    | `backend/controllers/videojuegosController.js`, `backend/controllers/coleccionController.js`, `backend/routes/videojuegos.js`, `backend/routes/colecciones.js`, `backend/utils/rawgHelper.js` | Gestión de videojuegos, colecciones de usuario, integración con PostgreSQL e intermediario con la API RAWG.               |
-| **Nahuel Cappa**      | `backend/tests/*`, `API_test.md`, `backend/middleware/*`                                                                                                                                      | Validaciones de entrada, testing manual y documentación de pruebas de la API.                                             |
-| **Homero Colombo**    | `README.md`, `postman_collection.json`, documentación de Postman y scripts de pruebas automatizadas                                                                                           | Documentación técnica del proyecto, colección Postman y testing automatizado.                                             |
-| **Nicolás Espulef**   | `docker-compose.yml`, `.env.example`, configuración de Render y despliegue                                                                                                                    | Infraestructura, despliegue del backend y base de datos, configuración de entornos y variables de entorno.                |
+| Responsable | Archivos y Carpetas Principales | Funcionalidad / Módulo |
+| :--- | :--- | :--- |
+| **Federico Heinrich** | `backend/controllers/` (`plataformas`, `generos`, `coleccion`), `backend/utils/rawgHelper.js`, `frontend/src/components/layout/` (`Header`, `Sidebar`), `frontend/src/components/ui/` (`Gamecard`, `Carteles`), `frontend/src/pages/` (`Juegos`, `Colecciones`) | Arquitectura base Frontend/Backend, CRUD de Plataformas, Géneros y Colecciones, integración con API RAWG (`rawgHelper`), componentes visuales modulares y pantallas de catálogo. |
+| **Matías Oviedo** | `backend/models/*`, `backend/migrations/*`, `backend/seeders/*`, `frontend/src/pages/Login.jsx`, `frontend/src/pages/Registro.jsx`, `frontend/src/contexts/AuthContext.jsx`, `frontend/src/services/axiosInterceptor.jsx` | Modelado de datos (Sequelize), relaciones, migraciones y seeders. Frontend: Vistas de autenticación (Login/Registro), manejo del estado global de sesión (`AuthContext`) e interceptores Axios. |
+| **Martín Alcaraz** | `backend/controllers/videojuegosController.js`, `backend/routes/videojuegos.js`, `frontend/src/pages/Bienvenida.jsx`, `frontend/src/services/gameService.js` | Gestión de la entidad principal de videojuegos en el backend. En Frontend: diseño interactivo e implementación de la Landing Page (Bienvenida) y llamadas al servicio de juegos. |
+| **Nahuel Cappa** | `backend/middleware/*`, `backend/tests/*`, `API_test.md`, `frontend/src/assets/images/*` | Creación de Middlewares de validación para los CRUDs en el backend, diseño de pruebas manuales (`API_test.md`) y gestión de recursos gráficos e iconos del Frontend. |
+| **Homero Colombo** | `README.md`, `API_test.md`, `postman_collection.json`, `backend/controllers/authController.js`, `backend/middleware/auth.js` | Autenticación y seguridad de rutas con JWT en Backend (`authController`, `authMiddleware`), documentación técnica general, y creación de la colección interactiva de Postman. |
+| **Nicolás Espulef** | `docker-compose.yml`, `backend/Dockerfile`, `.env.example`, `backend/controllers/userController.js`, `frontend/src/components/layout/Footer.jsx` | Infraestructura, despliegue con Docker Compose (Backend, Postgres, pgAdmin), configuración de contenedores, CRUD de la entidad de usuarios (`userController`) y maquetación del `Footer`. |
 
 ## 🏗️ Arquitectura General
 
@@ -350,9 +348,19 @@ docker compose build
 docker compose up -d
 ```
 
+### Acceso a los Servicios
+
+Una vez que los contenedores estén corriendo, puedes acceder a los siguientes servicios desde tu navegador:
+
+| Servicio | URL de Acceso | Descripción |
+| :--- | :--- | :--- |
+| **Frontend (React)** | `http://localhost:3000` | Interfaz web de usuario |
+| **Backend (API REST)** | `http://localhost:3001/api` | Servidor de la API |
+| **pgAdmin 4** | `http://localhost:5050` | Administrador visual de PostgreSQL |
+
 ### Verificar que el backend funciona
 
-Una vez levantados los servicios, se puede verificar el estado de la API accediendo a:
+Se puede verificar el estado de la API accediendo a:
 
 ```txt
 http://localhost:3001/api/health
@@ -420,7 +428,9 @@ JWT_SECRET=secreto_jwt_clubgamer_2024
 CORS_ORIGIN=http://localhost:3000
 ```
 
-> El archivo `.env` se encuentra excluido del control de versiones mediante `.gitignore`, ya que puede contener credenciales, claves privadas o información sensible.
+> Los archivos `.env` se encuentran excluidos del control de versiones mediante `.gitignore`, ya que contienen credenciales y claves privadas.
+> 
+> En el Frontend (`frontend/`), si se ejecuta fuera de Docker, se puede configurar opcionalmente un archivo `.env` con la variable `VITE_API_URL=http://localhost:3001/api`.
 
 ## 🗄️ Base de Datos
 
@@ -504,6 +514,16 @@ La aplicación expone una API REST desarrollada con Express para administrar los
 | POST   | /api/colecciones           |
 | PUT    | /api/colecciones/:id_juego |
 | DELETE | /api/colecciones/:id_juego |
+
+### Endpoints de Usuarios
+
+| Método | Endpoint       | Descripción                        |
+| ------ | -------------- | ---------------------------------- |
+| GET    | /api/user      | Obtener todos los usuarios         |
+| GET    | /api/user/:id  | Obtener usuario por ID             |
+| POST   | /api/user      | Crear nuevo usuario                |
+| PUT    | /api/user/:id  | Actualizar datos de usuario        |
+| DELETE | /api/user/:id  | Eliminar usuario                   |
 
 ### Endpoints de Autenticación
 
