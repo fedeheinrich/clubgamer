@@ -41,18 +41,18 @@ function Login() {
 
                     <div className="flex flex-col">
                         <label className="text-white font-bold">Email</label>
-                        <input type="email" placeholder="ej: tu@email.com" value={email} onChange={(e) => setEmail(e.target.value)}
+                        <input type="email" required placeholder="ej: tu@email.com" value={email} onChange={(e) => setEmail(e.target.value)}
                         className={inputClass}/>
                     </div>
                     <div className="flex flex-col">
                         <label className="text-white font-bold">Contraseña</label>
-                        <input type="password" placeholder="Mínimo 6 caracteres" value={password} onChange={(e) => setPassword(e.target.value)}
+                        <input type="password" required placeholder="Mínimo 6 caracteres" value={password} onChange={(e) => setPassword(e.target.value)}
                         className={inputClass}/>
                     </div>
                     <button className="w-full px-4 py-3 bg-gradient-to-r from-purple-600 to-cyan-400 rounded-lg text-white font-bold 
                     focus:outline-none focus:ring-2 focus:ring-cyan-500 cursor-pointer" type="submit">Ingresar</button>
                     <div className="flex flex-row">
-                    <p className="text-gray-500">¿No tienes una cuenta? <Link to="../Registro" className="text-blue-500 font-bold">Regístrate</Link></p>
+                    <p className="text-gray-500">¿No tienes una cuenta? <Link to="/registro" className="text-blue-500 font-bold">Regístrate</Link></p>
                     </div>
                 </form>
             </div>
