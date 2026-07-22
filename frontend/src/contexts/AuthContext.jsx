@@ -42,7 +42,7 @@ function AuthProvider({ children }) {
     async function register(nombre, email, password) {
         try{
             const respuesta = await axios.post(
-                import.meta.env.VITE_API_URL + "/auth/registro",
+                import.meta.env.VITE_API_URL + "/auth/register",
                 {
                     nombre,
                     email,
