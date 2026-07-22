@@ -75,7 +75,7 @@ function Register() {
               </div>
               <div className="flex flex-col">
                 <label className="text-white font-bold">Contraseña</label>
-                <input type="password" placeholder="Mínimo 6 caracteres" value={password} onChange={(e) => setPassword(e.target.value)} className={inputClass}/>
+                <input type="password" minLength={6} placeholder="Mínimo 6 caracteres" value={password} onChange={(e) => setPassword(e.target.value)} className={inputClass}/>
               </div>
               <button className="w-full px-4 py-3 bg-gradient-to-r from-purple-600 to-cyan-400 rounded-lg text-white font-bold 
               focus:outline-none focus:ring-2 focus:ring-cyan-500 cursor-pointer" type="submit">Crear cuenta</button>
