@@ -17,7 +17,7 @@ function AuthProvider({ children }) {
                     password
                 }
             );
-            if (respuesta.status === 200) {
+            if (respuesta.data && respuesta.data.token) {
                 setToken(respuesta.data.token);
                 setUser(respuesta.data.user);
                 localStorage.setItem("token", respuesta.data.token);
@@ -29,7 +29,7 @@ function AuthProvider({ children }) {
             
         } catch(error) {
             console.error('Error en la carga de datos:', error);
-            return error;
+            return false;
         }
     }
 
@@ -49,7 +49,7 @@ function AuthProvider({ children }) {
                     password
                 }
             );
-            if (respuesta.status === 200) {
+            if (respuesta.data && respuesta.data.token) {
                 setToken(respuesta.data.token);
                 setUser(respuesta.data.user);
                 localStorage.setItem("token", respuesta.data.token);
@@ -61,7 +61,7 @@ function AuthProvider({ children }) {
             
         } catch(error) {
             console.error('Error en la carga de datos:', error);
-            return error;
+            return false;
         }
     }
 
@@ -73,6 +73,7 @@ function AuthProvider({ children }) {
                 token,
                 user,
                 login,
+                register,
                 logout,
                 isAuthenticated
             }}
