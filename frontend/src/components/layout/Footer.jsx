@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import logoClubGamer from '../../assets/images/logohorizontal.png';
 import './Footer.css';
 import {FaGithub} from "react-icons/fa";
@@ -6,6 +6,8 @@ import {FaFacebook} from "react-icons/fa";
 import {FaInstagram} from "react-icons/fa";
 //logo - iconos redes - about - privacy(?)
 function Footer({logoSrc = logoClubGamer, logoAlt = 'Logo'}){
+    const {pathname} = useLocation();
+
     return(
         <footer className="Footer">
             <div className="footer__logo  ">                
@@ -40,22 +42,34 @@ function Footer({logoSrc = logoClubGamer, logoAlt = 'Logo'}){
             {/* Enlaces rápidos*/}
             <div class="enlacesRápidos">
                 <ul>
-                    <li>Colecciones</li>
-                    <li>
-                        <Link to="/login" target="_blank">
-                            Login
-                        </Link>
+                    {pathname !== "/colecciones" && (
+                        <li>
+                            <Link to="/colecciones" target="_blank">
+                                Colecciones
+                            </Link>
+                        </li>
+                    )}
+                    {pathname !== "/login" && (
+                        <li>
+                            <Link to="/login" target="_blank">
+                                Login
+                            </Link>
                     </li>
-                    <li>
-                        <Link to="/Juegos" target="_blank">
-                            Juegos
-                        </Link>
-                    </li>
-                    <li>
-                        <Link to="/Registro" target="_blank">
-                            Registro
-                        </Link>
-                    </li>
+                    )}
+                    {pathname !== "/Juegos" && (
+                        <li>
+                            <Link to="/Juegos" target="_blank">
+                                Juegos
+                            </Link>
+                        </li>
+                    )}
+                    {pathname !== "/Registro" && (
+                        <li>
+                            <Link to="/Registro" target="_blank">
+                                Registro
+                            </Link>
+                        </li>
+                    )}
                 </ul>
             </div>
         </footer>
