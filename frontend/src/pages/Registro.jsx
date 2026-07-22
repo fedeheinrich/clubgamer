@@ -67,19 +67,19 @@ function Register() {
 
               <div className="flex flex-col">
                 <label className="text-white font-bold">Nombre</label>
-                <input placeholder="Tu nombre" value={username} onChange={(e) => setUsername(e.target.value)} className={inputClass}/>
+                <input placeholder="Tu nombre" required value={username} onChange={(e) => setUsername(e.target.value)} className={inputClass}/>
               </div>
               <div className="flex flex-col">
                 <label className="text-white font-bold">Email</label>
-                <input type="email" placeholder="ej: tu@email.com" value={email} onChange={(e) => setEmail(e.target.value)} className={inputClass}/>
+                <input type="email" required placeholder="ej: tu@email.com" value={email} onChange={(e) => setEmail(e.target.value)} className={inputClass}/>
               </div>
               <div className="flex flex-col">
                 <label className="text-white font-bold">Contraseña</label>
-                <input type="password" minLength={6} placeholder="Mínimo 6 caracteres" value={password} onChange={(e) => setPassword(e.target.value)} className={inputClass}/>
+                <input type="password" required minLength={6} placeholder="Mínimo 6 caracteres" value={password} onChange={(e) => setPassword(e.target.value)} className={inputClass}/>
               </div>
               <button className="w-full px-4 py-3 bg-gradient-to-r from-purple-600 to-cyan-400 rounded-lg text-white font-bold 
               focus:outline-none focus:ring-2 focus:ring-cyan-500 cursor-pointer" type="submit">Crear cuenta</button>
-              <p className="text-gray-500">¿Ya tienes una cuenta? <Link to='../Login' className="text-blue-500 font-bold">Iniciar sesión</Link></p>
+              <p className="text-gray-500">¿Ya tienes una cuenta? <Link to='/login' className="text-blue-500 font-bold">Iniciar sesión</Link></p>
             </form>
           </div>
         </div>
