@@ -1,9 +1,10 @@
 import { useState } from 'react';
-import { Home, CopyPlus, Gamepad2, User, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Home, CopyPlus, Gamepad2, User } from 'lucide-react';
 import Header from '../components/layout/Header';
 import SidebarNavigation from '../components/layout/SidebarNavigation';
 import Gamecard from '../components/ui/Gamecard';
-import Footer from '../components/layout/Footer.jsx'
+import Footer from '../components/layout/Footer.jsx';
+import Paginador from '../components/ui/Paginador';
 
 function Juegos() {
   const [paginaActual, setPaginaActual] = useState(1);
@@ -79,22 +80,6 @@ function Juegos() {
     { id: 'perfil', label: 'Mi perfil', to: '/perfil', icon: User }
   ];
 
-  // Genera los números de página a mostrar
-  const getPaginasVisibles = () => {
-    const paginas = [];
-    const maxVisibles = 4;
-    for (let i = 1; i <= Math.min(maxVisibles, totalPaginas); i++) {
-      paginas.push(i);
-    }
-    if (totalPaginas > maxVisibles + 1) {
-      paginas.push('...');
-    }
-    if (totalPaginas > maxVisibles) {
-      paginas.push(totalPaginas);
-    }
-    return paginas;
-  };
-
   return (
     <main className="h-screen bg-gradient-to-b from-[#04091f] via-[#070d2d] to-[#161f7d] text-white flex flex-col overflow-hidden">
       {/* Header */}
@@ -130,46 +115,11 @@ function Juegos() {
             ))}
           </div>
 
-          {/* Paginador */}
-          <nav className="shrink-0 mt-2 pb-1 flex items-center justify-center gap-1.5">
-            <button
-              onClick={() => setPaginaActual(Math.max(1, paginaActual - 1))}
-              disabled={paginaActual === 1}
-              className="flex items-center gap-1 rounded-lg px-2.5 py-1.5 text-xs font-semibold text-slate-300 transition hover:text-white disabled:opacity-40 disabled:cursor-not-allowed"
-            >
-              <ChevronLeft className="h-3.5 w-3.5" />
-              Anterior
-            </button>
-
-            {getPaginasVisibles().map((pagina, idx) =>
-              pagina === '...' ? (
-                <span key={`dots-${idx}`} className="flex h-8 w-8 items-center justify-center text-xs text-slate-400">
-                  ...
-                </span>
-              ) : (
-                <button
-                  key={pagina}
-                  onClick={() => setPaginaActual(pagina)}
-                  className={`flex h-8 w-8 items-center justify-center rounded-lg text-xs font-bold transition
-                    ${paginaActual === pagina
-                      ? 'bg-blue-600 text-white shadow-lg shadow-blue-600/30'
-                      : 'border border-white/10 bg-white/5 text-slate-300 hover:bg-white/10 hover:text-white'
-                    }`}
-                >
-                  {pagina}
-                </button>
-              )
-            )}
-
-            <button
-              onClick={() => setPaginaActual(Math.min(totalPaginas, paginaActual + 1))}
-              disabled={paginaActual === totalPaginas}
-              className="flex items-center gap-1 rounded-lg px-2.5 py-1.5 text-xs font-semibold text-slate-300 transition hover:text-white disabled:opacity-40 disabled:cursor-not-allowed"
-            >
-              Siguiente
-              <ChevronRight className="h-3.5 w-3.5" />
-            </button>
-          </nav>
+          <Paginador 
+            totalPaginas={totalPaginas} 
+            paginaActual={paginaActual} 
+            setPaginaActual={setPaginaActual} 
+          />
         </section>
       </div>
       
