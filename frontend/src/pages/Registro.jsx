@@ -6,6 +6,7 @@ import fondo from '../assets/images/fondo 3.jpg';
 import coleccion from '../assets/images/coleccion1.png';
 import estrella from '../assets/images/estrella1.png';
 import lupa from '../assets/images/lupa.png';
+import useAuth from "../hooks/useAuth";
 
 function Register() {
     const [username, setUsername] = useState("");
@@ -13,10 +14,11 @@ function Register() {
     const [password, setPassword] = useState("");
     const navigate = useNavigate();
     const inputClass = "w-full px-4 py-3 bg-slate-800 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-cyan-500";
+    const {register} = useAuth();
 
     async function enviar(event) {
         event.preventDefault();
-        const success = await enviarDatos(username, email, password);
+        const success = await register(username, email, password);
         if (success) {
             navigate('/');
         }
@@ -84,46 +86,6 @@ function Register() {
           </div>
         </div>
     )
-}
-
-async function enviarDatos(nombre, email, password) {
-    try {
-        const respuesta = await fetch(import.meta.env.VITE_API_URL + "/auth/register", {
-
-            method: "POST",
-
-            headers: {
-                "Content-Type": "application/json"
-            },
-
-            body: JSON.stringify({
-
-                nombre,
-                
-                email,
-
-                password
-
-            })
-
-        });
-
-        const datos = await respuesta.json();
-        
-        if (respuesta.ok) {
-            localStorage.setItem("token", datos.token)
-            return true;
-        }
-        else {
-            alert('Registro inválido')
-            console.log(datos);
-            return false;
-        }
-    }
-    catch(error) {
-        alert(error);
-        return false;
-    }
 }
 
 export default Register;
