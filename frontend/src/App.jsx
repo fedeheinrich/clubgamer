@@ -9,6 +9,7 @@ import Juegos from './pages/Juegos';
 import Colecciones from './pages/Colecciones';
 import NotFound from './pages/NotFound';
 import './App.css';
+import ColeccionAbierta from './pages/ColeccionAbierta';
 
 const queryClient = new QueryClient();
 
@@ -25,6 +26,7 @@ function App() {
             <Route path="/juegos" element={<Juegos />} />
             <Route path="*" element={<NotFound />} />
             <Route path="/colecciones" element={<Colecciones />} />
+            <Route path="/ColeccionAbierta" element={<ColeccionAbierta />}/>
           </Routes>
         </div>
         <Toaster position="top-right" toastOptions={{ duration: 3000 }} />

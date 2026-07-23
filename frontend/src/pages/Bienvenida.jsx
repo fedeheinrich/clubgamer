@@ -6,6 +6,7 @@ import logoClubGamer from '../assets/images/logo.png';
 import iconColecciona from '../assets/images/coleccion1.png';
 import iconPuntua from '../assets/images/estrella1.png';
 import iconDescubri from '../assets/images/lupa.png';
+import Footer from '../components/layout/Footer.jsx';
 
 function Bienvenida() {
   const mockGames = [

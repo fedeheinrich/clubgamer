@@ -3,6 +3,7 @@ import { Home, CopyPlus, Gamepad2, User, ChevronLeft, ChevronRight } from 'lucid
 import Header from '../components/layout/Header';
 import SidebarNavigation from '../components/layout/SidebarNavigation';
 import Gamecard from '../components/ui/Gamecard';
+import Footer from '../components/layout/Footer.jsx'
 
 function Juegos() {
   const [paginaActual, setPaginaActual] = useState(1);
@@ -171,6 +172,7 @@ function Juegos() {
           </nav>
         </section>
       </div>
+      
     </main>
   );
 }
