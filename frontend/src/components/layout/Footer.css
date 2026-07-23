@@ -22,9 +22,11 @@
 }
 
 .footer__logo-link{
-    display: flex;
-    width: 200px;
-    height: 100px;
+    display: block;
+	width: clamp(160px, 20vw, 220px);
+	height: auto;
+	object-fit: contain;
+	filter: drop-shadow(0 8px 14px rgba(24, 35, 82, 0.35));
 }
 .footer__logo svg{
     border: 2px solid rgba(81,27,253,0.5);   

@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import {useNavigate} from 'react-router-dom';
 import {
   Home,
   Gamepad2,
@@ -114,6 +115,13 @@ function Colecciones() {
     { id: 'perfil', label: 'Mi perfil', to: '/login', icon: User }
   ];
 
+  const navigate = useNavigate();
+  const abrirColeccion = (colecc) => {
+    navigate("/coleccionAbierta",{
+        state: colecc
+    });
+  };
+
   return (
     <main className="min-h-screen bg-gradient-to-b from-[#04091f] via-[#070d2d] to-[#161f7d] text-white flex flex-col">
       {/* Header ocupando todo el ancho */}
@@ -197,7 +205,9 @@ function Colecciones() {
                       >
                         <Trash2 className="h-5 w-5" />
                       </button>
-                      <button className="rounded-lg border border-white/15 bg-white/5 p-2 hover:bg-white/10">
+                      <button
+                        onClick={() => abrirColeccion(col)}
+                        className="rounded-lg border border-white/15 bg-white/5 p-2 hover:bg-white/10">
                         <ChevronRight className="h-5 w-5" />
                       </button>
                     </div>
