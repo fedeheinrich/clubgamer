@@ -22,13 +22,13 @@ function Paginador({
   };
 
     return(
-        <nav className="shrink-0 mt-2 pb-1 flex items-center justify-center gap-1.5">
+        <nav className="shrink-0 -mt-2 mb-4 flex items-center justify-center gap-1.5">
             <button
               onClick={() => setPaginaActual(Math.max(1, paginaActual - 1))}
               disabled={paginaActual === 1}
-              className="flex items-center gap-1 rounded-lg px-2.5 py-1.5 text-xs font-semibold text-slate-300 transition hover:text-white disabled:opacity-40 disabled:cursor-not-allowed"
+              className="flex items-center gap-1 rounded-lg px-3.5 py-2.5 text-md font-semibold text-slate-300 transition hover:text-white disabled:opacity-40 disabled:cursor-not-allowed"
             >
-              <ChevronLeft className="h-3.5 w-3.5" />
+              <ChevronLeft className="h-4.5 w-4.5" />
               Anterior
             </button>
 
@@ -55,10 +55,10 @@ function Paginador({
             <button
               onClick={() => setPaginaActual(Math.min(totalPaginas, paginaActual + 1))}
               disabled={paginaActual === totalPaginas}
-              className="flex items-center gap-1 rounded-lg px-2.5 py-1.5 text-xs font-semibold text-slate-300 transition hover:text-white disabled:opacity-40 disabled:cursor-not-allowed"
+              className="flex items-center gap-1 rounded-lg px-3.5 py-2.5 text-md font-semibold text-slate-300 transition hover:text-white disabled:opacity-40 disabled:cursor-not-allowed"
             >
               Siguiente
-              <ChevronRight className="h-3.5 w-3.5" />
+              <ChevronRight className="h-4.5 w-4.5" />
             </button>
           </nav>
     );
