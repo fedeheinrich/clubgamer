@@ -9,6 +9,7 @@ import Juegos from './pages/Juegos';
 import Colecciones from './pages/Colecciones';
 import NotFound from './pages/NotFound';
 import './App.css';
+import ProtectedRoute from './components/common/ProtectedRoutes';
 
 const queryClient = new QueryClient();
 
@@ -22,9 +23,9 @@ function App() {
             <Route path="/inicio" element={<Navigate to="/" replace />} />
             <Route path="/login" element={<Login />} />
             <Route path="/registro" element={<Registro />} />
-            <Route path="/juegos" element={<Juegos />} />
+            <Route path="/juegos" element={<ProtectedRoute><Juegos /></ProtectedRoute>} />
             <Route path="*" element={<NotFound />} />
-            <Route path="/colecciones" element={<Colecciones />} />
+            <Route path="/colecciones" element={<ProtectedRoute><Colecciones /></ProtectedRoute>} />
           </Routes>
         </div>
         <Toaster position="top-right" toastOptions={{ duration: 3000 }} />
