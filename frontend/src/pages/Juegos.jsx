@@ -81,9 +81,9 @@ function Juegos() {
   ];
 
   return (
-    <main className="h-screen bg-gradient-to-b from-[#04091f] via-[#070d2d] to-[#161f7d] text-white flex flex-col overflow-hidden">
-      {/* Header */}
-      <div className="shrink-0 px-4 sm:px-6 lg:px-8 py-0">
+    <main className="min-h-screen bg-gradient-to-b from-[#04091f] via-[#070d2d] to-[#161f7d] text-white flex flex-col">
+      {/* Header ocupando todo el ancho */}
+      <div className="px-4 pt-1 sm:px-6 sm:pt-2 lg:px-8 lg:pt-2 pb-2">
         <Header
           username="Tomas"
           textoBienvenida="Bienvenido de vuelta a la plataforma."
@@ -93,18 +93,21 @@ function Juegos() {
         />
       </div>
 
-      <div className="flex flex-1 min-h-0">
+      <div className="flex flex-1">
+        {/* Sidebar vertical sin logo */}
         <SidebarNavigation items={menu} activeId="juegos" />
 
-        <section className="flex-1 flex flex-col px-4 sm:px-6 lg:px-8 pt-2 pb-1">
+        <section className="flex-1 p-4 sm:p-6 lg:p-8 pt-0 lg:pt-2">
           {/* Título */}
-          <div className="shrink-0 mb-3">
-            <h1 className="text-3xl font-sora font-bold">Explorar juegos</h1>
-            <p className="text-sm text-slate-300">Descubrí y agrega juegos a tus colecciones.</p>
+          <div className="mb-6 flex flex-wrap items-end justify-between gap-4">
+            <div>
+              <h1 className="text-3xl font-sora font-bold sm:text-4xl">Explorar juegos</h1>
+              <p className="mt-1 text-slate-300 font-medium">Descubrí y agrega juegos a tus colecciones.</p>
+            </div>
           </div>
 
           {/* Grilla de juegos */}
-          <div className="flex-1 min-h-0 grid grid-cols-2 gap-x-3 gap-y-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 auto-rows-min content-start">
+          <div className="grid grid-cols-2 gap-x-3 gap-y-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
             {gamesList.map((game) => (
               <Gamecard
                 key={game.id}
@@ -114,15 +117,15 @@ function Juegos() {
               />
             ))}
           </div>
-
-          <Paginador 
-            totalPaginas={totalPaginas} 
-            paginaActual={paginaActual} 
-            setPaginaActual={setPaginaActual} 
-          />
         </section>
       </div>
-      
+
+      <Paginador 
+        totalPaginas={totalPaginas} 
+        paginaActual={paginaActual} 
+        setPaginaActual={setPaginaActual} 
+      />
+      <Footer />
     </main>
   );
 }
