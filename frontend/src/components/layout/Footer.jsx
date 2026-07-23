@@ -16,18 +16,18 @@ function Footer({logoSrc = logoClubGamer, logoAlt = 'Logo'}){
                 </Link>
                 {/*Agrego los links a la redes */}
                 <ul>
-                    <li class="inline">
-                        <a href="https://www.facebook.com/index.php/?lang=es-ES" target="_blank">
+                    <li className="inline">
+                        <a href="https://www.facebook.com/index.php/?lang=es-ES" target="_blank" rel="noopener noreferrer">
                             <FaFacebook />
                         </a>
                     </li>
-                    <li class="inline">
-                        <a href="https://www.instagram.com" target="_blank">
+                    <li className="inline">
+                        <a href="https://www.instagram.com" target="_blank" rel="noopener noreferrer">
                             <FaInstagram />
                         </a>
                     </li>
-                    <li class="github">
-                        <a href="https://github.com/fedeheinrich/clubgamer" target="_blank">
+                    <li className="github">
+                        <a href="https://github.com/fedeheinrich/clubgamer" target="_blank" rel="noopener noreferrer">
                             <FaGithub />
                         </a>
                     </li>
@@ -40,7 +40,7 @@ function Footer({logoSrc = logoClubGamer, logoAlt = 'Logo'}){
                 <p>+54 11 1234-5678</p>
             </div>
             {/* Enlaces rápidos*/}
-            <div class="enlacesRápidos">
+            <div className="enlacesRapidos">
                 <ul>
                     {pathname !== "/colecciones" && (
                         <li>
