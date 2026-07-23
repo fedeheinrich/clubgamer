@@ -7,6 +7,7 @@ import coleccion from '../assets/images/coleccion1.png';
 import estrella from '../assets/images/estrella1.png';
 import lupa from '../assets/images/lupa.png';
 import useAuth from "../hooks/useAuth";
+import { Navigate } from "react-router-dom";
 
 function Register() {
     const [username, setUsername] = useState("");
@@ -14,7 +15,7 @@ function Register() {
     const [password, setPassword] = useState("");
     const navigate = useNavigate();
     const inputClass = "w-full px-4 py-3 bg-slate-800 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-cyan-500";
-    const {register} = useAuth();
+    const {register, isAuthenticated} = useAuth();
 
     async function enviar(event) {
         event.preventDefault();
@@ -22,6 +23,10 @@ function Register() {
         if (success) {
             navigate('/');
         }
+    }
+
+    if (isAuthenticated) {
+        return <Navigate to="/colecciones" replace />;
     }
 
     return (
