@@ -2,10 +2,18 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 15px 0;
+    border-top: 2px;
+    border-style: transparent;
     box-shadow: 0px 0px 7px 7px rgba(81,27,253,0.5);
 }
 
+
+
+.footer__logo ul{
+    display: flex;
+    gap: 50px;
+    padding-bottom: 10px;
+}
 .footer__logo{
     display: flex;
     flex-direction: column;
@@ -14,85 +22,44 @@
 }
 
 .footer__logo-link{
-<<<<<<< HEAD
-    display: block;
-	width: clamp(160px, 20vw, 220px);
-	height: auto;
-	object-fit: contain;
-	filter: drop-shadow(0 8px 14px rgba(24, 35, 82, 0.35));
-=======
     display: flex;
-    width: 180px;
-    height: auto;
-    justify-content: center;
-    align-items: center;
->>>>>>> develop
+    width: 200px;
+    height: 100px;
 }
-
-.footer__logo-image{
-    max-width: 100%;
-    height: auto;
-    object-fit: contain;
-}
-
-.footer__logo ul{
-    display: flex;
-    gap: 20px;
-    padding: 0;
-    margin: 8px 0 0 0;
-    list-style: none;
-}
-
 .footer__logo svg{
     border: 2px solid rgba(81,27,253,0.5);   
     border-radius: 50%;       
     padding: 4px; 
-    font-size: 26px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 30px;
+}
+.footer__logo svg:hover{
+    box-shadow: 0px 0px 2px 2px rgba(81,27,253,0.5);
     transition: all 0.3s ease; 
 }
 
-.footer__logo svg:hover{
-    box-shadow: 0px 0px 6px 2px rgba(81,27,253,0.8);
-    transform: scale(1.1);
-}
+
 
 .contacto{
     display: flex;
     flex-direction: column;
-    align-items: center;
-    text-align: center; 
+    text-align: justify; 
 }
-
 .contacto #titulo{
     font-family: 'Outfit', sans-serif;
     font-weight: 700;
-    margin-bottom: 5px;
 }
 
-.contacto p{
-    margin: 2px 0;
-}
-
-.enlacesRapidos{
+.enlacesRápidos{
     display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    margin-right: 50px;
+    justify-content: flex-start;
+    align-items: flex-start;
+    margin-right: 20%;
 }
-
-.enlacesRapidos ul{
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    text-align: right;
-}
-
-.enlacesRapidos a{
-    text-decoration: none;
-    color: inherit;
-    transition: color 0.3s ease;
-}
-
-.enlacesRapidos a:hover{
-    color: #38bdf8;
+.enlacesRápidos li:hover{
+    display: flex;
+    color:rgba(27, 170, 253, 0.5);
+    transition: all 0.3s ease;
 }
