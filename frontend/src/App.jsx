@@ -9,7 +9,7 @@ import Juegos from './pages/Juegos';
 import Colecciones from './pages/Colecciones';
 import NotFound from './pages/NotFound';
 import './App.css';
-import ProtectedRoute from './components/common/ProtectedRoutes';
+import ProtectedRoute from './components/common/ProtectedRoute';
 
 const queryClient = new QueryClient();
 
