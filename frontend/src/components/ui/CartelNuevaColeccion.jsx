@@ -24,15 +24,15 @@ function CartelNuevaColeccion({
             funcionConfirmar={()=> funcionConfirmar(nombre, descripcion)}
         >
             {/* Bloque 1: Nombre de la coleccion */}
-            <div className="">
-                <label>Nombre de la colección:</label>
-                <input type="text"></input>
+            <div className="flex flex-col gap-2">
+                <label className="ml-2 font-sora text-lg">Nombre de la colección:</label>
+                <input className="py-2 px-2 rounded-xl border border-white/30 bg-secundario-azul-oscuro text-blanco" type="text"></input>
             </div>
 
             {/* Bloque 2: Descripcion de la coleccion */}
-            <div className="">
-                <label>Descripcion:</label>
-                <input type="text"></input>
+            <div className="flex flex-col gap-2">
+                <label className="ml-2 font-sora text-lg">Descripcion:</label>
+                <textarea className="bg-secundario-azul-oscuro rounded-xl border border-white/30 text-blanco" type="text"></textarea>
             </div>
         </CartelBase>
     )
