@@ -13,6 +13,7 @@ import {
 import Header from '../components/layout/Header';
 import SidebarNavigation from '../components/layout/SidebarNavigation';
 import CartelEditarColeccion from '../components/ui/CartelEditarColeccion';
+import CartelNuevaColeccion from 'components/ui/CartelNuevaColeccion';
 import Footer from '../components/layout/Footer';
 import Paginador from '../components/ui/Paginador';
 
