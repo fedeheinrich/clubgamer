@@ -9,17 +9,15 @@ import {
   Trash2,
   Plus,
   ChevronRight,
+  ChevronLeft,
+  X,
 } from 'lucide-react';
 
 import Header from '../components/layout/Header';
 import SidebarNavigation from '../components/layout/SidebarNavigation';
 import CartelEditarColeccion from '../components/ui/CartelEditarColeccion';
 import Footer from '../components/layout/Footer';
-import Paginador from '../components/ui/Paginador';
-
 function Colecciones() {
-  const [paginaActual, setPaginaActual] = useState(1);
-  const coleccionesPorPagina = 4;
   const coleccionesIniciales = [
     {
       id: 1,
@@ -74,11 +72,6 @@ function Colecciones() {
   const [colecciones, setColecciones] = useState(coleccionesIniciales);
   const [coleccionAEditar, setColeccionAEditar] = useState(null);
 
-  const totalPaginas = Math.ceil(colecciones.length / coleccionesPorPagina) || 1;
-  const indiceUltimaColeccion = paginaActual * coleccionesPorPagina;
-  const indicePrimeraColeccion = indiceUltimaColeccion - coleccionesPorPagina;
-  const coleccionesPaginadas = colecciones.slice(indicePrimeraColeccion, indiceUltimaColeccion);
-
 // Funciones de prueba, editar despues
   const funcionCerrar = () => {
     setColeccionAEditar(null);
@@ -121,7 +114,7 @@ function Colecciones() {
     { id: 'juegos', label: 'Juegos', to: '/juegos', icon: Gamepad2 },
     { id: 'perfil', label: 'Mi perfil', to: '/login', icon: User }
   ];
-
+  {/* agregué la función para abrir la colección*/}
   const navigate = useNavigate();
   const abrirColeccion = (colecc) => {
     navigate("/coleccionAbierta",{
@@ -169,7 +162,7 @@ function Colecciones() {
                 No tenés colecciones todavía.
               </p>
             ) : (
-              coleccionesPaginadas.map((col) => (
+              colecciones.map((col) => (
                 <article
                   key={col.id}
                   className="relative overflow-hidden rounded-2xl border border-white/15 bg-[#070c25]/85 p-4 shadow-xl shadow-black/25"
@@ -233,11 +226,6 @@ function Colecciones() {
           funcionConfirmar={funcionConfirmar}
         />
       )}
-      <Paginador 
-        totalPaginas={totalPaginas} 
-        paginaActual={paginaActual} 
-        setPaginaActual={setPaginaActual} 
-      />
       <Footer />
     </main>
   );
