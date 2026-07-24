@@ -7,7 +7,7 @@ import iconColecciona from '../assets/images/coleccion1.png';
 import iconPuntua from '../assets/images/estrella1.png';
 import iconDescubri from '../assets/images/lupa.png';
 import Footer from '../components/layout/Footer.jsx';
-import CartelAgregarAColeccion from '../components/ui/CartelAgregarAColeccion';
+
 
 function Bienvenida() {
   const mockGames = [
@@ -126,14 +126,6 @@ function Bienvenida() {
           </div>
         </div>
       </div>
-
-      {/* COMPONENTE DE PRUEBA: Cartel Agregar a Colección */}
-      <CartelAgregarAColeccion 
-        colecciones={mockColecciones}
-        juegoSeleccionado={mockJuego}
-        funcionCerrar={() => console.log('Cerrar cartel')}
-        funcionConfirmar={() => console.log('Confirmar agregado')}
-      />
 
     </div>
   );
