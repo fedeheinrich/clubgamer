@@ -35,14 +35,6 @@ function Bienvenida() {
       className="min-h-screen bg-[#0b112c] text-white flex flex-col justify-between p-6 sm:p-12 relative bg-cover bg-center overflow-hidden"
       style={{ backgroundImage: `url(${fondoGamer})` }}
     >
-      {/* PREVIEW DEL CARTEL: Borrar luego de probar */}
-      <CartelNuevaColeccion 
-        funcionCerrar={() => console.log("Clic en cerrar")}
-        funcionConfirmar={(nombre, descripcion) => console.log("Confirmar:", nombre, descripcion)}
-        nombre="Ejemplo"
-        descripcion="Descripción de ejemplo"
-      />
-
       {/* Contenedor Principal Centrado */}
       <div className="max-w-6xl w-full mx-auto my-auto grid grid-cols-1 md:grid-cols-12 gap-8 items-center z-10">
         
