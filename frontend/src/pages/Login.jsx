@@ -4,19 +4,25 @@ import { Link } from "react-router-dom";
 import logohorizontal from '../assets/images/logohorizontal.png';
 import fondo from '../assets/images/fondo 3.jpg';
 import imagen_login from '../assets/images/Inicio_de_sesion_imagen.png';
+import useAuth from '../hooks/useAuth.jsx';
+import { Navigate } from "react-router-dom";
 
 function Login() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const navigate = useNavigate();
     const inputClass = "w-full px-4 py-3 bg-slate-800 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-cyan-500";
+    const {login, isAuthenticated} = useAuth();
 
     async function enviar(event) {
         event.preventDefault();
-        const success = await enviarCredenciales(email, password);
+        const success = await login(email, password);
         if (success) {
             navigate('/');
         }
+    }
+    if (isAuthenticated) {
+        return <Navigate to="/colecciones" replace />;
     }
 
     return (
@@ -61,43 +67,6 @@ function Login() {
             </div>
         </div>
     )
-}
-
-async function enviarCredenciales(email, password) {
-    try {
-        const respuesta = await fetch(import.meta.env.VITE_API_URL + "/auth/login", {
-
-            method: "POST",
-
-            headers: {
-                "Content-Type": "application/json"
-            },
-
-            body: JSON.stringify({
-
-                email,
-
-                password
-
-            })
-
-        });
-
-        const datos = await respuesta.json();
-        
-        if (respuesta.ok) {
-            localStorage.setItem("token", datos.token)
-            return true;
-        }
-        else {
-            alert('Login inválido')
-            return false;
-        }
-    }
-    catch(error) {
-        alert(error);
-        return false;
-    }
 }
 
 export default Login;
