@@ -33,6 +33,20 @@ function Colecciones() {
         'https://images.unsplash.com/photo-1493711662062-fa541adb3fc8?q=80&w=300',
         'https://images.unsplash.com/photo-1511882150382-421056c89033?q=80&w=300',
         'https://images.unsplash.com/photo-1552820728-8b83bb6b773f?q=80&w=300'
+      ],
+      juegoDetalles: [
+        {
+          id: 1,
+          titulo: 'Call Of Duty: MW2',
+          anio: 2023,
+          imagen: 'https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=300'
+        },
+        {
+          id: 2,
+          titulo: 'NBA2K26',
+          anio: 2025,
+          imagen: 'https://images.unsplash.com/photo-1511512578047-dfb367046420?q=80&w=300'
+        }
       ]
     },
     {

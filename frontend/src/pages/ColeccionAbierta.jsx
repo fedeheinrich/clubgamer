@@ -4,6 +4,8 @@ import Footer from '../components/layout/Footer';
 import {Home, CopyPlus, Gamepad2, User, ChevronLeft, ChevronRight, Trash2, PencilLine, Plus} from 'lucide-react';
 import Colecciones from './Colecciones';
 import {useLocation} from 'react-router-dom'; 
+import Gamecard from '../components/ui/Gamecard';
+
 function ColeccionAbierta(){
     const menu = [
     { id: 'inicio', label: 'Inicio', to: '/', icon: Home },
@@ -12,7 +14,8 @@ function ColeccionAbierta(){
     { id: 'perfil', label: 'Mi perfil', to: '/perfil', icon: User }
     ];
     const {state} = useLocation()
-
+    const juegos = state.juegoDetalles;
+    console.log(state)
     return(
         <main className="min-h-screen bg-gradient-to-b from-[#04091f] via-[#070d2d] to-[#161f7d] text-white flex flex-col">
             <Header />
@@ -67,7 +70,18 @@ function ColeccionAbierta(){
                             </div>
                         </div>
                     </div>
-                        
+                    <div className= "grid grid-cols-2 gap-x-3 gap-y-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
+                        {juegos.map((game) => (
+                            <div className="flex w-fit h-fit rounded-xl border-2 border-[#ffffff]"> 
+                                <Gamecard
+                                key={game.id}
+                                tituloJuego={game.titulo}
+                                anioLanzamiento={game.anio}
+                                imagenJuego={game.imagen}
+                                />
+                            </div>
+                        ))}
+                    </div>    
                 </section>
             </div>
 
@@ -75,5 +89,4 @@ function ColeccionAbierta(){
         </main>
     );
 }
-
 export default ColeccionAbierta;
