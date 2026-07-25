@@ -36,17 +36,18 @@ function ColeccionAbierta(){
                             <h1 className="text-3xl font-sora font-bold sm:text-4xl">{state.nombre}</h1>
                             <p className="mt-1 text-slate-300 font-medium">{state.descripcion}</p>
                         </div>
+                        {/*Botones de la derecha */}
                         <div className="flex gap-3 items-stretch">
                             <button
                                 onClick={console.log("Colección eliminada")}
-                                className="inline-flex items-center gap-2 rounded-xl  px-5 py-3 text-sm font-sora font-bold border-2 border-[#f40b0b]"
+                                className="inline-flex items-center gap-2 rounded-xl  px-5 py-3 text-sm font-sora font-bold border-2 border-[#f40b0b] hover:shadow-[0_0_10px_2px_#E20909] transition-all duration-300"
                             >
                             <Trash2 className="text-[#f40b0b]"/>
                             <span className="text-[#f40b0b]">
                                 Eliminar Coleccion
                             </span>
                             </button>
-                            <div className="rounded-xl bg-gradient-to-r from-violet-600 to-cyan-500 p-px">
+                            <div className="rounded-xl bg-gradient-to-r from-violet-600 to-cyan-500 p-px hover:shadow-[0_0_10px_2px_#1AC9C9] transition-all duration-300">
                                 <button
                                     onClick={console.log("Colección eliminada")}
                                     className="inline-flex items-center gap-2 block w-full rounded-[11px] bg-[#060c2b] px-5 py-3 text-white"
@@ -60,7 +61,7 @@ function ColeccionAbierta(){
                             <div className="flex gap-3 items-stretch">
                                 <button
                                     onClick={console.log("Colección eliminada")}
-                                    className="inline-flex items-center gap-2 rounded-xl  px-5 py-3 text-sm font-sora font-bold  bg-gradient-to-r from-violet-600 to-cyan-500"
+                                    className="inline-flex items-center gap-2 rounded-xl  px-5 py-3 text-sm font-sora font-bold  bg-gradient-to-r from-violet-600 to-cyan-500 hover:shadow-[0_0_10px_2px_#1AC9C9] transition-all duration-300"
                                 > 
                                     <Plus className="h-5 w-5"/>
                                     <span className="text-white"> 
@@ -70,7 +71,7 @@ function ColeccionAbierta(){
                             </div>
                         </div>
                     </div>
-                    <div className= "grid grid-cols-2 gap-x-3 gap-y-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
+                    <div className= "grid mt-6 grid-cols-2 gap-x-3 gap-y-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
                         {juegos.map((game) => (
                             <div className="flex w-fit h-fit rounded-xl border-2 border-[#ffffff]"> 
                                 <Gamecard
@@ -78,6 +79,8 @@ function ColeccionAbierta(){
                                 tituloJuego={game.titulo}
                                 anioLanzamiento={game.anio}
                                 imagenJuego={game.imagen}
+                                tiempoJugado={game.tiempoJugado}
+                                puntuacion={game.puntuacion}
                                 />
                             </div>
                         ))}
