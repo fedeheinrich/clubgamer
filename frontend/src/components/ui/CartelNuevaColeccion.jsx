@@ -1,42 +1,51 @@
+import { useState } from 'react';
 import CartelBase from "./CartelBase";
 
-/* 
- Tengo que utilizar de la API Colecciones: 
+function CartelNuevaColeccion({ funcionCerrar, funcionConfirmar }) {
+    // 1. Creamos estados locales para guardar lo que el usuario escribe
+    const [nombre, setNombre] = useState('');
+    const [descripcion, setDescripcion] = useState('');
 
-PUT Editar una coleccion (Nombre, Descripcion)  
-DELETE Eliminar una coleccion
-POST Crear una coleccion (Nombre, Descripcion)
-GET Obtener coleccion cuando se cliquea el boton flecha que lleva a ColeccionAbierta para cargar la coleccion con sus juegos
+    // 2. Armamos una funcion para validar antes de confirmar
+    const manejarConfirmacion = () => {
+        if (nombre.trim() === '') {
+            alert("El nombre de la colección no puede estar vacío");
+            return;
+        }
+        funcionConfirmar(nombre, descripcion);
+    };
 
-*/
-
-function CartelNuevaColeccion({
-    funcionCerrar,
-    funcionConfirmar,
-    nombre,
-    descripcion
-}){
     return (
         <CartelBase
-            titulo ={"Nueva colección"}
+            titulo={"Nueva colección"}
             funcionCerrar={funcionCerrar}
             textoBotonConfirmar="Crear Colección"
-            funcionConfirmar={()=> funcionConfirmar(nombre, descripcion)}
+            funcionConfirmar={manejarConfirmacion}
         >
             {/* Bloque 1: Nombre de la coleccion */}
             <div className="flex flex-col gap-2">
                 <label className="ml-2 font-sora text-lg">Nombre de la colección:</label>
-                <input className="py-2 px-2 rounded-xl border border-white/30 bg-secundario-azul-oscuro text-blanco" type="text"></input>
+                <input 
+                    className="py-2 px-2 rounded-xl border border-white/30 bg-secundario-azul-oscuro text-blanco" 
+                    type="text"
+                    value={nombre}
+                    onChange={(e) => setNombre(e.target.value)} // 3. Guardamos lo que se escribe
+                    placeholder="Ej. Mis Favoritos"
+                />
             </div>
 
             {/* Bloque 2: Descripcion de la coleccion */}
             <div className="flex flex-col gap-2">
-                <label className="ml-2 font-sora text-lg">Descripcion:</label>
-                <textarea className="bg-secundario-azul-oscuro rounded-xl border border-white/30 text-blanco" type="text"></textarea>
+                <label className="ml-2 font-sora text-lg">Descripción:</label>
+                <textarea 
+                    className="bg-secundario-azul-oscuro rounded-xl border border-white/30 text-blanco min-h-[100px] p-2" 
+                    value={descripcion}
+                    onChange={(e) => setDescripcion(e.target.value)} // 3. Guardamos lo que se escribe
+                    placeholder="Una breve descripción..."
+                />
             </div>
         </CartelBase>
-    )
-   };
-
+    );
+}
 
 export default CartelNuevaColeccion;
