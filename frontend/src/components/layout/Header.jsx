@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Search } from 'lucide-react';
+import { Search, CircleUserRound } from 'lucide-react';
 import logoClubGamer from '../../assets/images/logohorizontal.png';
 import './Header.css';
 import useAuth from '../../hooks/useAuth.jsx';
@@ -8,7 +8,7 @@ function Header({
     logoSrc = logoClubGamer,
     logoAlt = 'Logo',
     textoBienvenida = 'Bienvenido de vuelta a la plataforma',
-    avatarSrc = 'https://i.pravatar.cc/150?img=3',
+    avatar = CircleUserRound,
     placeholderBuscador = 'Buscar juegos, colecciones y más...'
 }) {
     const {user} = useAuth();
@@ -35,7 +35,7 @@ function Header({
                     <p className="header__user-name">Hola, {user.nombre}</p>
                     <p className="header__user-message">{textoBienvenida}</p>
                 </div>
-                <img src={avatarSrc} alt="Avatar" className="header__avatar" />
+                <Avatar className="w-6 h-6" size={24} />
             </div>
 
         </header>
