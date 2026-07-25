@@ -8,7 +8,7 @@ function Header({
     logoSrc = logoClubGamer,
     logoAlt = 'Logo',
     textoBienvenida = 'Bienvenido de vuelta a la plataforma',
-    avatar = CircleUserRound,
+    Avatar = CircleUserRound,
     placeholderBuscador = 'Buscar juegos, colecciones y más...'
 }) {
     const {user} = useAuth();
