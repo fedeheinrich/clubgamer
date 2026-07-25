@@ -7,6 +7,8 @@ function Gamecard({
   anioLanzamiento = 2022,
   tiempoJugado = 0,
   puntuacion = 0,
+  id,
+  onAdd,
 }) {
   const {pathname} = useLocation();
 
@@ -14,7 +16,7 @@ function Gamecard({
     return(
       <div className="relative flex w-full max-w-[140px] mx-auto flex-col overflow-hidden rounded-xl border border-white/10 bg-[#080d1e] transition-all duration-300 hover:scale-[1.03] hover:border-white/20 hover:shadow-lg hover:shadow-blue-500/5">
       {/* Imagen del Juego */}
-      <Link to="/detalles" className="group relative aspect-[10/11] w-full overflow-hidden">
+      <Link to={`/detalles/${id}`} className="group relative aspect-[10/11] w-full overflow-hidden">
         <img
           src={imagenJuego}
           alt={tituloJuego}
@@ -25,7 +27,7 @@ function Gamecard({
       {/* Información y Botón */}
       <div className="flex flex-col gap-1 px-2 py-1">
         <div>
-          <Link to="/detalles">
+          <Link to={`/detalles/${id}`}>
             <h3 className="text-xs font-bold text-white hover:text-blue-400 transition-colors line-clamp-1">
               {tituloJuego}
             </h3>
@@ -33,7 +35,9 @@ function Gamecard({
           <span className="text-[11px] font-medium text-slate-400">{anioLanzamiento}</span>
         </div>
 
-        <button className="flex w-full items-center justify-center gap-1 rounded-md border border-blue-500/20 bg-blue-950/20 py-1 px-2 text-[10px] font-semibold text-white transition-all hover:border-blue-500/40 hover:bg-blue-900/30 active:scale-[0.97]">
+        <button 
+          onClick={() => onAdd(id)}
+          className="flex w-full items-center justify-center gap-1 rounded-md border border-blue-500/20 bg-blue-950/20 py-1 px-2 text-[10px] font-semibold text-white transition-all hover:border-blue-500/40 hover:bg-blue-900/30 active:scale-[0.97]">
           <CirclePlus className="h-3.5 w-3.5 text-blue-500 shrink-0" />
           Agregar a coleccion
         </button>
@@ -42,11 +46,11 @@ function Gamecard({
     )
   }
 
-  if(pathname =="/coleccionAbierta"){
+  if(pathname === "/coleccion"){
     return(
       <div className="relative flex w-full max-w-[140px] mx-auto flex-col overflow-hidden rounded-xl border border-white/10 bg-[#080d1e] transition-all duration-300 hover:scale-[1.03] hover:border-white/20 hover:shadow-lg hover:shadow-blue-500/5">
       {/* Imagen del Juego */}
-      <Link to="/" className="group relative aspect-[10/11] w-full overflow-hidden">
+      <Link to={`/detalles/${id}`} className="group relative aspect-[10/11] w-full overflow-hidden">
         <img
           src={imagenJuego}
           alt={tituloJuego}

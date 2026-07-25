@@ -24,10 +24,10 @@ function App() {
             <Route path="/inicio" element={<Navigate to="/" replace />} />
             <Route path="/login" element={<Login />} />
             <Route path="/registro" element={<Registro />} />
-            <Route path="/detalles" element={<Detalles />} />
+            <Route path="/detalles/:id" element={<Detalles />} />
             <Route path="/juegos" element={<Juegos />} />
             <Route path="*" element={<NotFound />} />
-            <Route path="/coleccion" element={<Coleccion />} />
+            <Route path="/coleccion" element={<ProtectedRoute><Coleccion /></ProtectedRoute>} />
           </Routes>
         </div>
         <Toaster position="top-right" toastOptions={{ duration: 3000 }} />

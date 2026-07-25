@@ -1,4 +1,6 @@
 import { useState, useEffect } from 'react';
+import api from '../services/gameService';
+import toast from 'react-hot-toast';
 import { Home, CopyPlus, Gamepad2, User } from 'lucide-react';
 import Header from '../components/layout/Header';
 import SidebarNavigation from '../components/layout/SidebarNavigation';
@@ -11,33 +13,19 @@ function Coleccion() {
   const totalPaginas = 1;
   const [juegosColeccion, setJuegosColeccion] = useState([]);
 
-  // Mock de datos, simulando los juegos agregados a la colección
+  const [loading, setLoading] = useState(true);
+
   useEffect(() => {
     const fetchColeccion = async () => {
-      // Aquí iría la llamada al backend para obtener los juegos de la colección del usuario (GET /api/coleccion)
-      // const response = await fetch(...);
-      // const data = await response.json();
-      const mockColeccion = [
-        {
-          id: 1,
-          titulo: 'Call Of Duty: MW2',
-          anio: 2023,
-          imagen: 'https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=300'
-        },
-        {
-          id: 4,
-          titulo: 'GTA VI',
-          anio: 2026,
-          imagen: 'https://images.unsplash.com/photo-1508138221679-760a23a2285b?q=80&w=300'
-        },
-        {
-          id: 10,
-          titulo: 'Spider-Man 2',
-          anio: 2023,
-          imagen: 'https://images.unsplash.com/photo-1552820728-8b83bb6b773f?q=80&w=300'
-        }
-      ];
-      setJuegosColeccion(mockColeccion);
+      try {
+        const response = await api.get('/colecciones');
+        setJuegosColeccion(response.data.data || []);
+      } catch (error) {
+        console.error("Error al obtener la colección:", error);
+        toast.error("Error al cargar tu colección");
+      } finally {
+        setLoading(false);
+      }
     };
 
     fetchColeccion();
@@ -76,18 +64,24 @@ function Coleccion() {
           </div>
 
           {/* Grilla de juegos de la colección */}
-          {juegosColeccion.length === 0 ? (
+          {loading ? (
+            <p className="rounded-2xl border border-white/10 bg-white/5 p-6 text-slate-300">
+              Cargando tu colección...
+            </p>
+          ) : juegosColeccion.length === 0 ? (
             <p className="rounded-2xl border border-white/10 bg-white/5 p-6 text-slate-300">
               No tenés juegos en tu colección todavía.
             </p>
           ) : (
             <div className="grid grid-cols-2 gap-x-3 gap-y-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
-              {juegosColeccion.map((game) => (
+              {juegosColeccion.map((item) => (
                 <Gamecard
-                  key={game.id}
-                  tituloJuego={game.titulo}
-                  anioLanzamiento={game.anio}
-                  imagenJuego={game.imagen}
+                  key={item.id_juego}
+                  id={item.id_juego}
+                  tituloJuego={item.Juego?.titulo || 'Juego sin título'}
+                  tiempoJugado={item.tiempo_de_juego_horas || 0}
+                  puntuacion={item.calificacion_personal || 0}
+                  imagenJuego={item.Juego?.url_imagen || 'https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=300'}
                 />
               ))}
             </div>
