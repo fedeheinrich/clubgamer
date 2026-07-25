@@ -31,6 +31,17 @@ function Coleccion() {
     fetchColeccion();
   }, []);
 
+  const handleRemoveColeccion = async (idJuego) => {
+    try {
+      await api.delete(`/colecciones/${idJuego}`);
+      setJuegosColeccion(prev => prev.filter(item => item.id_juego !== idJuego));
+      toast.success("Juego eliminado de tu colección");
+    } catch (error) {
+      console.error("Error al eliminar de la colección:", error);
+      toast.error(error.response?.data?.error || "Error al eliminar el juego");
+    }
+  };
+
   const menu = [
     { id: 'inicio', label: 'Inicio', to: '/', icon: Home },
     { id: 'coleccion', label: 'Colección', to: '/coleccion', icon: CopyPlus },
@@ -78,10 +89,12 @@ function Coleccion() {
                 <Gamecard
                   key={item.id_juego}
                   id={item.id_juego}
+                  idRawg={item.Juego?.id_rawg}
                   tituloJuego={item.Juego?.titulo || 'Juego sin título'}
                   tiempoJugado={item.tiempo_de_juego_horas || 0}
                   puntuacion={item.calificacion_personal || 0}
                   imagenJuego={item.Juego?.url_imagen || 'https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=300'}
+                  onRemove={handleRemoveColeccion}
                 />
               ))}
             </div>
