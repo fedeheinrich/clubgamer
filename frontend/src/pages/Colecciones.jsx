@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import {useNavigate} from 'react-router-dom';
 import {
   Home,
   Gamepad2,
@@ -8,17 +9,15 @@ import {
   Trash2,
   Plus,
   ChevronRight,
+  ChevronLeft,
+  X,
 } from 'lucide-react';
 
 import Header from '../components/layout/Header';
 import SidebarNavigation from '../components/layout/SidebarNavigation';
 import CartelEditarColeccion from '../components/ui/CartelEditarColeccion';
 import Footer from '../components/layout/Footer';
-import Paginador from '../components/ui/Paginador';
-
 function Colecciones() {
-  const [paginaActual, setPaginaActual] = useState(1);
-  const coleccionesPorPagina = 4;
   const coleccionesIniciales = [
     {
       id: 1,
@@ -34,6 +33,24 @@ function Colecciones() {
         'https://images.unsplash.com/photo-1493711662062-fa541adb3fc8?q=80&w=300',
         'https://images.unsplash.com/photo-1511882150382-421056c89033?q=80&w=300',
         'https://images.unsplash.com/photo-1552820728-8b83bb6b773f?q=80&w=300'
+      ],
+      juegoDetalles: [
+        {
+          id: 1,
+          titulo: 'Call Of Duty: MW2',
+          anio: 2023,
+          imagen: 'https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=300',
+          tiempoJugado: '3h',
+          puntuacion: 3
+        },
+        {
+          id: 2,
+          titulo: 'NBA2K26',
+          anio: 2025,
+          imagen: 'https://images.unsplash.com/photo-1511512578047-dfb367046420?q=80&w=300',
+          tiempoJugado: '20min',
+          puntuacion: 4
+        }
       ]
     },
     {
@@ -72,11 +89,6 @@ function Colecciones() {
 
   const [colecciones, setColecciones] = useState(coleccionesIniciales);
   const [coleccionAEditar, setColeccionAEditar] = useState(null);
-
-  const totalPaginas = Math.ceil(colecciones.length / coleccionesPorPagina) || 1;
-  const indiceUltimaColeccion = paginaActual * coleccionesPorPagina;
-  const indicePrimeraColeccion = indiceUltimaColeccion - coleccionesPorPagina;
-  const coleccionesPaginadas = colecciones.slice(indicePrimeraColeccion, indiceUltimaColeccion);
 
 // Funciones de prueba, editar despues
   const funcionCerrar = () => {
@@ -120,6 +132,13 @@ function Colecciones() {
     { id: 'juegos', label: 'Juegos', to: '/juegos', icon: Gamepad2 },
     { id: 'perfil', label: 'Mi perfil', to: '/login', icon: User }
   ];
+  {/* agregué la función para abrir la colección*/}
+  const navigate = useNavigate();
+  const abrirColeccion = (colecc) => {
+    navigate("/coleccionAbierta",{
+        state: colecc
+    });
+  };
 
   return (
     <main className="min-h-screen bg-gradient-to-b from-[#04091f] via-[#070d2d] to-[#161f7d] text-white flex flex-col">
@@ -161,7 +180,7 @@ function Colecciones() {
                 No tenés colecciones todavía.
               </p>
             ) : (
-              coleccionesPaginadas.map((col) => (
+              colecciones.map((col) => (
                 <article
                   key={col.id}
                   className="relative overflow-hidden rounded-2xl border border-white/15 bg-[#070c25]/85 p-4 shadow-xl shadow-black/25"
@@ -204,7 +223,9 @@ function Colecciones() {
                       >
                         <Trash2 className="h-5 w-5" />
                       </button>
-                      <button className="rounded-lg border border-white/15 bg-white/5 p-2 hover:bg-white/10">
+                      <button
+                        onClick={() => abrirColeccion(col)}
+                        className="rounded-lg border border-white/15 bg-white/5 p-2 hover:bg-white/10">
                         <ChevronRight className="h-5 w-5" />
                       </button>
                     </div>
@@ -223,11 +244,6 @@ function Colecciones() {
           funcionConfirmar={funcionConfirmar}
         />
       )}
-      <Paginador 
-        totalPaginas={totalPaginas} 
-        paginaActual={paginaActual} 
-        setPaginaActual={setPaginaActual} 
-      />
       <Footer />
     </main>
   );
