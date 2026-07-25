@@ -7,7 +7,6 @@ import Login from './pages/Login';
 import Registro from './pages/Registro';
 import Juegos from './pages/Juegos';
 import Colecciones from './pages/Colecciones';
-import Detalles from './pages/Detalles';
 import NotFound from './pages/NotFound';
 import './App.css';
 import ProtectedRoute from './components/common/ProtectedRoute';
@@ -24,7 +23,6 @@ function App() {
             <Route path="/inicio" element={<Navigate to="/" replace />} />
             <Route path="/login" element={<Login />} />
             <Route path="/registro" element={<Registro />} />
-            <Route path="/detalles" element={<Detalles />} />
             <Route path="/juegos" element={<ProtectedRoute><Juegos /></ProtectedRoute>} />
             <Route path="*" element={<NotFound />} />
             <Route path="/colecciones" element={<ProtectedRoute><Colecciones /></ProtectedRoute>} />
