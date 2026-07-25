@@ -6,11 +6,10 @@ import Welcome from './pages/Bienvenida';
 import Login from './pages/Login';
 import Registro from './pages/Registro';
 import Juegos from './pages/Juegos';
-import Colecciones from './pages/Colecciones';
+import Coleccion from './pages/Coleccion';
 import Detalles from './pages/Detalles';
 import NotFound from './pages/NotFound';
 import './App.css';
-import ColeccionAbierta from './pages/ColeccionAbierta';
 import ProtectedRoute from './components/common/ProtectedRoute';
 
 const queryClient = new QueryClient();
@@ -26,10 +25,9 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/registro" element={<Registro />} />
             <Route path="/detalles" element={<Detalles />} />
-            <Route path="/juegos" element={<ProtectedRoute><Juegos /></ProtectedRoute>} />
+            <Route path="/juegos" element={<Juegos />} />
             <Route path="*" element={<NotFound />} />
-            <Route path="/colecciones" element={<ProtectedRoute><Colecciones /></ProtectedRoute>} />
-            <Route path="/ColeccionAbierta" element={<ProtectedRoute><ColeccionAbierta /></ProtectedRoute>}/>
+            <Route path="/coleccion" element={<Coleccion />} />
           </Routes>
         </div>
         <Toaster position="top-right" toastOptions={{ duration: 3000 }} />

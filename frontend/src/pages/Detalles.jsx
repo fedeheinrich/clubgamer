@@ -11,9 +11,8 @@ function Detalles() {
 
     const menu = [
         { id: 'inicio', label: 'Inicio', to: '/', icon: Home },
-        { id: 'colecciones', label: 'Colecciones', to: '/colecciones', icon: CopyPlus },
-        { id: 'juegos', label: 'Juegos', to: '/juegos', icon: Gamepad2 },
-        { id: 'perfil', label: 'Mi perfil', to: '/perfil', icon: User }
+        { id: 'coleccion', label: 'Coleccion', to: '/coleccion', icon: CopyPlus },
+        { id: 'juegos', label: 'Juegos', to: '/juegos', icon: Gamepad2 }
       ];
 
     return (
@@ -24,7 +23,7 @@ function Detalles() {
           username="Tomas"
           textoBienvenida="Bienvenido de vuelta a la plataforma."
           avatarSrc="https://i.pravatar.cc/80?img=12"
-          placeholderBuscador="Buscar colecciones..."
+          placeholderBuscador="Buscar juegos..."
           logoAlt="Club Gamer"
         />
       </div>

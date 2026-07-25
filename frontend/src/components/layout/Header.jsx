@@ -9,7 +9,7 @@ function Header({
     logoAlt = 'Logo',
     textoBienvenida = 'Bienvenido de vuelta a la plataforma',
     Avatar = CircleUserRound,
-    placeholderBuscador = 'Buscar juegos, colecciones y más...',
+    placeholderBuscador = 'Buscar juegos...',
     username = 'Usuario'
 }) {
     const auth = useAuth() || {};

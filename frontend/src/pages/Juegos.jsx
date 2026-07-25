@@ -75,9 +75,8 @@ function Juegos() {
 
   const menu = [
     { id: 'inicio', label: 'Inicio', to: '/', icon: Home },
-    { id: 'colecciones', label: 'Colecciones', to: '/colecciones', icon: CopyPlus },
-    { id: 'juegos', label: 'Juegos', to: '/juegos', icon: Gamepad2 },
-    { id: 'perfil', label: 'Mi perfil', to: '/perfil', icon: User }
+    { id: 'coleccion', label: 'Colección', to: '/coleccion', icon: CopyPlus },
+    { id: 'juegos', label: 'Juegos', to: '/juegos', icon: Gamepad2 }
   ];
 
   return (
