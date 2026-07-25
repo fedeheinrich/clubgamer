@@ -28,12 +28,13 @@ function AuthProvider({ children }) {
                 return true;
             }
             else {
-                return false;
+                throw new Error("Respuesta inválida del servidor");
             }
             
         } catch(error) {
-            console.error('Error en la carga de datos:', error);
-            return false;
+            console.error('Error en login:', error);
+            const errorMsg = error.response?.data?.error || "Error de conexión al iniciar sesión";
+            throw new Error(errorMsg);
         }
     }
 
@@ -62,12 +63,13 @@ function AuthProvider({ children }) {
                 return true;
             }
             else {
-                return false;
+                throw new Error("Respuesta inválida del servidor");
             }
             
         } catch(error) {
-            console.error('Error en la carga de datos:', error);
-            return false;
+            console.error('Error en registro:', error);
+            const errorMsg = error.response?.data?.error || "Error de conexión al registrar";
+            throw new Error(errorMsg);
         }
     }
 

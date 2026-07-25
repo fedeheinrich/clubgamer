@@ -61,7 +61,7 @@ async function startServer() {
     await sequelize.authenticate();
     console.log('✅ Database connection established successfully.');
         
-    app.listen(PORT, () => {
+    app.listen(PORT, '0.0.0.0', () => {
       console.log(`🚀 Server is running on port ${PORT}`);
       console.log(`📝 Environment: ${process.env.NODE_ENV || 'development'}`);
       console.log(`🔗 API available at: http://localhost:${PORT}/api`);
