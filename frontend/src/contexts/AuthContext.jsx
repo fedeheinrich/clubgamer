@@ -71,7 +71,7 @@ function AuthProvider({ children }) {
         }
     }
 
-    const isAuthenticated = !!token;
+    const isAuthenticated = !!token && !!user;
 
     return (
         <AuthContext.Provider

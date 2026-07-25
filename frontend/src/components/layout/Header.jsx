@@ -9,9 +9,13 @@ function Header({
     logoAlt = 'Logo',
     textoBienvenida = 'Bienvenido de vuelta a la plataforma',
     Avatar = CircleUserRound,
-    placeholderBuscador = 'Buscar juegos, colecciones y más...'
+    placeholderBuscador = 'Buscar juegos, colecciones y más...',
+    username = 'Usuario'
 }) {
-    const {user} = useAuth();
+    const auth = useAuth() || {};
+    const user = auth.user;
+    const nombreUsuario = user?.nombre || username;
+
     return (
         <header className="header">
             <div className="header__logo">
@@ -32,7 +36,7 @@ function Header({
 
             <div className="header__user">
                 <div className="header__user-text">
-                    <p className="header__user-name">Hola, {user.nombre}</p>
+                    <p className="header__user-name">Hola, {nombreUsuario}</p>
                     <p className="header__user-message">{textoBienvenida}</p>
                 </div>
                 <Avatar className="w-6 h-6" size={24} />
