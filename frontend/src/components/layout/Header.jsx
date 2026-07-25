@@ -39,7 +39,7 @@ function Header({
                     <p className="header__user-name">Hola, {nombreUsuario}</p>
                     <p className="header__user-message">{textoBienvenida}</p>
                 </div>
-                <Avatar className="w-6 h-6" size={24} />
+                <Avatar className="w-12 h-12" size={36} strokeWidth={1.25} />
             </div>
 
         </header>
