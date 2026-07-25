@@ -14,7 +14,7 @@ function Gamecard({
     return(
       <div className="relative flex w-full max-w-[140px] mx-auto flex-col overflow-hidden rounded-xl border border-white/10 bg-[#080d1e] transition-all duration-300 hover:scale-[1.03] hover:border-white/20 hover:shadow-lg hover:shadow-blue-500/5">
       {/* Imagen del Juego */}
-      <Link to="/" className="group relative aspect-[10/11] w-full overflow-hidden">
+      <Link to="/detalles" className="group relative aspect-[10/11] w-full overflow-hidden">
         <img
           src={imagenJuego}
           alt={tituloJuego}
@@ -25,7 +25,7 @@ function Gamecard({
       {/* Información y Botón */}
       <div className="flex flex-col gap-1 px-2 py-1">
         <div>
-          <Link to="/">
+          <Link to="/detalles">
             <h3 className="text-xs font-bold text-white hover:text-blue-400 transition-colors line-clamp-1">
               {tituloJuego}
             </h3>
