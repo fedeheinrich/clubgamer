@@ -8,12 +8,26 @@ import iconPuntua from '../assets/images/estrella1.png';
 import iconDescubri from '../assets/images/lupa.png';
 import Footer from '../components/layout/Footer.jsx';
 
+
 function Bienvenida() {
   const mockGames = [
     { id: 1, titulo: 'GTA V', imagenUrl: 'https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=300' },
     { id: 2, titulo: 'NBA 2K', imagenUrl: 'https://images.unsplash.com/photo-1511512578047-dfb367046420?q=80&w=300' },
     { id: 3, titulo: 'EA FC 26', imagenUrl: 'https://images.unsplash.com/photo-1508138221679-760a23a2285b?q=80&w=300' },
   ];
+
+  const mockColecciones = [
+    { id: 1, nombre: 'Favoritos' },
+    { id: 2, nombre: 'Terminados' },
+    { id: 3, nombre: 'Quiero Jugar' }
+  ];
+
+  const mockJuego = {
+    id: 1,
+    titulo: 'Red Dead Redemption 2',
+    anioLanzamiento: 2018,
+    imagen: 'https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=300'
+  };
 
   return (
     <div 
@@ -112,6 +126,7 @@ function Bienvenida() {
           </div>
         </div>
       </div>
+
     </div>
   );
 }

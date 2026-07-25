@@ -16,6 +16,7 @@ import {
 import Header from '../components/layout/Header';
 import SidebarNavigation from '../components/layout/SidebarNavigation';
 import CartelEditarColeccion from '../components/ui/CartelEditarColeccion';
+import CartelNuevaColeccion from '../components/ui/CartelNuevaColeccion';
 import Footer from '../components/layout/Footer';
 function Colecciones() {
   const coleccionesIniciales = [
@@ -89,6 +90,7 @@ function Colecciones() {
 
   const [colecciones, setColecciones] = useState(coleccionesIniciales);
   const [coleccionAEditar, setColeccionAEditar] = useState(null);
+  const [mostrarCartelNuevo, setMostrarCartelNuevo] = useState(false);
 
 // Funciones de prueba, editar despues
   const funcionCerrar = () => {
@@ -106,18 +108,7 @@ function Colecciones() {
   };
 
   const agregarColeccion = () => {
-    const nuevaColeccion = {
-      id: Date.now(),
-      nombre: 'Nueva colección',
-      descripcion: 'Colección creada localmente',
-      total: 0,
-      color: 'from-fuchsia-500 to-pink-500',
-      badge: 'text-fuchsia-300 border-fuchsia-400/40',
-      extra: '+0 más',
-      juegos: []
-    };
-
-    setColecciones((prevColecciones) => [nuevaColeccion, ...prevColecciones]);
+    setMostrarCartelNuevo(true);
   };
 
   const eliminarColeccion = (id) => {
@@ -236,6 +227,18 @@ function Colecciones() {
           </div>
         </section>
       </div>  
+      {mostrarCartelNuevo && (
+        <CartelNuevaColeccion 
+          funcionCerrar={() => setMostrarCartelNuevo(false)}
+          funcionConfirmar={(nombre, descripcion) => {
+            console.log("Confirmar:", nombre, descripcion);
+            setMostrarCartelNuevo(false);
+          }}
+          nombre=""
+          descripcion=""
+        />
+      )}
+      
       {coleccionAEditar && (
         <CartelEditarColeccion
           nombreActual={coleccionAEditar.nombre}
