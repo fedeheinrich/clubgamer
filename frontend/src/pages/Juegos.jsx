@@ -88,6 +88,7 @@ function Juegos() {
                   idRawg={game.id_rawg}
                   tituloJuego={game.titulo}
                   anioLanzamiento={game.lanzamiento || '2023'}
+                  puntuacion={game.calificacion_global}
                   imagenJuego={game.url_imagen || 'https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=300'}
                   onAdd={handleAddColeccion}
                 />

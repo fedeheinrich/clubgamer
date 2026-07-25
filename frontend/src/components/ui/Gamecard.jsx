@@ -34,7 +34,13 @@ function Gamecard({
               {tituloJuego}
             </h3>
           </Link>
-          <span className="text-[11px] font-medium text-slate-400">{anioLanzamiento}</span>
+          <div className="flex items-center justify-between mt-1">
+            <span className="text-[11px] font-medium text-slate-400">{anioLanzamiento}</span>
+            <div className="flex items-center gap-1">
+              <Star className="w-3 h-3 text-yellow-500 fill-yellow-500/20" />
+              <span className="text-[11px] font-medium text-slate-400">{puntuacion || 'N/A'}</span>
+            </div>
+          </div>
         </div>
 
         <button 
