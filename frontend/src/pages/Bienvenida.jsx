@@ -1,4 +1,7 @@
 import { Link } from 'react-router-dom';
+import Footer from '../components/layout/Footer.jsx';
+import {useState, useEffect} from 'react';
+import api from '../services/gameService';
 
 // Rutas de imágenes saliendo de /pages hacia /assets/images
 import fondoGamer from '../assets/images/fondo 3.jpg'; 
@@ -6,28 +9,25 @@ import logoClubGamer from '../assets/images/logo.png';
 import iconColecciona from '../assets/images/coleccion1.png';
 import iconPuntua from '../assets/images/estrella1.png';
 import iconDescubri from '../assets/images/lupa.png';
-import Footer from '../components/layout/Footer.jsx';
 
 
 function Bienvenida() {
-  const mockGames = [
-    { id: 1, titulo: 'GTA V', imagenUrl: 'https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=300' },
-    { id: 2, titulo: 'NBA 2K', imagenUrl: 'https://images.unsplash.com/photo-1511512578047-dfb367046420?q=80&w=300' },
-    { id: 3, titulo: 'EA FC 26', imagenUrl: 'https://images.unsplash.com/photo-1508138221679-760a23a2285b?q=80&w=300' },
-  ];
+  
+  const [juegosDestacados, setJuegosDestacados] = useState([]);
 
-  const mockColecciones = [
-    { id: 1, nombre: 'Favoritos' },
-    { id: 2, nombre: 'Terminados' },
-    { id: 3, nombre: 'Quiero Jugar' }
-  ];
-
-  const mockJuego = {
-    id: 1,
-    titulo: 'Red Dead Redemption 2',
-    anioLanzamiento: 2018,
-    imagen: 'https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=300'
-  };
+  useEffect(() => {
+    const obtenerJuegosDestacados = async () => {
+      try{
+        const response = await api.get('/videojuegos?limit=20');
+        const todosLosJuegos = response.data.data || [];
+        const juegosDestacados = todosLosJuegos.sort((a,b) => b.calificacion_global - a.calificacion_global).slice(0,3);
+        setJuegosDestacados(juegosDestacados);
+      }catch (error){
+        console.error("Error al obtener juegos destacados",error);
+      }
+    }
+    obtenerJuegosDestacados();
+  },[]);
 
   return (
     <div 
@@ -71,21 +71,21 @@ function Bienvenida() {
         {/* COLUMNA DERECHA: Contenedor de Juegos Destacados */}
         <div className="md:col-span-5">
           <div className="bg-[#0f172a]/60 border border-white/10 rounded-2xl p-5 backdrop-blur-md shadow-2xl">
-            <div className="flex justify-between items-center mb-4 px-1">
-              <div className="flex items-center gap-2 text-xs sm:text-sm font-bold tracking-wider text-slate-400">
+            <Link to="/juegos" className="flex justify-between items-center mb-4 px-1 group cursor-pointer">
+              <div className="flex items-center gap-2 text-xs sm:text-sm font-bold tracking-wider text-slate-400 group-hover:text-white transition-colors">
                 <span>🎮</span> JUEGOS DESTACADOS
               </div>
-              <span className="text-slate-400 hover:text-white cursor-pointer text-sm font-bold">❯</span>
-            </div>
+              <span className="text-slate-400 group-hover:text-white text-sm font-bold transition-colors">❯</span>
+            </Link>
 
             <div className="grid grid-cols-3 gap-3">
-              {mockGames.map((game) => (
+              {juegosDestacados.map((game) => (
                 <div 
                   key={game.id} 
                   className="rounded-xl overflow-hidden border border-white/5 bg-slate-800 aspect-[3/4] shadow-md hover:scale-105 transition-transform duration-300"
                 >
                   <img 
-                    src={game.imagenUrl} 
+                    src={game.url_imagen || game.imagenUrl} 
                     alt={game.titulo} 
                     className="w-full h-full object-cover"
                   />
