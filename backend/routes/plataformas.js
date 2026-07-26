@@ -1,23 +1,54 @@
 const express = require('express');
 const router = express.Router();
-const { plataformas, plataformaPorId, crearPlataforma, actualizarPlataforma, eliminarPlataforma } = require('../controllers/plataformasController');
 
+const {
+    plataformas,
+    plataformaPorId,
+    crearPlataforma,
+    actualizarPlataforma,
+    eliminarPlataforma
+} = require('../controllers/plataformasController');
+
+const {
+    validarObtenerPlataforma
+} = require('../middleware/plataformas/get');
+
+const {
+    validarCrearPlataforma
+} = require('../middleware/plataformas/post');
+
+const {
+    validarActualizarPlataforma
+} = require('../middleware/plataformas/put');
+
+const {
+    validarEliminarPlataforma
+} = require('../middleware/plataformas/delete');
 
 router.get('/', plataformas);
-router.get('/:id', plataformaPorId);
-router.post('/', crearPlataforma);
-router.put('/:id', actualizarPlataforma);
-router.delete('/:id', eliminarPlataforma);
 
-// router.get('/plataformas', (req, res) => {
-//   res.json({
-//     message: 'Endpoint de prueba',
-//     data: {
-//       backend: 'Express',
-//       database: 'PostgreSQL',
-//       orm: 'Sequelize'
-//     }
-//   });
-// });
+router.get(
+    '/:id',
+    validarObtenerPlataforma,
+    plataformaPorId
+);
+
+router.post(
+    '/',
+    validarCrearPlataforma,
+    crearPlataforma
+);
+
+router.put(
+    '/:id',
+    validarActualizarPlataforma,
+    actualizarPlataforma
+);
+
+router.delete(
+    '/:id',
+    validarEliminarPlataforma,
+    eliminarPlataforma
+);
 
 module.exports = router;
