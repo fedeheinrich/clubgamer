@@ -184,8 +184,7 @@ function Coleccion() {
                 >
                   <option value="pendiente">Pendiente</option>
                   <option value="jugando">Jugando</option>
-                  <option value="terminado">Terminado</option>
-                  <option value="abandonado">Abandonado</option>
+                  <option value="completado">Completado</option>
                 </select>
               </div>
 

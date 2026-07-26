@@ -180,7 +180,7 @@ function Detalles() {
                             <div className="bg-white/5 rounded-xl p-4 border border-white/5">
                                 <p className="text-slate-400 text-[10px] font-bold uppercase tracking-wider mb-1">Estado</p>
                                 <p className="text-white font-bold capitalize text-base flex items-center gap-2">
-                                    <span className={`w-2 h-2 rounded-full ${personalStats.estado === 'terminado' ? 'bg-green-500' : personalStats.estado === 'jugando' ? 'bg-blue-500' : personalStats.estado === 'abandonado' ? 'bg-red-500' : 'bg-slate-500'}`}></span>
+                                    <span className={`w-2 h-2 rounded-full ${personalStats.estado === 'completado' ? 'bg-green-500' : personalStats.estado === 'jugando' ? 'bg-blue-500' : 'bg-slate-500'}`}></span>
                                     {personalStats.estado}
                                 </p>
                             </div>
