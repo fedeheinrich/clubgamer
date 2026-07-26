@@ -8,6 +8,7 @@ import estrella from '../assets/images/estrella1.png';
 import lupa from '../assets/images/lupa.png';
 import useAuth from "../hooks/useAuth";
 import { Navigate } from "react-router-dom";
+import { toast } from 'react-hot-toast';
 
 function Register() {
     const [username, setUsername] = useState("");
@@ -19,14 +20,17 @@ function Register() {
 
     async function enviar(event) {
         event.preventDefault();
-        const success = await register(username, email, password);
-        if (success) {
+        try {
+            await register(username, email, password);
+            toast.success("¡Cuenta creada con éxito!");
             navigate('/');
+        } catch (error) {
+            toast.error(error.message);
         }
     }
 
     if (isAuthenticated) {
-        return <Navigate to="/colecciones" replace />;
+        return <Navigate to="/coleccion" replace />;
     }
 
     return (
