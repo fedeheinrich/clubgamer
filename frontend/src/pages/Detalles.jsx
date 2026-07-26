@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import api from '../services/gameService';
 import toast from 'react-hot-toast';
@@ -10,6 +10,12 @@ import useAuth from '../hooks/useAuth';
 
 import {FaSteam, FaWindows, FaPlaystation, FaXbox, FaApple} from "react-icons/fa";
 
+
+const menu = [
+    { id: 'inicio', label: 'Inicio', to: '/', icon: Home },
+    { id: 'coleccion', label: 'Coleccion', to: '/coleccion', icon: CopyPlus },
+    { id: 'juegos', label: 'Juegos', to: '/juegos', icon: Gamepad2 }
+];
 
 function Detalles() {
 
@@ -36,13 +42,14 @@ function Detalles() {
     }, [id]);
 
     // Fetchear la colección del usuario para ver si ya tiene el juego y mostrar sus stats
+    const gameId = gameInfo?.id;
     useEffect(() => {
         const fetchPersonalStats = async () => {
-            if (isAuthenticated && gameInfo?.id) {
+            if (isAuthenticated && gameId) {
                 try {
                     const response = await api.get('/colecciones');
                     const myCollection = response.data.data || [];
-                    const stats = myCollection.find(item => item.id_juego === gameInfo.id);
+                    const stats = myCollection.find(item => item.id_juego === gameId);
                     if (stats) {
                         setPersonalStats(stats);
                     }
@@ -52,12 +59,12 @@ function Detalles() {
             }
         };
         fetchPersonalStats();
-    }, [gameInfo, isAuthenticated]);
+    }, [gameId, isAuthenticated]);
 
-    const handleAddColeccion = async () => {
+    const handleAddColeccion = useCallback(async () => {
         try {
             // Utilizamos el gameInfo.id que es el ID local de la base de datos, no el id de la URL que es el de RAWG
-            await api.post('/colecciones', { id_juego: gameInfo.id });
+            await api.post('/colecciones', { id_juego: gameId });
             toast.success("Juego agregado a tu colección exitosamente");
             // Actualizamos la vista localmente
             setPersonalStats({
@@ -70,13 +77,9 @@ function Detalles() {
             // El backend devuelve el mensaje de error en error.response.data.error, lo mostramos si existe
             toast.error(error.response?.data?.error || "Ocurrió un error al agregar a la colección");
         }
-    };
+    }, [gameId]);
 
-    const menu = [
-        { id: 'inicio', label: 'Inicio', to: '/', icon: Home },
-        { id: 'coleccion', label: 'Coleccion', to: '/coleccion', icon: CopyPlus },
-        { id: 'juegos', label: 'Juegos', to: '/juegos', icon: Gamepad2 }
-      ];
+    // menu array is now defined outside the component to avoid re-creation on every render
 
     if (loading) {
         return <div className="min-h-screen bg-[#0b112c] text-white flex items-center justify-center">Cargando...</div>;

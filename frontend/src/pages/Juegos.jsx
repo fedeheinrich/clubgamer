@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import api from '../services/gameService';
 import toast from 'react-hot-toast';
 import { Home, CopyPlus, Gamepad2 } from 'lucide-react';
@@ -7,6 +7,12 @@ import SidebarNavigation from '../components/layout/SidebarNavigation';
 import Gamecard from '../components/ui/Gamecard';
 import Footer from '../components/layout/Footer.jsx';
 import Paginador from '../components/ui/Paginador';
+
+const menu = [
+  { id: 'inicio', label: 'Inicio', to: '/inicio', icon: Home },
+  { id: 'coleccion', label: 'Colección', to: '/coleccion', icon: CopyPlus },
+  { id: 'juegos', label: 'Juegos', to: '/juegos', icon: Gamepad2 }
+];
 
 function Juegos() {
   const [paginaActual, setPaginaActual] = useState(1);
@@ -35,7 +41,7 @@ function Juegos() {
     fetchGames();
   }, [paginaActual]);
 
-  const handleAddColeccion = async (idJuego) => {
+  const handleAddColeccion = useCallback(async (idJuego) => {
     try {
       await api.post('/colecciones', { id_juego: idJuego });
       toast.success("Juego agregado a tu colección exitosamente");
@@ -43,13 +49,7 @@ function Juegos() {
       console.error("Error al agregar a la colección:", error);
       toast.error(error.response?.data?.message || "Ocurrió un error al agregar a la colección");
     }
-  };
-
-  const menu = [
-    { id: 'inicio', label: 'Inicio', to: '/', icon: Home },
-    { id: 'coleccion', label: 'Colección', to: '/coleccion', icon: CopyPlus },
-    { id: 'juegos', label: 'Juegos', to: '/juegos', icon: Gamepad2 }
-  ];
+  }, []);
 
   return (
     <main className="min-h-screen bg-gradient-to-b from-[#04091f] via-[#070d2d] to-[#161f7d] text-white flex flex-col">
@@ -92,6 +92,7 @@ function Juegos() {
                   puntuacion={game.calificacion_global}
                   imagenJuego={game.url_imagen || 'https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=300'}
                   onAdd={handleAddColeccion}
+                  variant="juegos"
                 />
               ))}
             </div>

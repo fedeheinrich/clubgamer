@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import api from '../services/gameService';
 import toast from 'react-hot-toast';
 import { Home, CopyPlus, Gamepad2, Star } from 'lucide-react';
@@ -7,6 +7,12 @@ import SidebarNavigation from '../components/layout/SidebarNavigation';
 import Gamecard from '../components/ui/Gamecard';
 import Footer from '../components/layout/Footer.jsx';
 import Paginador from '../components/ui/Paginador';
+
+const menu = [
+  { id: 'inicio', label: 'Inicio', to: '/inicio', icon: Home },
+  { id: 'coleccion', label: 'Colección', to: '/coleccion', icon: CopyPlus },
+  { id: 'juegos', label: 'Juegos', to: '/juegos', icon: Gamepad2 }
+];
 
 function Coleccion() {
   const [paginaActual, setPaginaActual] = useState(1);
@@ -34,7 +40,7 @@ function Coleccion() {
     fetchColeccion();
   }, []);
 
-  const handleRemoveColeccion = async (idJuego) => {
+  const handleRemoveColeccion = useCallback(async (idJuego) => {
     try {
       await api.delete(`/colecciones/${idJuego}`);
       setJuegosColeccion(prev => {
@@ -49,9 +55,9 @@ function Coleccion() {
       console.error("Error al eliminar de la colección:", error);
       toast.error(error.response?.data?.error || "Error al eliminar el juego");
     }
-  };
+  }, []);
 
-  const handleEditClick = (idJuego) => {
+  const handleEditClick = useCallback((idJuego) => {
     const game = juegosColeccion.find(item => item.id_juego === idJuego);
     if (game) {
       setEditingGame(game);
@@ -61,7 +67,7 @@ function Coleccion() {
         estado: game.estado || 'pendiente'
       });
     }
-  };
+  }, [juegosColeccion]);
 
   const handleSaveEdit = async () => {
     try {
@@ -81,12 +87,6 @@ function Coleccion() {
       toast.error(error.response?.data?.error || "Error al actualizar las estadísticas");
     }
   };
-
-  const menu = [
-    { id: 'inicio', label: 'Inicio', to: '/', icon: Home },
-    { id: 'coleccion', label: 'Colección', to: '/coleccion', icon: CopyPlus },
-    { id: 'juegos', label: 'Juegos', to: '/juegos', icon: Gamepad2 }
-  ];
 
   return (
     <main className="min-h-screen bg-gradient-to-b from-[#04091f] via-[#070d2d] to-[#161f7d] text-white flex flex-col">
@@ -138,6 +138,7 @@ function Coleccion() {
                   imagenJuego={item.Juego?.url_imagen || 'https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=300'}
                   onRemove={handleRemoveColeccion}
                   onEdit={handleEditClick}
+                  variant="coleccion"
                 />
               ))}
             </div>

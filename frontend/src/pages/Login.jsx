@@ -20,13 +20,13 @@ function Login() {
         try {
             await login(email, password);
             toast.success("¡Bienvenido!");
-            navigate('/');
+            navigate('/inicio');
         } catch (error) {
             toast.error(error.message);
         }
     }
     if (isAuthenticated) {
-        return <Navigate to="/coleccion" replace />;
+        return <Navigate to="/inicio" replace />;
     }
 
     return (

@@ -13,10 +13,8 @@ function Header({
     placeholderBuscador = 'Buscar juegos...',
     username = 'Usuario'
 }) {
-    const auth = useAuth() || {};
-    const user = auth.user;
+    const { user, logout } = useAuth() || {};
     const nombreUsuario = user?.nombre || username;
-    const { logout } = useAuth();
     const navigate = useNavigate();
 
     const cerrarSesion = () => {

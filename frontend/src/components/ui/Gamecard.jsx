@@ -1,7 +1,11 @@
-import { Link, useLocation } from "react-router-dom";
+import { memo } from "react";
+import { Link } from "react-router-dom";
 import { CirclePlus, Clock4, Star, Trash2, Edit } from "lucide-react";
 
-function Gamecard({
+/**
+ * @param {"juegos"|"coleccion"} variant - determines which layout to render
+ */
+const Gamecard = memo(function Gamecard({
   imagenJuego = 'https://i.pravatar.cc/150?img=3',
   tituloJuego = 'Juego',
   anioLanzamiento = 2022,
@@ -12,15 +16,15 @@ function Gamecard({
   onAdd,
   onRemove,
   onEdit,
+  variant,
 }) {
-  const {pathname} = useLocation();
 
   // RAWG permite optimizar imágenes dinámicamente cambiando la ruta
   const optimizedImage = imagenJuego?.includes('media.rawg.io/media/games/') 
     ? imagenJuego.replace('media/games/', 'media/crop/600/400/games/') 
     : imagenJuego;
 
-  if (pathname === "/juegos") {
+  if (variant === "juegos") {
     return(
       <div className="relative flex w-full max-w-[140px] mx-auto flex-col overflow-hidden rounded-xl border border-white/10 bg-[#080d1e] transition-all duration-300 hover:scale-[1.03] hover:border-white/20 hover:shadow-lg hover:shadow-blue-500/5">
       {/* Imagen del Juego */}
@@ -61,7 +65,7 @@ function Gamecard({
     )
   }
 
-  if(pathname === "/coleccion"){
+  if(variant === "coleccion"){
     return(
       <div className="relative flex w-full max-w-[140px] mx-auto flex-col overflow-hidden rounded-xl border border-white/10 bg-[#080d1e] transition-all duration-300 hover:scale-[1.03] hover:border-white/20 hover:shadow-lg hover:shadow-blue-500/5">
       {/* Imagen del Juego */}
@@ -117,6 +121,6 @@ function Gamecard({
   }
 
   return null;
-}
+});
 
 export default Gamecard;
