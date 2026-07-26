@@ -1,8 +1,9 @@
-import { Link } from 'react-router-dom';
-import { Search, CircleUserRound } from 'lucide-react';
+import { Link, useNavigate } from 'react-router-dom';
+import { Search, CircleUserRound, LogOut } from 'lucide-react';
 import logoClubGamer from '../../assets/images/logohorizontal.png';
 import './Header.css';
 import useAuth from '../../hooks/useAuth.jsx';
+import toast from 'react-hot-toast';
 
 function Header({
     logoSrc = logoClubGamer,
@@ -15,6 +16,14 @@ function Header({
     const auth = useAuth() || {};
     const user = auth.user;
     const nombreUsuario = user?.nombre || username;
+    const { logout } = useAuth();
+    const navigate = useNavigate();
+
+    const cerrarSesion = () => {
+        logout();
+        toast.success("Sesión cerrada correctamente");
+        navigate('/login');
+    };
 
     return (
         <header className="header">
@@ -40,6 +49,13 @@ function Header({
                     <p className="header__user-message">{textoBienvenida}</p>
                 </div>
                 <Avatar className="w-12 h-12" size={36} strokeWidth={1.25} />
+                <button 
+                    onClick={cerrarSesion} 
+                    title="Cerrar sesión" 
+                    className="p-2 text-slate-300 hover:text-cyan-400 hover:bg-[#3D63FF]/20 hover:shadow-[0_0_12px_rgba(61,99,255,0.4)] rounded-xl transition-all border border-transparent hover:border-[#3D63FF]/30"
+                >
+                    <LogOut size={24} />
+                </button>
             </div>
 
         </header>
