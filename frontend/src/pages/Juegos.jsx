@@ -17,6 +17,7 @@ function Juegos() {
 
   useEffect(() => {
     const fetchGames = async () => {
+      setLoading(true);
       try {
         const response = await api.get(`/videojuegos?page=${paginaActual}`);
         setGamesList(response.data.data || []);
