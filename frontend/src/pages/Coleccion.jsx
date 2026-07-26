@@ -10,7 +10,7 @@ import Paginador from '../components/ui/Paginador';
 
 function Coleccion() {
   const [paginaActual, setPaginaActual] = useState(1);
-  const totalPaginas = 1;
+  const [totalPaginas, setTotalPaginas] = useState(1);
   const [juegosColeccion, setJuegosColeccion] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -33,6 +33,14 @@ function Coleccion() {
 
     fetchColeccion();
   }, []);
+
+  // Ajustar paginaActual si al eliminar juegos nos quedamos en una página vacía
+  useEffect(() => {
+    const totalPagesCalculado = Math.ceil(juegosColeccion.length / 10) || 1;
+    if (paginaActual > totalPagesCalculado) {
+      setPaginaActual(totalPagesCalculado);
+    }
+  }, [juegosColeccion.length, paginaActual]);
 
   const handleRemoveColeccion = async (idJuego) => {
     try {
@@ -119,7 +127,9 @@ function Coleccion() {
             </p>
           ) : (
             <div className="grid grid-cols-2 gap-x-3 gap-y-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
-              {juegosColeccion.map((item) => (
+              {juegosColeccion
+                .slice((paginaActual - 1) * 10, paginaActual * 10)
+                .map((item) => (
                 <Gamecard
                   key={item.id_juego}
                   id={item.id_juego}
@@ -139,7 +149,7 @@ function Coleccion() {
 
       {juegosColeccion.length > 0 && (
         <Paginador 
-          totalPaginas={totalPaginas} 
+          totalPaginas={Math.ceil(juegosColeccion.length / 10) || 1} 
           paginaActual={paginaActual} 
           setPaginaActual={setPaginaActual} 
         />
