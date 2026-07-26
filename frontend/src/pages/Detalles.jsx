@@ -87,7 +87,7 @@ function Detalles() {
     }
 
     return (
-      <main className="min-h-screen bg-[#0b112c] text-white">
+      <main className="min-h-screen bg-gradient-to-b from-[#04091f] via-[#070d2d] to-[#161f7d] text-white flex flex-col">
         
         <div className="px-4 pt-1 sm:px-6 sm:pt-2 lg:px-8 lg:pt-2 pb-2">
         <Header
