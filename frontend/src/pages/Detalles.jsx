@@ -34,11 +34,13 @@ function Detalles() {
 
     const handleAddColeccion = async () => {
         try {
-            await api.post('/colecciones', { id_juego: id });
+            // Utilizamos el gameInfo.id que es el ID local de la base de datos, no el id de la URL que es el de RAWG
+            await api.post('/colecciones', { id_juego: gameInfo.id });
             toast.success("Juego agregado a tu colección exitosamente");
         } catch (error) {
             console.error("Error al agregar a la colección:", error);
-            toast.error(error.response?.data?.message || "Ocurrió un error al agregar a la colección");
+            // El backend devuelve el mensaje de error en error.response.data.error, lo mostramos si existe
+            toast.error(error.response?.data?.error || "Ocurrió un error al agregar a la colección");
         }
     };
 
@@ -118,14 +120,14 @@ function Detalles() {
 
                 {/* Ratings */}
                 <div className="mt-6 flex items-center gap-2">
-
-                    <Star className="text-yellow-400 fill-yellow-400" size={15} />
-                    <Star className="text-yellow-400 fill-yellow-400" size={15} />
-                    <Star className="text-yellow-400 fill-yellow-400" size={15} />
-                    <Star className="text-yellow-400 fill-yellow-400" size={15} />
-                    <Star className="text-trasparent fill-trasparent" size={15} />
-                    <p className="ml-1 text-white font-bold">4.0</p>
-                 
+                    {[1, 2, 3, 4, 5].map((star) => (
+                        <Star 
+                            key={star} 
+                            className={`${star <= Math.round(gameInfo.calificacion_global || 0) ? 'text-yellow-400 fill-yellow-400' : 'text-slate-600 fill-slate-600'}`} 
+                            size={15} 
+                        />
+                    ))}
+                    <p className="ml-1 text-white font-bold">{gameInfo.calificacion_global || '0.0'}</p>
                 </div>
 
                 {/* Descripción */}

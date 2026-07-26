@@ -26,7 +26,7 @@ function Login() {
         }
     }
     if (isAuthenticated) {
-        return <Navigate to="/colecciones" replace />;
+        return <Navigate to="/coleccion" replace />;
     }
 
     return (
