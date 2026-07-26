@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import api from '../services/gameService';
 import toast from 'react-hot-toast';
-import { Home, CopyPlus, Gamepad2, User } from 'lucide-react';
+import { Home, CopyPlus, Gamepad2 } from 'lucide-react';
 import Header from '../components/layout/Header';
 import SidebarNavigation from '../components/layout/SidebarNavigation';
 import Gamecard from '../components/ui/Gamecard';

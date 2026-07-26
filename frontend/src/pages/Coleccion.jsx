@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import api from '../services/gameService';
 import toast from 'react-hot-toast';
-import { Home, CopyPlus, Gamepad2, User, Star } from 'lucide-react';
+import { Home, CopyPlus, Gamepad2, Star } from 'lucide-react';
 import Header from '../components/layout/Header';
 import SidebarNavigation from '../components/layout/SidebarNavigation';
 import Gamecard from '../components/ui/Gamecard';
@@ -10,7 +10,7 @@ import Paginador from '../components/ui/Paginador';
 
 function Coleccion() {
   const [paginaActual, setPaginaActual] = useState(1);
-  const [totalPaginas, setTotalPaginas] = useState(1);
+
   const [juegosColeccion, setJuegosColeccion] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -34,18 +34,16 @@ function Coleccion() {
     fetchColeccion();
   }, []);
 
-  // Ajustar paginaActual si al eliminar juegos nos quedamos en una página vacía
-  useEffect(() => {
-    const totalPagesCalculado = Math.ceil(juegosColeccion.length / 10) || 1;
-    if (paginaActual > totalPagesCalculado) {
-      setPaginaActual(totalPagesCalculado);
-    }
-  }, [juegosColeccion.length, paginaActual]);
-
   const handleRemoveColeccion = async (idJuego) => {
     try {
       await api.delete(`/colecciones/${idJuego}`);
-      setJuegosColeccion(prev => prev.filter(item => item.id_juego !== idJuego));
+      setJuegosColeccion(prev => {
+        const newState = prev.filter(item => item.id_juego !== idJuego);
+        // Ajustar paginaActual si al eliminar juegos nos quedamos en una página vacía
+        const totalPagesCalculado = Math.ceil(newState.length / 10) || 1;
+        setPaginaActual(prevPagina => (prevPagina > totalPagesCalculado ? totalPagesCalculado : prevPagina));
+        return newState;
+      });
       toast.success("Juego eliminado de tu colección");
     } catch (error) {
       console.error("Error al eliminar de la colección:", error);
@@ -67,7 +65,7 @@ function Coleccion() {
 
   const handleSaveEdit = async () => {
     try {
-      const response = await api.put(`/colecciones/${editingGame.id_juego}`, editForm);
+      await api.put(`/colecciones/${editingGame.id_juego}`, editForm);
       toast.success("Estadísticas actualizadas");
       
       // Actualizamos el estado local
