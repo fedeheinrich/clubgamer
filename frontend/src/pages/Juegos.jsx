@@ -1,4 +1,6 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import api from '../services/gameService';
+import toast from 'react-hot-toast';
 import { Home, CopyPlus, Gamepad2, User } from 'lucide-react';
 import Header from '../components/layout/Header';
 import SidebarNavigation from '../components/layout/SidebarNavigation';
@@ -8,76 +10,44 @@ import Paginador from '../components/ui/Paginador';
 
 function Juegos() {
   const [paginaActual, setPaginaActual] = useState(1);
-  const totalPaginas = 10;
+  const [totalPaginas, setTotalPaginas] = useState(1);
 
-  const gamesList = [
-    {
-      id: 1,
-      titulo: 'Call Of Duty: MW2',
-      anio: 2023,
-      imagen: 'https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=300'
-    },
-    {
-      id: 2,
-      titulo: 'NBA2K26',
-      anio: 2025,
-      imagen: 'https://images.unsplash.com/photo-1511512578047-dfb367046420?q=80&w=300'
-    },
-    {
-      id: 3,
-      titulo: 'EAFC26',
-      anio: 2025,
-      imagen: 'https://images.unsplash.com/photo-1511882150382-421056c89033?q=80&w=300'
-    },
-    {
-      id: 4,
-      titulo: 'GTA VI',
-      anio: 2026,
-      imagen: 'https://images.unsplash.com/photo-1508138221679-760a23a2285b?q=80&w=300'
-    },
-    {
-      id: 5,
-      titulo: 'Spider-Man 2',
-      anio: 2023,
-      imagen: 'https://images.unsplash.com/photo-1552820728-8b83bb6b773f?q=80&w=300'
-    },
-    {
-      id: 6,
-      titulo: 'Call Of Duty: MW2',
-      anio: 2023,
-      imagen: 'https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=300'
-    },
-    {
-      id: 7,
-      titulo: 'NBA2K26',
-      anio: 2025,
-      imagen: 'https://images.unsplash.com/photo-1511512578047-dfb367046420?q=80&w=300'
-    },
-    {
-      id: 8,
-      titulo: 'EAFC26',
-      anio: 2025,
-      imagen: 'https://images.unsplash.com/photo-1511882150382-421056c89033?q=80&w=300'
-    },
-    {
-      id: 9,
-      titulo: 'GTA VI',
-      anio: 2026,
-      imagen: 'https://images.unsplash.com/photo-1508138221679-760a23a2285b?q=80&w=300'
-    },
-    {
-      id: 10,
-      titulo: 'Spider-Man 2',
-      anio: 2023,
-      imagen: 'https://images.unsplash.com/photo-1552820728-8b83bb6b773f?q=80&w=300'
+  const [gamesList, setGamesList] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchGames = async () => {
+      try {
+        const response = await api.get(`/videojuegos?page=${paginaActual}`);
+        setGamesList(response.data.data || []);
+        if (response.data.paginacion) {
+          setTotalPaginas(response.data.paginacion.total_paginas);
+        }
+      } catch (error) {
+        console.error("Error al obtener los juegos:", error);
+        toast.error("Ocurrió un error al cargar los juegos");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchGames();
+  }, [paginaActual]);
+
+  const handleAddColeccion = async (idJuego) => {
+    try {
+      await api.post('/colecciones', { id_juego: idJuego });
+      toast.success("Juego agregado a tu colección exitosamente");
+    } catch (error) {
+      console.error("Error al agregar a la colección:", error);
+      toast.error(error.response?.data?.message || "Ocurrió un error al agregar a la colección");
     }
-  ];
+  };
 
   const menu = [
     { id: 'inicio', label: 'Inicio', to: '/', icon: Home },
-    { id: 'colecciones', label: 'Colecciones', to: '/colecciones', icon: CopyPlus },
-    { id: 'juegos', label: 'Juegos', to: '/juegos', icon: Gamepad2 },
-    { id: 'perfil', label: 'Mi perfil', to: '/perfil', icon: User }
+    { id: 'coleccion', label: 'Colección', to: '/coleccion', icon: CopyPlus },
+    { id: 'juegos', label: 'Juegos', to: '/juegos', icon: Gamepad2 }
   ];
 
   return (
@@ -107,16 +77,24 @@ function Juegos() {
           </div>
 
           {/* Grilla de juegos */}
-          <div className="grid grid-cols-2 gap-x-3 gap-y-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
-            {gamesList.map((game) => (
-              <Gamecard
-                key={game.id}
-                tituloJuego={game.titulo}
-                anioLanzamiento={game.anio}
-                imagenJuego={game.imagen}
-              />
-            ))}
-          </div>
+          {loading ? (
+            <p className="text-slate-300">Cargando juegos...</p>
+          ) : (
+            <div className="grid grid-cols-2 gap-x-3 gap-y-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
+              {gamesList.map((game) => (
+                <Gamecard
+                  key={game.id}
+                  id={game.id}
+                  idRawg={game.id_rawg}
+                  tituloJuego={game.titulo}
+                  anioLanzamiento={game.lanzamiento || '2023'}
+                  puntuacion={game.calificacion_global}
+                  imagenJuego={game.url_imagen || 'https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=300'}
+                  onAdd={handleAddColeccion}
+                />
+              ))}
+            </div>
+          )}
         </section>
       </div>
 

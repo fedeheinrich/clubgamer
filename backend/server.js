@@ -60,8 +60,11 @@ async function startServer() {
     // Probar conexión a la base de datos
     await sequelize.authenticate();
     console.log('✅ Database connection established successfully.');
+    
+    // Sincronizar modelos (aplica el nuevo campo descripcion sin borrar datos)
+    await sequelize.sync({ alter: true });
         
-    app.listen(PORT, () => {
+    app.listen(PORT, '0.0.0.0', () => {
       console.log(`🚀 Server is running on port ${PORT}`);
       console.log(`📝 Environment: ${process.env.NODE_ENV || 'development'}`);
       console.log(`🔗 API available at: http://localhost:${PORT}/api`);

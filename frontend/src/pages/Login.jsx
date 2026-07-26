@@ -6,6 +6,7 @@ import fondo from '../assets/images/fondo 3.jpg';
 import imagen_login from '../assets/images/Inicio_de_sesion_imagen.png';
 import useAuth from '../hooks/useAuth.jsx';
 import { Navigate } from "react-router-dom";
+import { toast } from 'react-hot-toast';
 
 function Login() {
     const [email, setEmail] = useState("");
@@ -16,13 +17,16 @@ function Login() {
 
     async function enviar(event) {
         event.preventDefault();
-        const success = await login(email, password);
-        if (success) {
+        try {
+            await login(email, password);
+            toast.success("¡Bienvenido!");
             navigate('/');
+        } catch (error) {
+            toast.error(error.message);
         }
     }
     if (isAuthenticated) {
-        return <Navigate to="/colecciones" replace />;
+        return <Navigate to="/coleccion" replace />;
     }
 
     return (

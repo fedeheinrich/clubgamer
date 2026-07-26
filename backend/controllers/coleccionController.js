@@ -49,7 +49,7 @@ const obtenerColeccion = async(req,res) =>{
             where: { id_usuario },
             include: [{
                 model: Juego,
-                attributes: ['titulo', 'url_imagen', 'slug', 'calificacion_global'] 
+                attributes: ['titulo', 'url_imagen', 'slug', 'calificacion_global', 'id_rawg'] 
             }]
         });
 

@@ -28,6 +28,10 @@ module.exports = {
         type: Sequelize.DATEONLY,
         allowNull: false
       },
+      descripcion: {
+        type: Sequelize.TEXT,
+        allowNull: true
+      },
       url_imagen: {
         type: Sequelize.STRING,
         allowNull: false

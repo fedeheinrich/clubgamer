@@ -1,5 +1,6 @@
 const { Juego, Genero, Plataforma, JuegoGenero, JuegoPlataforma } = require('../models');
 const axios = require('axios');
+const translate = require('translate-google');
 
 /**
  *  Funciones Auxiliares
@@ -67,6 +68,16 @@ const consultarRawgApi = async (id_rawg) =>{
     const response = await axios.get(`https://api.rawg.io/api/games/${id_rawg}?key=${API_KEY}`);
     const datosRawg = response.data;
 
+    let descripcionFinal = "Sin descripción provista por RAWG.";
+    if (datosRawg.description_raw && datosRawg.description_raw.trim() !== '') {
+        try {
+            descripcionFinal = await translate(datosRawg.description_raw, { to: 'es' });
+        } catch (error) {
+            console.error(`Error traduciendo la descripción del juego ${datosRawg.name}:`, error.message);
+            descripcionFinal = datosRawg.description_raw; // Fallback al inglés si la API falla
+        }
+    }
+
     return {
         id_rawg: datosRawg.id,
         titulo: datosRawg.name, 
@@ -74,6 +85,7 @@ const consultarRawgApi = async (id_rawg) =>{
         calificacion_global: datosRawg.rating,
         url_imagen: datosRawg.background_image,
         lanzamiento: datosRawg.released,
+        descripcion: descripcionFinal,
         generos: datosRawg.genres, // Este es el array de generos que viene de RAWG, lo uso para asociar los generos en la BD local
         plataformas: datosRawg.platforms // Este es el array de plataformas que viene de RAWG, lo uso para asociar las plataformas en la BD local
     };
@@ -95,6 +107,16 @@ const obtenerJuego = async (id_rawg) => {
             ]
         });
         if(juego){
+            // Si el juego existe pero no tiene descripcion (porque fue guardado antes de añadir esta columna), la buscamos y actualizamos
+            if (!juego.descripcion || juego.descripcion.trim() === '') {
+                try {
+                    const datosFaltantes = await consultarRawgApi(id_rawg);
+                    juego.descripcion = datosFaltantes.descripcion;
+                    await juego.save();
+                } catch (err) {
+                    console.error(`No se pudo actualizar la descripción de ${juego.titulo}:`, err.message);
+                }
+            }
             return juego;
         }
         // 2. Si no existe en la base de datos, consultamos a la API

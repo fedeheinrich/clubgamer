@@ -6,7 +6,10 @@ const AuthContext = createContext();
 
 function AuthProvider({ children }) {
     const [token, setToken] = useState(() => localStorage.getItem("token"));
-    const [user, setUser] = useState(null);
+    const [user, setUser] = useState(() => {
+        const storedUser = localStorage.getItem("user");
+        return storedUser ? JSON.parse(storedUser) : null;
+    });
 
     async function login(email, password) {
         try{
@@ -21,15 +24,17 @@ function AuthProvider({ children }) {
                 setToken(respuesta.data.token);
                 setUser(respuesta.data.user);
                 localStorage.setItem("token", respuesta.data.token);
+                localStorage.setItem("user", JSON.stringify(respuesta.data.user));
                 return true;
             }
             else {
-                return false;
+                throw new Error("Respuesta inválida del servidor");
             }
             
         } catch(error) {
-            console.error('Error en la carga de datos:', error);
-            return false;
+            console.error('Error en login:', error);
+            const errorMsg = error.response?.data?.error || "Error de conexión al iniciar sesión";
+            throw new Error(errorMsg);
         }
     }
 
@@ -37,6 +42,7 @@ function AuthProvider({ children }) {
         setToken(null);
         setUser(null);
         localStorage.removeItem("token");
+        localStorage.removeItem("user");
     }
 
     async function register(nombre, email, password) {
@@ -53,19 +59,21 @@ function AuthProvider({ children }) {
                 setToken(respuesta.data.token);
                 setUser(respuesta.data.user);
                 localStorage.setItem("token", respuesta.data.token);
+                localStorage.setItem("user", JSON.stringify(respuesta.data.user));
                 return true;
             }
             else {
-                return false;
+                throw new Error("Respuesta inválida del servidor");
             }
             
         } catch(error) {
-            console.error('Error en la carga de datos:', error);
-            return false;
+            console.error('Error en registro:', error);
+            const errorMsg = error.response?.data?.error || "Error de conexión al registrar";
+            throw new Error(errorMsg);
         }
     }
 
-    const isAuthenticated = !!token;
+    const isAuthenticated = !!token && !!user;
 
     return (
         <AuthContext.Provider
