@@ -5,6 +5,7 @@ import toast from 'react-hot-toast';
 import { Home, CopyPlus, Gamepad2, ChevronRight, User, Star} from 'lucide-react';
 import Header from "../components/layout/Header";
 import SidebarNavigation from "../components/layout/SidebarNavigation";
+import useAuth from '../hooks/useAuth';
 
 
 import {FaSteam, FaWindows, FaPlaystation, FaXbox, FaApple} from "react-icons/fa";
@@ -15,6 +16,8 @@ function Detalles() {
     const { id } = useParams();
     const [gameInfo, setGameInfo] = useState(null);
     const [loading, setLoading] = useState(true);
+    const { isAuthenticated } = useAuth() || {};
+    const [personalStats, setPersonalStats] = useState(null);
 
     useEffect(() => {
         const fetchGame = async () => {
@@ -32,11 +35,36 @@ function Detalles() {
         if (id) fetchGame();
     }, [id]);
 
+    // Fetchear la colección del usuario para ver si ya tiene el juego y mostrar sus stats
+    useEffect(() => {
+        const fetchPersonalStats = async () => {
+            if (isAuthenticated && gameInfo?.id) {
+                try {
+                    const response = await api.get('/colecciones');
+                    const myCollection = response.data.data || [];
+                    const stats = myCollection.find(item => item.id_juego === gameInfo.id);
+                    if (stats) {
+                        setPersonalStats(stats);
+                    }
+                } catch (error) {
+                    console.error("Error fetching personal collection:", error);
+                }
+            }
+        };
+        fetchPersonalStats();
+    }, [gameInfo, isAuthenticated]);
+
     const handleAddColeccion = async () => {
         try {
             // Utilizamos el gameInfo.id que es el ID local de la base de datos, no el id de la URL que es el de RAWG
             await api.post('/colecciones', { id_juego: gameInfo.id });
             toast.success("Juego agregado a tu colección exitosamente");
+            // Actualizamos la vista localmente
+            setPersonalStats({
+                estado: 'pendiente',
+                tiempo_de_juego_horas: 0,
+                calificacion_personal: 0
+            });
         } catch (error) {
             console.error("Error al agregar a la colección:", error);
             // El backend devuelve el mensaje de error en error.response.data.error, lo mostramos si existe
@@ -98,10 +126,17 @@ function Detalles() {
 
                 <img src={gameInfo.url_imagen || "https://imgs.search.brave.com/Jv-c0OSofRle5ahVgoPdQ9fe1VuelA8umjr2li7aoAY/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9wcmV2/aWV3LnJlZGQuaXQv/Z3RhLXZpLWNvdmVy/LWFydC12MC10aGh2/OG16dGprYmcxLmpw/ZWc_d2lkdGg9NjQw/JmNyb3A9c21hcnQm/YXV0bz13ZWJwJnM9/YjE1NjAyNjZmYzU5/YWYyNjBjMTI4YzM0/ODQzYjhmMzc4Y2E0/YzE5ZQ"} alt={gameInfo.titulo} className="rounded-xl w-full object-cover"/>
 
-                <button onClick={handleAddColeccion} className="w-full bg-gradient-to-r from-purple-600 to-cyan-400 hover:from-purple-800 hover:to-cyan-800 text-white px-6 py-3 rounded-xl transition-all duration-300 font-semibold flex items-center justify-center gap-2">
-                    <CopyPlus size={18}/>
-                    Agregar a colección
-                </button>
+                {!personalStats && (
+                    <button onClick={handleAddColeccion} className="w-full bg-gradient-to-r from-purple-600 to-cyan-400 hover:from-purple-800 hover:to-cyan-800 text-white px-6 py-3 rounded-xl transition-all duration-300 font-semibold flex items-center justify-center gap-2">
+                        <CopyPlus size={18}/>
+                        Agregar a colección
+                    </button>
+                )}
+                {personalStats && (
+                    <div className="w-full bg-slate-800/50 border border-purple-500/30 text-purple-400 px-6 py-3 rounded-xl font-semibold flex items-center justify-center gap-2 cursor-default shadow-[0_0_15px_rgba(168,85,247,0.15)]">
+                        <span>✓</span> En tu colección
+                    </div>
+                )}
 
             </div>
 
@@ -129,6 +164,44 @@ function Detalles() {
                     ))}
                     <p className="ml-1 text-white font-bold">{gameInfo.calificacion_global || '0.0'}</p>
                 </div>
+
+                {/* Estadísticas Personales */}
+                {personalStats && (
+                    <div className="mt-8 relative overflow-hidden rounded-2xl border border-white/10 bg-[#0f172a]/80 backdrop-blur-md p-6 shadow-2xl">
+                        {/* Pequeño resplandor de fondo */}
+                        <div className="absolute -top-10 -right-10 w-32 h-32 bg-blue-500/10 rounded-full blur-3xl"></div>
+                        
+                        <h3 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
+                            <User className="text-blue-400" size={20} />
+                            Tus Estadísticas
+                        </h3>
+                        
+                        <div className="grid grid-cols-3 gap-4">
+                            <div className="bg-white/5 rounded-xl p-4 border border-white/5">
+                                <p className="text-slate-400 text-[10px] font-bold uppercase tracking-wider mb-1">Estado</p>
+                                <p className="text-white font-bold capitalize text-base flex items-center gap-2">
+                                    <span className={`w-2 h-2 rounded-full ${personalStats.estado === 'terminado' ? 'bg-green-500' : personalStats.estado === 'jugando' ? 'bg-blue-500' : personalStats.estado === 'abandonado' ? 'bg-red-500' : 'bg-slate-500'}`}></span>
+                                    {personalStats.estado}
+                                </p>
+                            </div>
+                            <div className="bg-white/5 rounded-xl p-4 border border-white/5">
+                                <p className="text-slate-400 text-[10px] font-bold uppercase tracking-wider mb-1">Tiempo Jugado</p>
+                                <p className="text-white font-bold text-lg">{personalStats.tiempo_de_juego_horas} <span className="text-sm font-medium text-slate-400">hs</span></p>
+                            </div>
+                            <div className="bg-white/5 rounded-xl p-4 border border-white/5">
+                                <p className="text-slate-400 text-[10px] font-bold uppercase tracking-wider mb-1">Tu Puntaje</p>
+                                {personalStats.calificacion_personal > 0 ? (
+                                    <div className="flex items-center gap-1">
+                                        <Star className="text-yellow-400 fill-yellow-400" size={18}/>
+                                        <p className="text-white font-bold text-lg">{personalStats.calificacion_personal}</p>
+                                    </div>
+                                ) : (
+                                    <p className="text-slate-500 font-medium text-sm mt-1">Sin calificar</p>
+                                )}
+                            </div>
+                        </div>
+                    </div>
+                )}
 
                 {/* Descripción */}
                 <div className="mt-6 flex items-center gap-2">

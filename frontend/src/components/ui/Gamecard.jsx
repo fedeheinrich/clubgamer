@@ -1,5 +1,5 @@
 import { Link, useLocation } from "react-router-dom";
-import { CirclePlus, Clock4, Star, Trash2 } from "lucide-react";
+import { CirclePlus, Clock4, Star, Trash2, Edit } from "lucide-react";
 
 function Gamecard({
   imagenJuego = 'https://i.pravatar.cc/150?img=3',
@@ -11,6 +11,7 @@ function Gamecard({
   idRawg,
   onAdd,
   onRemove,
+  onEdit,
 }) {
   const {pathname} = useLocation();
 
@@ -89,12 +90,20 @@ function Gamecard({
               </div>
             </div>
         </div>
-        <button 
-          onClick={() => onRemove(id)}
-          className="mt-2 flex w-full items-center justify-center gap-1 rounded-md border border-red-500/20 bg-red-950/20 py-1 px-2 text-[10px] font-semibold text-white transition-all hover:border-red-500/40 hover:bg-red-900/30 active:scale-[0.97]">
-          <Trash2 className="h-3 w-3 text-red-500 shrink-0" />
-          Eliminar
-        </button>
+        <div className="mt-2 flex w-full gap-1">
+          <button 
+            onClick={() => onEdit(id)}
+            className="flex flex-1 items-center justify-center gap-1 rounded-md border border-blue-500/20 bg-blue-950/20 py-1 px-1 text-[10px] font-semibold text-white transition-all hover:border-blue-500/40 hover:bg-blue-900/30 active:scale-[0.97]">
+            <Edit className="h-3 w-3 text-blue-500 shrink-0" />
+            Editar
+          </button>
+          <button 
+            onClick={() => onRemove(id)}
+            className="flex flex-1 items-center justify-center gap-1 rounded-md border border-red-500/20 bg-red-950/20 py-1 px-1 text-[10px] font-semibold text-white transition-all hover:border-red-500/40 hover:bg-red-900/30 active:scale-[0.97]">
+            <Trash2 className="h-3 w-3 text-red-500 shrink-0" />
+            Eliminar
+          </button>
+        </div>
       </div>
     </div>
     )
