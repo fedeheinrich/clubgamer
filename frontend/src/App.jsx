@@ -36,7 +36,7 @@ function App() {
             <Route path="/juegos" element={<Juegos />} />
             <Route path="*" element={<NotFound />} />
             <Route path="/coleccion" element={<ProtectedRoute><Coleccion /></ProtectedRoute>} />
-            <Route path="/inicio" element={<ProtectedRoute><Inicio /></ProtectedRoute>} />
+            <Route path="/inicio" element={<Inicio />} />
           </Routes>
         </div>
         <Toaster position="top-right" toastOptions={{ duration: 3000 }} />
