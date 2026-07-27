@@ -13,11 +13,26 @@ const PORT = process.env.PORT || 3001;
 // Middleware de seguridad
 app.use(helmet());
 
+// Orígenes permitidos
+const allowedOrigins = [
+  'http://localhost:3000',
+  process.env.CORS_ORIGIN
+].filter(Boolean);
+
 // CORS
-app.use(cors({
-  origin: process.env.CORS_ORIGIN || 'http://localhost:3000',
-  credentials: true
-}));
+app.use(
+  cors({
+    origin(origin, callback) {
+      // Permite solicitudes sin Origin, como Postman o health checks.
+      if (!origin || allowedOrigins.includes(origin)) {
+        return callback(null, true);
+      }
+
+      return callback(new Error('Origen no permitido por CORS'));
+    },
+    credentials: true
+  })
+);
 
 // Middleware de parsing
 app.use(express.json({ limit: '10mb' }));
@@ -28,10 +43,7 @@ if (process.env.NODE_ENV !== 'test') {
   app.use(morgan('combined'));
 }
 
-// Rutas
-app.use('/api', routes);
-
-// Health check en la raíz
+// Health check
 app.get('/health', (req, res) => {
   res.status(200).json({
     status: 'OK',
@@ -40,63 +52,74 @@ app.get('/health', (req, res) => {
   });
 });
 
-// Manejo de errores
-app.use((err, req, res, next) => {
-  console.error(err.stack);
-  res.status(500).json({
-    error: 'Something went wrong!',
-    message: process.env.NODE_ENV === 'development' ? err.message : 'Internal server error'
+// Rutas de la API
+app.use('/api', routes);
+
+// Manejo de rutas no encontradas
+app.use((req, res) => {
+  res.status(404).json({
+    success: false,
+    error: 'Route not found'
   });
 });
 
-// Manejo de rutas no encontradas
-app.use('*', (req, res) => {
-  res.status(404).json({ error: 'Route not found' });
+// Manejo general de errores
+app.use((err, req, res, next) => {
+  console.error(err.stack || err);
+
+  if (err.message === 'Origen no permitido por CORS') {
+    return res.status(403).json({
+      success: false,
+      error: 'Origen no permitido por CORS'
+    });
+  }
+
+  return res.status(500).json({
+    success: false,
+    error: 'Something went wrong!',
+    message:
+      process.env.NODE_ENV === 'development'
+        ? err.message
+        : 'Internal server error'
+  });
 });
 
 // Inicializar servidor
 async function startServer() {
   try {
-    // Probar conexión a la base de datos
     await sequelize.authenticate();
+
     console.log('✅ Database connection established successfully.');
-    
-    // Sincronizar modelos (aplica el nuevo campo descripcion sin borrar datos)
-    await sequelize.sync({ alter: true });
-        
+
     app.listen(PORT, '0.0.0.0', () => {
       console.log(`🚀 Server is running on port ${PORT}`);
-      console.log(`📝 Environment: ${process.env.NODE_ENV || 'development'}`);
-      console.log(`🔗 API available at: http://localhost:${PORT}/api`);
+      console.log(
+        `📝 Environment: ${process.env.NODE_ENV || 'development'}`
+      );
     });
   } catch (error) {
     console.error('❌ Unable to start server:', error);
-    // Continuar sin base de datos para desarrollo
-    app.listen(PORT, () => {
-      console.log(`⚠️  Server started without database on port ${PORT}`);
-    });
+    process.exit(1);
   }
 }
 
 startServer();
 
-// Manejo de cierre graceful
-process.on('SIGTERM', async () => {
-  console.log('SIGTERM received, shutting down gracefully');
-  try {
-    await sequelize.close();
-  } catch (error) {
-    console.error('Error closing database:', error);
-  }
-  process.exit(0);
-});
+// Cierre controlado
+async function shutdown(signal) {
+  console.log(`${signal} received, shutting down gracefully`);
 
-process.on('SIGINT', async () => {
-  console.log('SIGINT received, shutting down gracefully');
   try {
     await sequelize.close();
+    console.log('Database connection closed.');
   } catch (error) {
     console.error('Error closing database:', error);
   }
+
   process.exit(0);
-});
+}
+
+process.on('SIGTERM', () => shutdown('SIGTERM'));
+process.on('SIGINT', () => shutdown('SIGINT'));
+
+module.exports = app;
