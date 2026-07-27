@@ -2,13 +2,21 @@
 
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.addColumn('juegos', 'descripcion', {
-      type: Sequelize.TEXT,
-      allowNull: true
-    });
+    const tabla = await queryInterface.describeTable('juegos');
+
+    if (!tabla.descripcion) {
+      await queryInterface.addColumn('juegos', 'descripcion', {
+        type: Sequelize.TEXT,
+        allowNull: true
+      });
+    }
   },
 
   async down(queryInterface) {
-    await queryInterface.removeColumn('juegos', 'descripcion');
+    const tabla = await queryInterface.describeTable('juegos');
+
+    if (tabla.descripcion) {
+      await queryInterface.removeColumn('juegos', 'descripcion');
+    }
   }
 };
