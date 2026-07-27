@@ -297,6 +297,8 @@ Backend (Express)
 - Docker Compose
 - pgAdmin
 - Redis
+- Vercel
+- Render
 
 ### Testing y Documentación
 
@@ -388,6 +390,15 @@ Para detener los servicios y eliminar los volúmenes de la base de datos:
 ```bash
 docker compose down -v
 ```
+
+## 🌐 Despliegue en Producción
+
+La aplicación está configurada y desplegada en la nube utilizando **Vercel** para el Frontend y **Render** para el Backend:
+
+| Servicio | Plataforma | Enlace de Despliegue |
+| :--- | :--- | :--- |
+| **Frontend** | [![Vercel](https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white)](https://clubgamer-e1opwdh8p-clubgamer.vercel.app) | [Ver Frontend en Vercel](https://clubgamer-e1opwdh8p-clubgamer.vercel.app) |
+| **Backend** | [![Render](https://img.shields.io/badge/Render-46E3B7?style=for-the-badge&logo=render&logoColor=white)](https://clubgamer-uyio.onrender.com) | [Ver API en Render](https://clubgamer-uyio.onrender.com) |
 
 ## ⚙️ Configuración del Entorno
 
